@@ -42,26 +42,11 @@
         android:layout_marginTop="72dp"
         android:layout_marginEnd="171dp"
         android:layout_marginBottom="243dp"
+        android:onClick="login"
         android:text="Sign In"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="269dp"
-        android:layout_height="184dp"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="54dp"
-        android:layout_marginBottom="28dp"
-        app:layout_constraintBottom_toTopOf="@+id/username"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@mipmap/scotiaLogo_foreground" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

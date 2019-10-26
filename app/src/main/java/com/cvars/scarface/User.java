@@ -1,3 +1,6 @@
+package com.cvars.scarface;
+
+import java.util.List;
 
 public abstract class User {
 
@@ -13,9 +16,9 @@ public abstract class User {
 	private List<Order> orders;
 
 	public User(String userId, userTypes type, String password){
-		self.userId = userId;
-		self.type = type;
-		self.password = password;
+		this.userId = userId;
+		this.type = type;
+		this.password = password;
 		populateOrders();
 	}
 

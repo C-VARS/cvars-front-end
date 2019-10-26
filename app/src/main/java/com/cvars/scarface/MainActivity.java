@@ -3,14 +3,16 @@ package com.cvars.scarface;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import org.json.JSONObject;
-
+import com.google.gson.JsonElement;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 
@@ -34,18 +36,24 @@ public class MainActivity extends AppCompatActivity {
     private User loginHelper(String username, String password) {
 
 
-        String baseUrl = "localhost:5000";
+        String baseUrl = "http://10.0.2.2:5000";
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
         ServerService service = retrofit.create(ServerService.class);
 
-        try {
-            Call<JSONObject> call = service.loginAttempt(username, password);
-            Response<JSONObject> response = call.execute();
-            System.out.println(response.body().toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+            Call<JsonElement> call = service.loginAttempt(username, password);
+            call.enqueue(new Callback<JsonElement>() {
+                @Override
+                public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                    Log.d("try: ", response.message());
+                }
+                @Override
+                public void onFailure(Call<JsonElement> call, Throwable t) {
+                    Log.d("Failed", "some shit happened");
+                }
+            });
+
         return new Driver(username);
     }
 }

@@ -1,12 +1,12 @@
 package com.cvars.scarface;
 
-import org.json.JSONObject;
-
+import com.google.gson.JsonElement;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ServerService {
-    @GET("users/login?username={userId}&password={password}")
-    Call<JSONObject> loginAttempt(@Path("userId") String userId, @Path("password") String password);
+    @GET("users/login")
+    Call<JsonElement> loginAttempt(@Query("username") String userId, @Query("password") String password);
 }

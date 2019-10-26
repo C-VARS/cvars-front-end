@@ -26,8 +26,4 @@ public abstract class User {
 		// Send a GET request to REST API server to get all orders for this user and populate self.orders
 	}
 
-	public static void main(String[] args){
-
-	}
-
 }

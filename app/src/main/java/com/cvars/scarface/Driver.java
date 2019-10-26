@@ -2,8 +2,8 @@ package com.cvars.scarface;
 
 public class Driver extends User {
 
-	public Driver(String userId, userTypes type, String password){
-		super(userId, type, password);
+	public Driver(String userId){
+		super(userId);
 	}
 
 	public void toggleOnMyWay(Order order){

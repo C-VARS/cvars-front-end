@@ -30,30 +30,9 @@ public class MainActivity extends AppCompatActivity {
         EditText passwordText = (EditText) findViewById(R.id.password);
         String username = usernameText.getText().toString();
         String password = passwordText.getText().toString();
-        loginHelper(username, password);
+        Login l = new Login();
+        User user = l.loginAsUser(username, password);
     }
 
-    private User loginHelper(String username, String password) {
 
-
-        String baseUrl = "http://10.0.2.2:5000";
-
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
-        ServerService service = retrofit.create(ServerService.class);
-
-
-            Call<JsonElement> call = service.loginAttempt(username, password);
-            call.enqueue(new Callback<JsonElement>() {
-                @Override
-                public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
-                    Log.d("try: ", response.message());
-                }
-                @Override
-                public void onFailure(Call<JsonElement> call, Throwable t) {
-                    Log.d("Failed", "some shit happened");
-                }
-            });
-
-        return new Driver(username);
-    }
 }

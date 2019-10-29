@@ -57,7 +57,7 @@
         android:layout_marginTop="55dp"
         android:layout_marginEnd="122dp"
         android:layout_marginBottom="56dp"
-        android:src="@mipmap/scotiaLogo_foreground"
+        android:src="@mipmap/scotialogo_foreground"
         app:layout_constraintBottom_toTopOf="@+id/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

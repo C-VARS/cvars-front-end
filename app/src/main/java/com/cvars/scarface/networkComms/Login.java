@@ -19,6 +19,8 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.cvars.scarface.networkComms.NetworkClient.BASE_URL;
+
 public class Login {
 
     public class LoginError extends Exception{
@@ -33,21 +35,20 @@ public class Login {
         SUPPLIER
     }
 
-    public String baseUrl = "http://cvars.herokuapp.com/";
 
-    public ServerService createService(String baseUrl){
+    public NetworkClient createService(String baseUrl){
         // create an HTTP Logger for logging API calls
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
 
-        // create a retrofit around ServerService and return it
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl)
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build())
                 .build();
-        ServerService service = retrofit.create(ServerService.class);
+        NetworkClient service = retrofit.create(NetworkClient.class);
 
         return service;
     }
@@ -56,8 +57,8 @@ public class Login {
         /*Attempts to login with username and password. On success, returns User object, on failure,
          * throws Exception*/
 
-        // create an instance of ServerService and a Call to loginAttempt in the API
-        ServerService service = createService(baseUrl);
+        // create an instance of NetworkClient and a Call to loginAttempt in the API
+        NetworkClient service = createService(BASE_URL);
         Call<JsonObject> call = service.loginAttempt(username, password);
 
         // TODO figure out how to get response back from asynchronous call.enqueue() call with LoginCallback

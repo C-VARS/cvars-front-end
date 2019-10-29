@@ -1,14 +1,13 @@
 package com.cvars.scarface.networkComms;
 
 
-import android.content.Context;
-import android.widget.Toast;
-
 import com.cvars.scarface.activity.MainActivity;
+import com.cvars.scarface.model.Driver;
+import com.cvars.scarface.model.SmallBusinessOwner;
+import com.cvars.scarface.model.Supplier;
+import com.cvars.scarface.model.User;
 import com.google.gson.JsonObject;
 
-import java.io.IOException;
-import java.io.PipedOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,29 +16,52 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginCallback<T> implements Callback<T>{
-    public static Map<String, Login.userTypes> userTypesMap;
+    public static Map<String, LoginPresenter.userTypes> userTypesMap;
     static {
         userTypesMap = new HashMap<>();
-        userTypesMap.put("Driver", Login.userTypes.DRIVER);
-        userTypesMap.put("Customer", Login.userTypes.SMALL_BUSINESS_OWNER);
-        userTypesMap.put("Supplier", Login.userTypes.SUPPLIER);
+        userTypesMap.put("Driver", LoginPresenter.userTypes.DRIVER);
+        userTypesMap.put("Customer", LoginPresenter.userTypes.SMALL_BUSINESS_OWNER);
+        userTypesMap.put("Supplier", LoginPresenter.userTypes.SUPPLIER);
     }
 
     // userType information is stored in these variables. If successful, this.success() = True,
     // if error occurred, errormsg() returns error message
     private boolean wasSuccessful = false;
-    private Login.userTypes loggedInUserType;
+    private LoginPresenter.userTypes loggedInUserType;
     private String errorMessage = "No Errors";
+    private String username;
 
+    private User createUser(LoginPresenter.userTypes type, String username){
+        // factory method for creating a User based on userType
+        User user;
 
-    public LoginCallback(){
+        switch (type){
+            case DRIVER:
+                user = new Driver(username);
+                break;
+
+            case SMALL_BUSINESS_OWNER:
+                user = new SmallBusinessOwner(username);
+                break;
+
+            case SUPPLIER:
+                user = new Supplier(username);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + type);
+        }
+        return user;
+    }
+
+    public LoginCallback(String username){
+        this.username = username;
         System.out.println("LoginCallback created");
     }
 
     public boolean success(){
         return wasSuccessful;
     }
-    public Login.userTypes getLoggedInUserType(){
+    public LoginPresenter.userTypes getLoggedInUserType(){
         return loggedInUserType;
     }
 
@@ -54,13 +76,14 @@ public class LoginCallback<T> implements Callback<T>{
         // get the usertype param from JSON response
         if (response.isSuccessful()){
             wasSuccessful = true;
-            
-            createToast("Successfull", MainActivity.getTest().getApplicationContext());
 
             JsonObject json = (JsonObject) response.body();
             String userType =  json.get("usertype").getAsString();
 
             this.loggedInUserType = userTypesMap.get(userType);
+
+            User user = createUser(userTypesMap.get(userType), username);
+
 
             System.out.println(" User logged in as a " + getLoggedInUserType());
 
@@ -71,10 +94,6 @@ public class LoginCallback<T> implements Callback<T>{
     public void onFailure(Call<T> call, Throwable t) {
         // wasSuccessful is set to false
         System.out.println("LoginCallback onFailure() was triggered");
-    }
-
-    public void createToast(String message, Context context){
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
 }

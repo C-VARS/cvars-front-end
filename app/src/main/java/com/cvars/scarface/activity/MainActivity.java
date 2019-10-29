@@ -2,7 +2,6 @@ package com.cvars.scarface.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -10,18 +9,16 @@ import android.widget.Toast;
 
 import com.cvars.scarface.R;
 import com.cvars.scarface.model.User;
-import com.cvars.scarface.networkComms.Login;
+import com.cvars.scarface.networkComms.LoginPresenter;
 
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
-    private static MainActivity test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        test = this;
     }
 
 
@@ -30,33 +27,29 @@ public class MainActivity extends AppCompatActivity {
         EditText passwordText = (EditText) findViewById(R.id.password);
         String username = usernameText.getText().toString();
         String password = passwordText.getText().toString();
-        Login l = new Login();
+        LoginPresenter l = new LoginPresenter();
 
         try {
-            User user = l.loginAsUser(username, password);
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Toast toast = Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_LONG);
-//                    toast.show();
-//                }
-//            });
-        } catch (Login.LoginError loginError) {
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Toast toast = Toast.makeText(getApplicationContext(), "Login Unsuccessful", Toast.LENGTH_LONG);
-//                    toast.show();
-//                }
-//            });
+            l.loginAsUser(username, password);
+            displayLoginToast(view, "Login Successful");
+
+        } catch (LoginPresenter.LoginError loginError) {
+            displayLoginToast(view, "Login Unsuccessful");
             loginError.printStackTrace();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static MainActivity getTest(){
-        return test;
+    public void displayLoginToast(View view, final String toastText){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast toast = Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_LONG);
+                toast.show();
+            }
+        });
     }
 
 

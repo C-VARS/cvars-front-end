@@ -1,5 +1,6 @@
 package com.cvars.scarface.networkComms;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.cvars.scarface.model.Driver;
@@ -12,6 +13,7 @@ import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
+import java.util.concurrent.Future;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -53,7 +55,7 @@ public class LoginPresenter {
         return service;
     }
 
-    public void loginAsUser(final String username, String password) throws LoginError, IOException {
+    public void loginAsUser(final String username, String password) {
         /*Attempts to login with username and password. Updates MainActivity with a Toast*/
 
         // create an instance of NetworkClient and a Call to loginAttempt in the API

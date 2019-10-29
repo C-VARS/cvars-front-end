@@ -2,6 +2,7 @@ package com.cvars.scarface.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -27,26 +28,17 @@ public class MainActivity extends AppCompatActivity {
         EditText passwordText = (EditText) findViewById(R.id.password);
         String username = usernameText.getText().toString();
         String password = passwordText.getText().toString();
+
         LoginPresenter l = new LoginPresenter();
+        l.loginAsUser(username, password);
 
-        try {
-            l.loginAsUser(username, password);
-            displayLoginToast(view, "Login Successful");
-
-        } catch (LoginPresenter.LoginError loginError) {
-            displayLoginToast(view, "Login Unsuccessful");
-            loginError.printStackTrace();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
-    public void displayLoginToast(View view, final String toastText){
+    public void displayLoginToast(final Context context, final String toastText){
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast toast = Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(context, toastText, Toast.LENGTH_LONG);
                 toast.show();
             }
         });

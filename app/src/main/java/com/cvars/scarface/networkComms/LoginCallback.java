@@ -75,17 +75,22 @@ public class LoginCallback<T> implements Callback<T>{
         System.out.print("Got Callback Response");
         // get the usertype param from JSON response
         if (response.isSuccessful()){
-            wasSuccessful = true;
+
 
             JsonObject json = (JsonObject) response.body();
-            String userType =  json.get("usertype").getAsString();
+            boolean loginSucceeded = json.get("loginStatus").getAsBoolean();
+            if (loginSucceeded) {
+                String userType = json.get("usertype").getAsString();
 
-            this.loggedInUserType = userTypesMap.get(userType);
+                this.loggedInUserType = userTypesMap.get(userType);
 
-            User user = createUser(userTypesMap.get(userType), username);
+                User user = createUser(userTypesMap.get(userType), username);
 
 
-            System.out.println(" User logged in as a " + getLoggedInUserType());
+                System.out.println(" User logged in as a " + getLoggedInUserType());
+            } else {
+                System.out.println(" Incorrect username or password");
+            }
 
         }
 

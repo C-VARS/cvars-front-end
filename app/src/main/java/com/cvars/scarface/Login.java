@@ -49,7 +49,7 @@ public class Login {
         // return the userType of a User if created
         if (loginCallback.success()){
             // create user of UserType
-            User user = createUser(loginCallback.getLoggedInUserType());
+            User user = createUser(loginCallback.getLoggedInUserType(), username);
 
             return user;
 
@@ -58,7 +58,7 @@ public class Login {
         }
     }
 
-    private User createUser(userTypes type){
+    private User createUser(userTypes type, String username){
         // factory method for creating a User based on userType
         User user;
 

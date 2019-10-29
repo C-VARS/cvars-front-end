@@ -14,13 +14,13 @@ public class LoginCallback<JsonObject> implements Callback<JsonObject> {
     public static Map<String, Login.userTypes> userTypesMap;
     static {
         userTypesMap = new HashMap<>();
-        userTypesMap.put("driver", userTypes.DRIVER);
-        userTypesMap.put("small_business_owner", userTypes.SMALL_BUSINESS_OWNER);
-        userTypesMap.put("supplier", userTypes.SUPPLIER);
+        userTypesMap.put("driver", Login.userTypes.DRIVER);
+        userTypesMap.put("small_business_owner", Login.userTypes.SMALL_BUSINESS_OWNER);
+        userTypesMap.put("supplier", Login.userTypes.SUPPLIER);
     }
 
     // userType information is stored in these variables. If successful, this.success() = True,
-    // if error occurred, this.prerror() returns error message
+    // if error occurred, errormsg() returns error message
     private boolean wasSuccessful = false;
     private Login.userTypes loggedInUserType;
 
@@ -31,6 +31,11 @@ public class LoginCallback<JsonObject> implements Callback<JsonObject> {
         return loggedInUserType;
     }
 
+    public String errormsg(){
+        // returns error message
+        return "A login error occurred";
+    }
+
     @Override
     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
         wasSuccessful = true;
@@ -39,6 +44,7 @@ public class LoginCallback<JsonObject> implements Callback<JsonObject> {
         loggedInUserType = userTypesMap.get(userType);
 
     }
+    @Override
     public void onFailure(Call<JsonObject> call, Throwable t) {
         // wasSuccessful is set to false
     }

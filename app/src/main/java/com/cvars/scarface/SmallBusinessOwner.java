@@ -2,8 +2,8 @@ package com.cvars.scarface;
 
 public class SmallBusinessOwner extends User{
 
-    public SmallBusinessOwner(String userId){
-        super(userId);
+    public SmallBusinessOwner(String username){
+        super(username);
     }
 
     public void confirmPayment(Order order){

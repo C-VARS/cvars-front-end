@@ -4,11 +4,11 @@ import java.util.List;
 
 public abstract class User {
 
-	private String userId;
+	private String username;
 	private List<Order> orders;
 
-	public User(String userId){
-		this.userId = userId;
+	public User(String username){
+		this.username = username;
 		populateOrders();
 	}
 

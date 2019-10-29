@@ -12,6 +12,6 @@ import retrofit2.http.Query;
 
 public interface ServerService {
     @GET("users/login")
-    Call<JsonObject> loginAttempt(@Query("username") String userId, @Query("password") String password);
+    Call<JsonObject> loginAttempt(@Query("username") String username, @Query("password") String password);
 }
 

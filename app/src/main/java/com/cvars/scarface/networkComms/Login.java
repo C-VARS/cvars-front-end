@@ -19,6 +19,8 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.cvars.scarface.networkComms.NetworkClient.BASE_URL;
+
 public class Login {
 
     public class LoginError extends Exception{
@@ -33,7 +35,6 @@ public class Login {
         SUPPLIER
     }
 
-    public String baseUrl = "http://cvars.herokuapp.com/";
 
     public User loginAsUser(final String username, String password) throws LoginError, IOException {
         /*Attempts to login with username and password. On success, returns User object, on failure,
@@ -43,11 +44,11 @@ public class Login {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl)
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build())
                 .build();
-        ServerService service = retrofit.create(ServerService.class);
+        NetworkClient service = retrofit.create(NetworkClient.class);
 
         Call<JsonObject> call = service.loginAttempt(username, password);
 

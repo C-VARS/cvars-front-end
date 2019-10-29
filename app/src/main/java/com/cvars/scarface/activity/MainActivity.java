@@ -14,11 +14,13 @@ import com.cvars.scarface.networkComms.LoginPresenter;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
+    private static MainActivity test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        test = this;
     }
 
 
@@ -50,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
                 toast.show();
             }
         });
+    }
+
+    public static MainActivity getTest(){
+        return test;
     }
 
 

@@ -1,6 +1,9 @@
 package com.cvars.scarface.networkComms;
 
 
+import android.content.Context;
+import android.widget.Toast;
+
 import com.cvars.scarface.activity.MainActivity;
 import com.cvars.scarface.model.Driver;
 import com.cvars.scarface.model.SmallBusinessOwner;
@@ -77,6 +80,8 @@ public class LoginCallback<T> implements Callback<T>{
         if (response.isSuccessful()){
             wasSuccessful = true;
 
+            createToast("Successful", MainActivity.getTest().getApplicationContext());
+
             JsonObject json = (JsonObject) response.body();
             String userType =  json.get("usertype").getAsString();
 
@@ -94,6 +99,10 @@ public class LoginCallback<T> implements Callback<T>{
     public void onFailure(Call<T> call, Throwable t) {
         // wasSuccessful is set to false
         System.out.println("LoginCallback onFailure() was triggered");
+    }
+
+    public void createToast(String message, Context context){
+        Toast.makeText(context, message, Toast.LENGTH_LONG);
     }
 
 }

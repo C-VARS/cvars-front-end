@@ -19,11 +19,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Login {
 
-//    class LoginError extends Exception{
-//        LoginError(String str) {
-//            super(str);
-//        }
-//    }
+    class LoginError extends Exception{
+        LoginError(String str) {
+            super(str);
+        }
+    }
 
     public static enum userTypes {
         DRIVER,
@@ -33,7 +33,7 @@ public class Login {
 
     public String baseUrl = "http://10.0.2.2:5000";
 
-    public User loginAsUser(final String username, String password){
+    public User loginAsUser(final String username, String password) throws LoginError {
         /*Attempts to login with username and password. On success, returns User object, on failure,
         * throws Exception*/
 
@@ -42,30 +42,41 @@ public class Login {
 
         Call<JsonObject> call = service.loginAttempt(username, password);
 
-        final User[] user = new User[1];
+        // create LoginCallback object which stores the userType if loginCallback.success() == True
+        LoginCallback loginCallback = new LoginCallback();
+        call.enqueue(loginCallback);
 
-        call.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                // get the usertype param from JSON response
-                String userType = response.body().get("usertype").getAsString();
+        // return the userType of a User if created
+        if (loginCallback.success()){
+            // create user of UserType
+            User user = createUser(loginCallback.getLoggedInUserType());
 
-                // create and return that type of User
-                if (usertype == "driver"){
-                    user[0] = new Driver(username);
-                } else if (usertype == "small_business_owner"){
-                    user[0] = new SmallBusinessOwner(username);
-                } else if (usertype == "supplier"){
-                    user[0] = new Supplier(username);
-                }
+            return user;
 
-            }
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                //throw new LoginError("Login Attempt Failed");
-            }
-        });
+        } else {
+            throw new LoginError("Login Failed");
+        }
+    }
 
-        return user[0];
+    private User createUser(userTypes type){
+        // factory method for creating a User based on userType
+        User user;
+
+        switch (type){
+            case DRIVER:
+                user = new Driver(username);
+                break;
+
+            case SMALL_BUSINESS_OWNER:
+                user = new SmallBusinessOwner(username);
+                break;
+
+            case SUPPLIER:
+                user = new Supplier(username);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + type);
+        }
+        return user;
     }
 }

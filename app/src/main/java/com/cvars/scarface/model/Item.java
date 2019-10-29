@@ -1,4 +1,4 @@
-package com.cvars.scarface;
+package com.cvars.scarface.model;
 
 public class Item {
     // Represents a specific Item and quantity ordered by a SmallBusinessOwner from Supplier

@@ -1,4 +1,4 @@
-package com.cvars.scarface;
+package com.cvars.scarface.networkComms;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

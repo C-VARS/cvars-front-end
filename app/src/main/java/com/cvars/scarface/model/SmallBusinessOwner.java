@@ -1,4 +1,4 @@
-package com.cvars.scarface;
+package com.cvars.scarface.model;
 
 public class SmallBusinessOwner extends User{
 

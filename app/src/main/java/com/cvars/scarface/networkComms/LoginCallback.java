@@ -1,8 +1,4 @@
-package com.cvars.scarface;
-
-import android.util.Log;
-
-import com.google.gson.JsonObject;
+package com.cvars.scarface.networkComms;
 
 
 import java.io.IOException;

@@ -1,10 +1,11 @@
-package com.cvars.scarface;
+package com.cvars.scarface.networkComms;
 
 import android.util.Log;
 
-import androidx.core.app.TaskStackBuilder;
-
-import com.google.gson.JsonElement;
+import com.cvars.scarface.model.Driver;
+import com.cvars.scarface.model.SmallBusinessOwner;
+import com.cvars.scarface.model.Supplier;
+import com.cvars.scarface.model.User;
 import com.google.gson.JsonObject;
 
 
@@ -15,14 +16,12 @@ import java.io.PipedOutputStream;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Login {
 
-    class LoginError extends Exception{
+    public class LoginError extends Exception{
         LoginError(String str) {
             super(str);
         }

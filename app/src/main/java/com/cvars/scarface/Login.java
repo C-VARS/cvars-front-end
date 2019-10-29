@@ -7,10 +7,13 @@ import androidx.core.app.TaskStackBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,23 +34,45 @@ public class Login {
         SUPPLIER
     }
 
-    public String baseUrl = "http://cvars.heroku.com";
+    public String baseUrl = "http://cvars.herokuapp.com/";
 
-    public User loginAsUser(final String username, String password) throws LoginError {
+    public User loginAsUser(final String username, String password) throws LoginError, IOException {
         /*Attempts to login with username and password. On success, returns User object, on failure,
-        * throws Exception*/
+         * throws Exception*/
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(logging);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient.build())
+                .build();
         ServerService service = retrofit.create(ServerService.class);
 
         Call<JsonObject> call = service.loginAttempt(username, password);
 
+        // create pipe for communicating with the callback
+        PipedInputStream pis = new PipedInputStream();
+        PipedOutputStream pos = new PipedOutputStream();
+        pis.connect(pos);
+
         // create LoginCallback object which stores the userType if loginCallback.success() == True
-        LoginCallback loginCallback = new LoginCallback();
+        LoginCallback<JsonObject> loginCallback = new LoginCallback<>(pos);
+
         call.enqueue(loginCallback);
+//        // wait for LoginCallback to receive API call and write into pipe
+//        int data = pis.read();
+//        System.out.println(data);
+//        while (data != -1) {
+//            System.out.print((char) data);
+//            data = pis.read();
+//        }
+//        pis.close();
+
 
         // return the userType of a User if created
-        if (loginCallback.success()){
+        if (loginCallback.success()) {
             // create user of UserType
             User user = createUser(loginCallback.getLoggedInUserType(), username);
             Log.i(null, "Successfully connected to Login and returned a User");
@@ -56,6 +81,8 @@ public class Login {
         } else {
             Log.e(null, "LOGIN FAILED");
             throw new LoginError("Login Failed");
+//        }
+
         }
     }
 

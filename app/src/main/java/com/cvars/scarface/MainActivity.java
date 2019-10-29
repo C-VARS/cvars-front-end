@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
             User user = l.loginAsUser(username, password);
         } catch (Login.LoginError loginError) {
             loginError.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

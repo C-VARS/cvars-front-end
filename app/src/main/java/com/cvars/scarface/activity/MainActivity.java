@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.cvars.scarface.R;
 import com.cvars.scarface.model.User;
@@ -30,7 +31,21 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             User user = l.loginAsUser(username, password);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            });
         } catch (Login.LoginError loginError) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Login Unsuccessful", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            });
             loginError.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

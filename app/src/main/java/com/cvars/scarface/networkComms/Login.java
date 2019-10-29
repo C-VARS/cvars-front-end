@@ -69,7 +69,7 @@ public class Login {
 
         // TODO Figure out how to use the asynchronous call to loginCallback to return a User
         // in this method - or a workaround
-        return Driver("paul");
+        return new Driver("paul");
     }
 
     private User createUser(userTypes type, String username){

@@ -31,7 +31,12 @@ public class MainActivity extends AppCompatActivity {
         String username = usernameText.getText().toString();
         String password = passwordText.getText().toString();
         Login l = new Login();
-        User user = l.loginAsUser(username, password);
+
+        try {
+            User user = l.loginAsUser(username, password);
+        } catch (Login.LoginError loginError) {
+            loginError.printStackTrace();
+        }
     }
 
 

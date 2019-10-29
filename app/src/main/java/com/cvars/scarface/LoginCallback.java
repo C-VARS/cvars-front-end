@@ -1,5 +1,7 @@
 package com.cvars.scarface;
 
+import android.util.Log;
+
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
@@ -9,7 +11,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginCallback<JsonObject> implements Callback<JsonObject> {
+public class LoginCallback<T> implements Callback<T> {
 
     public static Map<String, Login.userTypes> userTypesMap;
     static {
@@ -37,15 +39,17 @@ public class LoginCallback<JsonObject> implements Callback<JsonObject> {
     }
 
     @Override
-    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+    public void onResponse(Call<T> call, Response<T> response) {
         wasSuccessful = true;
         // get the usertype param from JSON response
-        String userType = response.body().get("usertype").getAsString();
-        loggedInUserType = userTypesMap.get(userType);
+        Log.i(null, ("Received response from Login: " + response.message()));
+//        response.
+//        String userType = response.body().get("usertype").getAsString();
+//        loggedInUserType = userTypesMap.get(userType);
 
     }
     @Override
-    public void onFailure(Call<JsonObject> call, Throwable t) {
+    public void onFailure(Call<T> call, Throwable t) {
         // wasSuccessful is set to false
     }
 }

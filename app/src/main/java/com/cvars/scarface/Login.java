@@ -31,7 +31,7 @@ public class Login {
         SUPPLIER
     }
 
-    public String baseUrl = "http://10.0.2.2:5000";
+    public String baseUrl = "http://cvars.heroku.com";
 
     public User loginAsUser(final String username, String password) throws LoginError {
         /*Attempts to login with username and password. On success, returns User object, on failure,
@@ -50,10 +50,11 @@ public class Login {
         if (loginCallback.success()){
             // create user of UserType
             User user = createUser(loginCallback.getLoggedInUserType(), username);
-
+            Log.i(null, "Successfully connected to Login and returned a User");
             return user;
 
         } else {
+            Log.e(null, "LOGIN FAILED");
             throw new LoginError("Login Failed");
         }
     }

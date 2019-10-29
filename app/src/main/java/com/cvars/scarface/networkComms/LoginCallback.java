@@ -1,6 +1,10 @@
 package com.cvars.scarface.networkComms;
 
 
+import android.content.Context;
+import android.widget.Toast;
+
+import com.cvars.scarface.activity.MainActivity;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
@@ -50,6 +54,8 @@ public class LoginCallback<T> implements Callback<T>{
         // get the usertype param from JSON response
         if (response.isSuccessful()){
             wasSuccessful = true;
+            
+            createToast("Successfull", MainActivity.getTest().getApplicationContext());
 
             JsonObject json = (JsonObject) response.body();
             String userType =  json.get("usertype").getAsString();
@@ -65,6 +71,10 @@ public class LoginCallback<T> implements Callback<T>{
     public void onFailure(Call<T> call, Throwable t) {
         // wasSuccessful is set to false
         System.out.println("LoginCallback onFailure() was triggered");
+    }
+
+    public void createToast(String message, Context context){
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
 }

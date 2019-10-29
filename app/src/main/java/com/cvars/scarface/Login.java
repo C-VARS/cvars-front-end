@@ -61,14 +61,12 @@ public class Login {
         LoginCallback<JsonObject> loginCallback = new LoginCallback<>(pos);
 
         call.enqueue(loginCallback);
-//        // wait for LoginCallback to receive API call and write into pipe
-//        int data = pis.read();
-//        System.out.println(data);
-//        while (data != -1) {
-//            System.out.print((char) data);
-//            data = pis.read();
-//        }
-//        pis.close();
+        // wait for LoginCallback to receive API call and write into pipe
+        int data;
+        while ((data = pis.read() )!= -1) {
+            System.out.print((char) data);
+        }
+        pis.close();
 
 
         // return the userType of a User if created

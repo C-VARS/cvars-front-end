@@ -79,9 +79,6 @@ public class LoginCallback<T> implements Callback<T>{
         // get the usertype param from JSON response
         if (response.isSuccessful()){
 
-
-            createToast("Successful", MainActivity.getTest().getApplicationContext());
-
             JsonObject json = (JsonObject) response.body();
             boolean loginSucceeded = json.get("loginStatus").getAsBoolean();
             if (loginSucceeded) {
@@ -91,9 +88,11 @@ public class LoginCallback<T> implements Callback<T>{
 
                 User user = createUser(userTypesMap.get(userType), username);
 
+                createToast("Logged in as " + loggedInUserType + " with username: " + username, MainActivity.getMainActivityInstance());
 
                 System.out.println(" User logged in as a " + getLoggedInUserType());
             } else {
+                createToast("Wrong username or password", MainActivity.getMainActivityInstance());
                 System.out.println(" Incorrect username or password");
             }
 
@@ -107,7 +106,7 @@ public class LoginCallback<T> implements Callback<T>{
     }
 
     public void createToast(String message, Context context){
-        Toast.makeText(context, message, Toast.LENGTH_LONG);
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
 }

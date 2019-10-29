@@ -15,13 +15,13 @@ import com.cvars.scarface.networkComms.LoginPresenter;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
-    private static MainActivity test;
+    private static MainActivity mainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        test = this;
+        mainActivity = this;
     }
 
 
@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public static MainActivity getTest(){
-        return test;
+    public static MainActivity getMainActivityInstance(){
+        return mainActivity;
     }
 
 

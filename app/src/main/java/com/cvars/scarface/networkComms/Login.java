@@ -35,52 +35,41 @@ public class Login {
 
     public String baseUrl = "http://cvars.herokuapp.com/";
 
-    public User loginAsUser(final String username, String password) throws LoginError, IOException {
-        /*Attempts to login with username and password. On success, returns User object, on failure,
-         * throws Exception*/
+    public ServerService createService(String baseUrl){
+        // create an HTTP Logger for logging API calls
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
 
+        // create a retrofit around ServerService and return it
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build())
                 .build();
         ServerService service = retrofit.create(ServerService.class);
 
+        return service;
+    }
+
+    public User loginAsUser(final String username, String password) throws LoginError, IOException {
+        /*Attempts to login with username and password. On success, returns User object, on failure,
+         * throws Exception*/
+
+        // create an instance of ServerService and a Call to loginAttempt in the API
+        ServerService service = createService(baseUrl);
         Call<JsonObject> call = service.loginAttempt(username, password);
 
-        // create pipe for communicating with the callback
-        PipedInputStream pis = new PipedInputStream();
-        PipedOutputStream pos = new PipedOutputStream();
-        pis.connect(pos);
+        // TODO figure out how to get response back from asynchronous call.enqueue() call with LoginCallback
 
         // create LoginCallback object which stores the userType if loginCallback.success() == True
-        LoginCallback<JsonObject> loginCallback = new LoginCallback<>(pos);
+        LoginCallback<JsonObject> loginCallback = new LoginCallback<>();
 
         call.enqueue(loginCallback);
-        // wait for LoginCallback to receive API call and write into pipe
-        int data;
-        while ((data = pis.read() )!= -1) {
-            System.out.print((char) data);
-        }
-        pis.close();
 
-
-        // return the userType of a User if created
-        if (loginCallback.success()) {
-            // create user of UserType
-            User user = createUser(loginCallback.getLoggedInUserType(), username);
-            Log.i(null, "Successfully connected to Login and returned a User");
-            return user;
-
-        } else {
-            Log.e(null, "LOGIN FAILED");
-            throw new LoginError("Login Failed");
-//        }
-
-        }
+        // TODO Figure out how to use the asynchronous call to loginCallback to return a User
+        // in this method - or a workaround
+        return Driver("paul");
     }
 
     private User createUser(userTypes type, String username){

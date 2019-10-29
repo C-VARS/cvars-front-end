@@ -1,6 +1,8 @@
 package com.cvars.scarface.networkComms;
 
 
+import com.google.gson.JsonObject;
+
 import java.io.IOException;
 import java.io.PipedOutputStream;
 import java.util.HashMap;
@@ -10,8 +12,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginCallback<JsonObject> implements Callback<JsonObject>{
-    private PipedOutputStream pos;
+public class LoginCallback<T> implements Callback<T>{
     public static Map<String, Login.userTypes> userTypesMap;
     static {
         userTypesMap = new HashMap<>();
@@ -27,9 +28,8 @@ public class LoginCallback<JsonObject> implements Callback<JsonObject>{
     private String errorMessage = "No Errors";
 
 
-    public LoginCallback(PipedOutputStream pos){
+    public LoginCallback(){
         System.out.println("LoginCallback created");
-        this.pos = pos;
     }
 
     public boolean success(){
@@ -45,30 +45,24 @@ public class LoginCallback<JsonObject> implements Callback<JsonObject>{
     }
 
     @Override
-    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+    public void onResponse(Call<T> call, Response<T> response) {
         System.out.print("Got Callback Response");
         // get the usertype param from JSON response
         if (response.isSuccessful()){
             wasSuccessful = true;
-            try {
-                JsonObject json = response.body();
-                String userType = json.toString();
-                pos.write(userType.getBytes());
 
-                System.out.println("User logged in as a " + userType);
+            JsonObject json = (JsonObject) response.body();
+            String userType =  json.get("usertype").getAsString();
 
-            } catch (IOException e) {
-                errorMessage = "Failed to write into pipe from LoginCallback";
-                System.out.println(errorMessage);
-                e.printStackTrace();
-            }
-            ;
+            this.loggedInUserType = userTypesMap.get(userType);
+
+            System.out.println(" User logged in as a " + getLoggedInUserType());
 
         }
 
     }
     @Override
-    public void onFailure(Call<JsonObject> call, Throwable t) {
+    public void onFailure(Call<T> call, Throwable t) {
         // wasSuccessful is set to false
         System.out.println("LoginCallback onFailure() was triggered");
     }

@@ -7,7 +7,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitNetwork {
-    public static String BASE_URL = "http://cvars.herokuapp.com/";
+    public static String BASE_URL = "https://cvars.herokuapp.com/";
     public static Retrofit retrofit;
 
     static {

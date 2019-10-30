@@ -36,5 +36,4 @@ public class LoginPresenter {
 
         void changeToInvoiceActivity(UserType type, String username);
     }
-
 }

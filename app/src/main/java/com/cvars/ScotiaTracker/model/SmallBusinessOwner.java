@@ -1,4 +1,4 @@
-package com.cvars.scarface.model;
+package com.cvars.ScotiaTracker.model;
 
 public class SmallBusinessOwner extends User{
 

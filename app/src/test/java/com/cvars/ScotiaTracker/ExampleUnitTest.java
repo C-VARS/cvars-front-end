@@ -1,4 +1,4 @@
-package com.cvars.scarface;
+package com.cvars.ScotiaTracker;
 
 import org.junit.Test;
 

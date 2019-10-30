@@ -1,4 +1,4 @@
-package com.cvars.scarface.model;
+package com.cvars.ScotiaTracker.model;
 
 import java.util.List;
 

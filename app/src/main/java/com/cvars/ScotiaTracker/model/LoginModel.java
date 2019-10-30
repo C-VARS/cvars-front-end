@@ -39,7 +39,7 @@ public class LoginModel implements Callback<JsonObject> {
         JsonObject json = response.body();
         loginSuccess = json.get("loginStatus").getAsBoolean();
         if (loginSuccess) {
-            String userType = json.get("usertype").getAsString();
+            String userType = json.get("userType").getAsString();
             this.userType = convertUserToEnum(userType);
         } else {
             this.errorMessage = "Incorrect username or password";

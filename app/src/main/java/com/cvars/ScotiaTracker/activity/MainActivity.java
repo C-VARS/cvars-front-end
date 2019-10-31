@@ -14,15 +14,25 @@ import com.cvars.ScotiaTracker.model.UserType;
 import com.cvars.ScotiaTracker.presenter.LoginPresenter;
 import com.cvars.ScotiaTracker.view.LoginView;
 
+/**
+ * Main activity of the android app that is a Login screen. Implements LoginView for UI manipulation
+ * related to login.
+ */
 public class MainActivity extends AppCompatActivity implements LoginView {
 
+    /**
+     * A reference to the Presenter that corresponds with the Login functionality
+     */
     private LoginPresenter loginPresenter;
 
+    /**
+     * A flag variable used for concurrency purposes. Makes sure that the User does not give
+     * duplicate input when the last input has not been processed yet.
+     */
     private boolean requestProcessed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loginPresenter = new LoginPresenter(this);
@@ -32,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements LoginView {
     /**
      * Login a user with input text from username and password field. On success, moves to
      * InvoiceView, on failure, displays a login failed Toast.
-     * @param view
+     * @param view the button that triggered this method
      */
     public void login(View view) {
         if (!requestProcessed){
@@ -49,13 +59,18 @@ public class MainActivity extends AppCompatActivity implements LoginView {
         requestProcessed = false;
     }
 
+    /**
+     * Displays a Toast text to notify the user of some information
+     *
+     * @param message The string that is meant to be displayed
+     */
     public void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     /**
-     * Display a Toast message on the screen
-     * @param message
+     * An overridden interface method for this UI to display a message
+     * @param message The string that is meant to be displayed
      */
     @Override
     public void displayMessage(String message) {

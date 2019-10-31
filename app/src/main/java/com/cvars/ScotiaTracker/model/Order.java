@@ -18,7 +18,7 @@ class Order {
         this.totalCost = totalCost(items);
 
         // initialize status to empty. Note: order_received is assumed to be True
-        this.status = new HashMap<String, Boolean>();
+        this.status = new HashMap<>();
         this.status.put("order_received", true);
         this.status.put("on_the_way", false);
         this.status.put("arrived", false);
@@ -26,10 +26,17 @@ class Order {
 
     }
 
+    
     public void updateStatus(String key, Boolean value){
         this.status.put(key, value);
     }
 
+    /**
+     * Iterates through the list of items contained in the order and
+     * adds their cost to sum.
+     * @param items a List of the items within this order.
+     * @return the total cost of all items.
+     */
     public double totalCost(List<Item> items) {
         // sums total price of all items
         double sum = 0.0;

@@ -2,7 +2,6 @@ package com.cvars.ScotiaTracker.model;
 
 import com.cvars.ScotiaTracker.networkAPI.LoginAPI;
 import com.cvars.ScotiaTracker.networkAPI.RetrofitNetwork;
-import com.cvars.ScotiaTracker.presenter.LoginPresenter;
 import com.cvars.ScotiaTracker.responseHandlers.LoginResponseHandler;
 import com.google.gson.JsonObject;
 
@@ -20,6 +19,12 @@ public class LoginModel implements Callback<JsonObject> {
 
     private LoginResponseHandler loginResponseHandler;
 
+    /**
+     * Constructs a loginModel with a given LoginResponseHandler
+     * which interacts with the backend and has some information
+     * about the status of the login
+     * @param loginResponseHandler
+     */
     public LoginModel(LoginResponseHandler loginResponseHandler) {
         this.loginResponseHandler = loginResponseHandler;
         username = "";
@@ -29,12 +34,23 @@ public class LoginModel implements Callback<JsonObject> {
         loginAPI = RetrofitNetwork.retrofit.create(LoginAPI.class);
     }
 
+    /**
+     * Starts an Asynchronous Call using Retrofit to attempt a login
+     * @param username
+     * @param password
+     */
     public void attemptLogin(String username, String password) {
         Call<JsonObject> call = loginAPI.attemptLogin(username, password);
         this.username = username;
+        // Asynchronous Call occurs, passing in this loginModel
         call.enqueue(this);
     }
 
+    /**
+     * On response from our HTTP request, notify a login response
+     * @param call
+     * @param response
+     */
     @Override
     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
         JsonObject json = response.body();
@@ -49,6 +65,11 @@ public class LoginModel implements Callback<JsonObject> {
         loginResponseHandler.notifyLoginResponse();
     }
 
+    /**
+     * On a failed HTTP request, notify a login response
+     * @param call
+     * @param t
+     */
     @Override
     public void onFailure(Call<JsonObject> call, Throwable t) {
         loginSuccess = false;
@@ -74,6 +95,7 @@ public class LoginModel implements Callback<JsonObject> {
     }
 
     private UserType convertUserToEnum(String userType) {
+
 
         if (userType.equals("Driver")) {
             return UserType.DRIVER;

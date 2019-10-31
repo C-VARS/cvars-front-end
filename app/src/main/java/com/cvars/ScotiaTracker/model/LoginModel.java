@@ -3,6 +3,7 @@ package com.cvars.ScotiaTracker.model;
 import com.cvars.ScotiaTracker.networkAPI.LoginAPI;
 import com.cvars.ScotiaTracker.networkAPI.RetrofitNetwork;
 import com.cvars.ScotiaTracker.presenter.LoginPresenter;
+import com.cvars.ScotiaTracker.responseHandlers.LoginResponseHandler;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -12,15 +13,15 @@ import retrofit2.Response;
 public class LoginModel implements Callback<JsonObject> {
 
     private String username;
-    private LoginPresenter.UserType userType;
+    private UserType userType;
     private boolean loginSuccess;
     private String errorMessage;
     private LoginAPI loginAPI;
 
-    private LoginPresenter loginPresenter;
+    private LoginResponseHandler loginResponseHandler;
 
-    public LoginModel(LoginPresenter loginPresenter) {
-        this.loginPresenter = loginPresenter;
+    public LoginModel(LoginResponseHandler loginResponseHandler) {
+        this.loginResponseHandler = loginResponseHandler;
         username = "";
         loginSuccess = false;
         errorMessage = "";
@@ -45,7 +46,7 @@ public class LoginModel implements Callback<JsonObject> {
             this.errorMessage = "Incorrect username or password";
         }
 
-        loginPresenter.notifyLoginResponse();
+        loginResponseHandler.notifyLoginResponse();
     }
 
     @Override
@@ -53,14 +54,14 @@ public class LoginModel implements Callback<JsonObject> {
         loginSuccess = false;
         errorMessage = "Connection failure";
 
-        loginPresenter.notifyLoginResponse();
+        loginResponseHandler.notifyLoginResponse();
     }
 
     public String getUsername() {
         return this.username;
     }
 
-    public LoginPresenter.UserType getUserType() {
+    public UserType getUserType() {
         return userType;
     }
 
@@ -72,14 +73,14 @@ public class LoginModel implements Callback<JsonObject> {
         return errorMessage;
     }
 
-    private LoginPresenter.UserType convertUserToEnum(String userType) {
+    private UserType convertUserToEnum(String userType) {
 
         if (userType.equals("Driver")) {
-            return LoginPresenter.UserType.DRIVER;
+            return UserType.DRIVER;
         } else if (userType.equals("Customer")) {
-            return LoginPresenter.UserType.CUSTOMER;
+            return UserType.CUSTOMER;
         } else if (userType.equals("Supplier")) {
-            return LoginPresenter.UserType.SUPPLIER;
+            return UserType.SUPPLIER;
         }
 
         return null;

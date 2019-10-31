@@ -2,7 +2,6 @@ package com.cvars.ScotiaTracker.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,9 +10,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cvars.ScotiaTracker.R;
+import com.cvars.ScotiaTracker.model.UserType;
 import com.cvars.ScotiaTracker.presenter.LoginPresenter;
+import com.cvars.ScotiaTracker.view.LoginView;
 
-public class MainActivity extends AppCompatActivity implements LoginPresenter.LoginView {
+public class MainActivity extends AppCompatActivity implements LoginView {
 
     private LoginPresenter loginPresenter;
 
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements LoginPresenter.Lo
      * @param username username of logged in User
      */
     @Override
-    public void changeToInvoiceActivity(LoginPresenter.UserType type, String username) {
+    public void changeToInvoiceActivity(UserType type, String username) {
         showToast("Logged in as " + type + " with username " + username);
         requestProcessed = true;
         Intent myIntent = new Intent(this, InvoiceActivity.class);

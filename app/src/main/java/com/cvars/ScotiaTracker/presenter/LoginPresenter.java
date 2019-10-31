@@ -1,17 +1,14 @@
 package com.cvars.ScotiaTracker.presenter;
 
 import com.cvars.ScotiaTracker.model.LoginModel;
+import com.cvars.ScotiaTracker.responseHandlers.LoginResponseHandler;
+import com.cvars.ScotiaTracker.view.LoginView;
 
-public class LoginPresenter {
+public class LoginPresenter implements LoginResponseHandler {
 
     private LoginView view;
     private LoginModel loginModel;
 
-    public enum UserType {
-        DRIVER,
-        CUSTOMER,
-        SUPPLIER
-    }
 
     public LoginPresenter(LoginView view) {
         this.view = view;
@@ -23,6 +20,7 @@ public class LoginPresenter {
         loginModel.attemptLogin(username, password);
     }
 
+    @Override
     public void notifyLoginResponse() {
         if (loginModel.isLoginSuccess()) {
             view.changeToInvoiceActivity(loginModel.getUserType(), loginModel.getUsername());
@@ -31,9 +29,4 @@ public class LoginPresenter {
         }
     }
 
-    public interface LoginView {
-        void displayMessage(String message);
-
-        void changeToInvoiceActivity(UserType type, String username);
-    }
 }

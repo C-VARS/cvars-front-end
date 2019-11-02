@@ -75,13 +75,8 @@ public class MainActivity extends AppCompatActivity implements LoginView {
      * @param message The string that is meant to be displayed
      */
     @Override
-    public void displayMessage(String message, boolean isError) {
-        if (isError){
-            this.password.setError(message);
-        } else{
-            showToast(message);
-        }
-
+    public void displayErrorMessage(String message) {
+        this.password.setError(message);
         requestProcessed = true;
     }
 

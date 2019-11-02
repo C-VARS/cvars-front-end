@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements LoginView {
      * A reference to the Presenter that corresponds with the Login functionality
      */
     private LoginPresenter loginPresenter;
+    private EditText password;
+    private EditText username;
 
     /**
      * A flag variable used for concurrency purposes. Makes sure that the User does not give
@@ -50,10 +52,10 @@ public class MainActivity extends AppCompatActivity implements LoginView {
             return;
         }
 
-        EditText usernameText = findViewById(R.id.username);
-        EditText passwordText = findViewById(R.id.password);
-        String username = usernameText.getText().toString();
-        String password = passwordText.getText().toString();
+        this.username = findViewById(R.id.username);
+        this.password = findViewById(R.id.password);
+        String username = this.username.getText().toString();
+        String password = this.password.getText().toString();
 
         loginPresenter.attemptLogin(username, password);
         requestProcessed = false;
@@ -73,8 +75,13 @@ public class MainActivity extends AppCompatActivity implements LoginView {
      * @param message The string that is meant to be displayed
      */
     @Override
-    public void displayMessage(String message) {
-        showToast(message);
+    public void displayMessage(String message, boolean isError) {
+        if (isError){
+            this.password.setError(message);
+        } else{
+            showToast(message);
+        }
+
         requestProcessed = true;
     }
 

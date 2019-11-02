@@ -47,7 +47,7 @@ public class LoginPresenter implements LoginResponseHandler {
         if (loginModel.isLoginSuccess()) {
             view.changeToInvoiceActivity(loginModel.getUserType(), loginModel.getUsername());
         } else {
-            view.displayMessage(loginModel.getErrorMessage());
+            view.displayMessage(loginModel.getErrorMessage(), true);
         }
     }
 

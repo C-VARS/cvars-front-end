@@ -21,7 +21,7 @@ import com.cvars.ScotiaTracker.view.LoginView;
 public class MainActivity extends AppCompatActivity implements LoginView {
 
     /**
-     * A reference to the Presenter that corresponds with the Login functionality
+     * A reference to the LoginPresenter that corresponds with the Login functionality
      */
     private LoginPresenter loginPresenter;
     private EditText password;
@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements LoginView {
     @Override
     public void changeToInvoiceActivity(UserType type, String username) {
         showToast("Logged in as " + type + " with username " + username);
+        // TODO: Create a user here
         requestProcessed = true;
         Intent myIntent = new Intent(this, HomeActivity.class);
         startActivity(myIntent);

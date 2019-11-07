@@ -1,14 +1,14 @@
 package com.cvars.ScotiaTracker.presenter;
 
 import com.cvars.ScotiaTracker.model.LoginModel;
-import com.cvars.ScotiaTracker.responseHandlers.LoginResponseHandler;
+import com.cvars.ScotiaTracker.responseHandlers.ResponseHandler;
 import com.cvars.ScotiaTracker.view.LoginView;
 
 /**
- * The Presenter for the login functionality. Implements LoginResponderHandler to respond to HTTP
+ * The LoginPresenter for the login functionality. Implements LoginResponderHandler to respond to HTTP
  * results from the model.
  */
-public class LoginPresenter implements LoginResponseHandler {
+public class LoginPresenter implements ResponseHandler {
 
     /**
      * A reference to the UI that implements LoginView interface
@@ -21,6 +21,11 @@ public class LoginPresenter implements LoginResponseHandler {
     private LoginModel loginModel;
 
     /**
+     * A reference to the data model and connection object for the Login functionality
+     */
+    private InvoicePresenter invoicePresenter;
+
+    /**
      * Constructor for a LoginPresenter that interacts with both the UI view and the Model data
      *
      * @param view reference injection of a UI view that this presenter will manipulate
@@ -28,6 +33,7 @@ public class LoginPresenter implements LoginResponseHandler {
     public LoginPresenter(LoginView view) {
         this.view = view;
         loginModel = new LoginModel(this);
+        invoicePresenter = new InvoicePresenter(this.view,this.loginModel);
     }
 
     /**
@@ -43,9 +49,10 @@ public class LoginPresenter implements LoginResponseHandler {
      * Updates the view based on the information in the LoginModel
      */
     @Override
-    public void notifyLoginResponse() {
+    public void notifyResponse() {
         if (loginModel.isLoginSuccess()) {
-            view.changeToInvoiceActivity(loginModel.getUserType(), loginModel.getUsername());
+            invoicePresenter.getInvoices("Callum");
+//            view.changeToInvoiceActivity(loginModel.getUserType(), loginModel.getUsername());
         } else {
             view.displayErrorMessage(loginModel.getErrorMessage());
         }

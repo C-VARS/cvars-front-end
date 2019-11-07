@@ -9,11 +9,14 @@ import retrofit2.http.Query;
 /**
  * API Wrapper for the Login API Calls. Used by RetrofitNetwork to create asynchronous API calls.
  */
-public interface LoginAPI {
+public interface EndpointAPI {
 
     @GET("users/login")
     Call<JsonObject> attemptLogin(@Query("username") String username,
                                   @Query("password") String password);
+
+    @GET("invoices")
+    Call<JsonObject> getInvoices(@Query("username") String username);
 
 }
 

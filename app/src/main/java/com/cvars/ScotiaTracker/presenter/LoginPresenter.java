@@ -1,6 +1,7 @@
 package com.cvars.ScotiaTracker.presenter;
 
 import com.cvars.ScotiaTracker.model.LoginModel;
+import com.cvars.ScotiaTracker.model.User;
 import com.cvars.ScotiaTracker.responseHandlers.ResponseHandler;
 import com.cvars.ScotiaTracker.view.LoginView;
 
@@ -10,6 +11,7 @@ import com.cvars.ScotiaTracker.view.LoginView;
  */
 public class LoginPresenter implements ResponseHandler {
 
+    public User user;
     /**
      * A reference to the UI that implements LoginView interface
      */
@@ -21,11 +23,6 @@ public class LoginPresenter implements ResponseHandler {
     private LoginModel loginModel;
 
     /**
-     * A reference to the data model and connection object for the Login functionality
-     */
-    private InvoicePresenter invoicePresenter;
-
-    /**
      * Constructor for a LoginPresenter that interacts with both the UI view and the Model data
      *
      * @param view reference injection of a UI view that this presenter will manipulate
@@ -33,7 +30,6 @@ public class LoginPresenter implements ResponseHandler {
     public LoginPresenter(LoginView view) {
         this.view = view;
         loginModel = new LoginModel(this);
-        invoicePresenter = new InvoicePresenter(this.view,this.loginModel);
     }
 
     /**
@@ -45,14 +41,15 @@ public class LoginPresenter implements ResponseHandler {
         loginModel.attemptLogin(username, password);
     }
 
+
     /**
      * Updates the view based on the information in the LoginModel
      */
     @Override
     public void notifyResponse() {
         if (loginModel.isLoginSuccess()) {
-            invoicePresenter.getInvoices("Callum");
-//            view.changeToInvoiceActivity(loginModel.getUserType(), loginModel.getUsername());
+            this.user = loginModel.user;
+            view.changeToHomeActivity(user);
         } else {
             view.displayErrorMessage(loginModel.getErrorMessage());
         }

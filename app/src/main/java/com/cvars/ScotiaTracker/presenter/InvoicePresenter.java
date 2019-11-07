@@ -5,34 +5,30 @@ import android.util.Log;
 import com.cvars.ScotiaTracker.model.InvoiceModel;
 import com.cvars.ScotiaTracker.model.LoginModel;
 import com.cvars.ScotiaTracker.responseHandlers.ResponseHandler;
+import com.cvars.ScotiaTracker.view.InvoiceView;
 import com.cvars.ScotiaTracker.view.LoginView;
 
 /**
  * The InvoicePresenter for the  functionality. Implements ResponseHandler to respond to HTTP
  * results from the model.
  */
-public class InvoicePresenter implements ResponseHandler {
-
-    /**
-     * A reference to the UI that implements LoginView interface
-     */
-    private LoginView view;
+public class InvoicePresenter implements ResponseHandler{
 
     /**
      * A reference to the data model and connection object for the Login functionality
      */
     private InvoiceModel invoiceModel;
-    private LoginModel loginModel;
+
+    private InvoiceView invoiceView;
 
     /**
      * Constructor for a InvoicePresenter that interacts with both the UI view and the Model data
      *
      * @param view reference injection of a UI view that this presenter will manipulate
      */
-    public InvoicePresenter(LoginView view, LoginModel loginModel) {
-        this.view = view;
+    public InvoicePresenter(InvoiceView view, InvoiceModel invoiceModel) {
+        this.invoiceView = view;
         this.invoiceModel = new InvoiceModel(this);
-        this.loginModel = loginModel;
     }
 
     /**
@@ -44,12 +40,12 @@ public class InvoicePresenter implements ResponseHandler {
     }
 
     /**
-     * Updates the view based on the information in the LoginModel
+     * Updates the view based on the information in the  invoiceModel
      */
     @Override
     public void notifyResponse() {
             System.out.println("invoice received.");
-            view.changeToInvoiceActivity(loginModel.getUserType(), loginModel.getUsername());
+
     }
 
 }

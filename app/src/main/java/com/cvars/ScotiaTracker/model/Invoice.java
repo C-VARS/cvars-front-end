@@ -61,13 +61,16 @@ class Invoice {
         return sum;
     }
 
-
     public int getInvoiceId() { return invoiceId;}
 
     public List<Order> getOrders() {
         return orders;
     }
 
+    public int compareTo(Invoice o)
+    {
+        return 1;
+    }
     class OrderStatus{
         @SerializedName("onTheWay")
         private boolean onTheWay;

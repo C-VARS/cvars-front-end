@@ -9,11 +9,6 @@ public abstract class User {
 
 	public User(String username){
 		this.username = username;
-		populateOrders();
-	}
-
-	public void populateOrders(){
-		// Send a GET request to REST API server to get all invoices for this user and populate self.invoices
 	}
 
 	public Invoice searchInvoicesByID(int id) {
@@ -23,12 +18,15 @@ public abstract class User {
 			if (inv.getInvoiceId() == id) {
 				return inv;
 			}
-			l;
 		}
 		return null;
 	}
 
-	public List<Invoice> getInvoices() {
+	public List<Invoice> getInvoices(){
 		return invoices;
+	}
+
+	public List<Invoice> sortedInvoices(){
+		return null;
 	}
 }

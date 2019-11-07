@@ -34,4 +34,5 @@ dependencies {
     // rxjava
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0-RC4'
     implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 }

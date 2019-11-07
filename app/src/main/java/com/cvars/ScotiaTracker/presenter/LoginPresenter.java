@@ -45,7 +45,7 @@ public class LoginPresenter implements LoginResponseHandler {
     @Override
     public void notifyLoginResponse() {
         if (loginModel.isLoginSuccess()) {
-            view.changeToInvoiceActivity(loginModel.getUserType(), loginModel.getUsername());
+            view.changeToHomeActivity(loginModel.getUserType(), loginModel.getUsername());
         } else {
             view.displayErrorMessage(loginModel.getErrorMessage());
         }

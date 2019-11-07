@@ -4,12 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class Invoice {
+class Invoice implements Comparable<Invoice> {
     // Represents a total order made by a SmallBusinessOwner from Supplier, and delivered by Driver
 
     private int invoiceId;
-    private List<Order> orders;
     private double totalCost;
+    private String  completionDate;
+    private String issuedDate;
+
+    private List<Order> orders;
     private Map<String, Boolean> status;
 
     public Invoice(int invoiceId, List<Order> orders){
@@ -53,7 +56,32 @@ class Invoice {
         return orders;
     }
 
+    @Override
     public int compareTo(Invoice o)
     {
-
+        Map<String, Boolean> myStatus = this.status;
+        Map<String, Boolean> otherStatus = ((Invoice) o).status;
+        if (myStatus.get("payment") && !otherStatus.get("payment")) {
+            return 1;
+        }
+        if (myStatus.get("onTheWay") && !otherStatus.get("onTheWay")) {
+            return 1;
+        }
+        if (myStatus.get("arrived") && !otherStatus.get("arrived")) {
+            return 1;
+        }
+        if (myStatus.get("payment") && otherStatus.get("payment")) {
+            return 0;
+        }
+        if (myStatus.get("onTheWay") && otherStatus.get("onTheWay")) {
+            return 0;
+        }
+        if (myStatus.get("arrived") && otherStatus.get("arrived")) {
+            return 0;
+        }
+        return -1;
     }
+
+
+
+}

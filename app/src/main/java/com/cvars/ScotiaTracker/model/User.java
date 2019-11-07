@@ -1,5 +1,6 @@
 package com.cvars.ScotiaTracker.model;
 
+import java.util.Collections;
 import java.util.List;
 
 public abstract class User {
@@ -9,10 +10,7 @@ public abstract class User {
 
 	public User(String username){
 		this.username = username;
-		populateOrders();
 	}
-
-
 
 	public Invoice searchInvoicesByID(int id) {
 		// returns Invoice with id if exists, else, returns null
@@ -21,7 +19,6 @@ public abstract class User {
 			if (inv.getInvoiceId() == id) {
 				return inv;
 			}
-			l;
 		}
 		return null;
 	}
@@ -31,6 +28,7 @@ public abstract class User {
 	}
 
 	public List<Invoice> sortedInvoices() {
-
+		Collections.sort(invoices);
+		return getInvoices();
 	}
 }

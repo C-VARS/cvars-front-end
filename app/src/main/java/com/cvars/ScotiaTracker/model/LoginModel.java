@@ -71,8 +71,7 @@ public class LoginModel implements Callback<JsonObject> {
     }
     // TODO
     private User getUserFromServer(String username, String type) {
-        // returns user by username from server
-
+        return null;
     }
     public Boolean isLoginSuccess(){
         return loginSuccess;
@@ -88,7 +87,6 @@ public class LoginModel implements Callback<JsonObject> {
         this.loginSuccess = false;
         responseHandler.notifyResponse();
     }
-
 
     /**
      * Getter for the potential error message

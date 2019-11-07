@@ -1,7 +1,6 @@
 package com.cvars.ScotiaTracker.activity;
 
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 

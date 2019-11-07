@@ -23,8 +23,9 @@ public abstract class User {
 			if (inv.getInvoiceId() == id) {
 				return inv;
 			}
-			return null;
+			l;
 		}
+		return null;
 	}
 
 	public List<Invoice> getInvoices() {

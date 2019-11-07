@@ -16,7 +16,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         this.menu = findViewById(R.id.menu);
-        int[] widgets= {R.mipmap.scotialogo_round, R.drawable.scotialogo_background, R.drawable.scotialogo_background, R.drawable.scotialogo_background};
+        int[] widgets= {R.drawable.ic_home, R.drawable.ic_clipboard_notes, R.drawable.ic_search_alt, R.drawable.ic_cog};
 
         for (int i = 0; i<this.menu.getTabCount(); i++){
             this.menu.getTabAt(i).setIcon(widgets[i]);

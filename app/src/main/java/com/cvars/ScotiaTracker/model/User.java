@@ -23,12 +23,7 @@ public abstract class User {
 		return null;
 	}
 
-	public List<Invoice> getInvoices() {
+	public List<Invoice> getInvoices(){
 		return invoices;
 	}
-
-	public List<Invoice> sortedInvoices() {
-		Collections.sort(invoices);
-		return getInvoices();
 	}
-}

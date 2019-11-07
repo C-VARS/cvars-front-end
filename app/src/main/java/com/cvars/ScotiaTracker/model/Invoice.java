@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-class Invoice implements Comparable<Invoice>{
+public class Invoice implements Comparable<Invoice> {
     // Represents a total order made by a SmallBusinessOwner from Supplier, and delivered by Driver
 
     @SerializedName("invoiceID")

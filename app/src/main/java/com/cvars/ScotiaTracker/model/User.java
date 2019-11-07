@@ -12,9 +12,7 @@ public abstract class User {
 		populateOrders();
 	}
 
-	public void populateOrders(){
-		// Send a GET request to REST API server to get all invoices for this user and populate self.invoices
-	}
+
 
 	public Invoice searchInvoicesByID(int id) {
 		// returns Invoice with id if exists, else, returns null
@@ -30,5 +28,9 @@ public abstract class User {
 
 	public List<Invoice> getInvoices() {
 		return invoices;
+	}
+
+	public List<Invoice> sortedInvoices() {
+
 	}
 }

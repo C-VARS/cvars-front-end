@@ -53,4 +53,7 @@ class Invoice {
         return orders;
     }
 
-}
+    public int compareTo(Invoice o)
+    {
+
+    }

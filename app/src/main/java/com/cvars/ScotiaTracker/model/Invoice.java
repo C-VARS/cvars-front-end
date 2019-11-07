@@ -1,34 +1,49 @@
 package com.cvars.ScotiaTracker.model;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.google.gson.annotations.SerializedName;
 
-class Invoice {
+import java.util.List;
+
+public class Invoice implements Comparable<Invoice> {
     // Represents a total order made by a SmallBusinessOwner from Supplier, and delivered by Driver
 
-    private String invoiceId;
-    private List<Order> orders;
-    private double totalCost;
-    private Map<String, Boolean> status;
+    @SerializedName("invoiceID")
+    private int invoiceId;
 
-    public Invoice(String invoiceId, List<Order> orders){
+    @SerializedName("customerName")
+    private String customerName;
+    @SerializedName("driverName")
+    private String driverName;
+    @SerializedName("supplierName")
+    private String supplierName;
+
+    @SerializedName("customerAddress")
+    private String customerAddress;
+
+    @SerializedName("customerContact")
+    private String customerContact;
+    @SerializedName("driverContact")
+    private String driverContact;
+    @SerializedName("supplierContact")
+    private String supplierContact;
+
+    @SerializedName("issuedDate")
+    private String issuedDate;
+    @SerializedName("completionDate")
+    private String completionDate;
+
+    @SerializedName("orders")
+    private List<Order> orders;
+
+    @SerializedName("orderStatus")
+    private OrderStatus orderStatus;
+
+    private double totalCost;
+
+    public Invoice(int invoiceId, List<Order> orders){
         this.invoiceId = invoiceId;
         this.orders = orders;
         this.totalCost = totalCost(orders);
-
-        // initialize status to empty. Note: order_received is assumed to be True
-        this.status = new HashMap<>();
-        this.status.put("order_received", true);
-        this.status.put("on_the_way", false);
-        this.status.put("arrived", false);
-        this.status.put("payment_received", true);
-
-    }
-
-    
-    public void updateStatus(String key, Boolean value){
-        this.status.put(key, value);
     }
 
     /**
@@ -47,12 +62,91 @@ class Invoice {
     }
 
 
-    public String getInvoiceId() {
+    @Override
+    public int compareTo(Invoice o)
+    {
+       Invoice other = (Invoice) o;
+       if (this.orderStatus.paymentProcessed && !o.orderStatus.paymentProcessed) {
+           return 1;
+       }
+        if (this.orderStatus.arrived && !o.orderStatus.arrived) {
+            return 1;
+        }
+        if (this.orderStatus.onTheWay && !o.orderStatus.onTheWay) {
+            return 1;
+        }
+        if (this.orderStatus.paymentProcessed && o.orderStatus.paymentProcessed) {
+            return 0;
+        }
+        if (this.orderStatus.arrived && !o.orderStatus.arrived) {
+            return 0;
+        }
+        if (this.orderStatus.onTheWay && !o.orderStatus.onTheWay) {
+            return 0;
+        }
+
+        return -1;
+
+    }
+
+    public int getInvoiceId() {
         return invoiceId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public String getDriverName() {
+        return driverName;
+    }
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public String getCustomerAddress() {
+        return customerAddress;
+    }
+
+    public String getCustomerContact() {
+        return customerContact;
+    }
+
+    public String getDriverContact() {
+        return driverContact;
+    }
+
+    public String getSupplierContact() {
+        return supplierContact;
+    }
+
+    public String getIssuedDate() {
+        return issuedDate;
+    }
+
+    public String getCompletionDate() {
+        return completionDate;
     }
 
     public List<Order> getOrders() {
         return orders;
     }
 
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public double getTotalCost() {
+        return totalCost;
+    }
 }
+
+    class OrderStatus{
+        @SerializedName("onTheWay")
+        public boolean onTheWay;
+        @SerializedName("arrived")
+        public boolean arrived;
+        @SerializedName("payment")
+        public boolean paymentProcessed;
+    }

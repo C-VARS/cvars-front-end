@@ -5,5 +5,5 @@ import com.cvars.ScotiaTracker.model.UserType;
 public interface LoginView {
     void displayErrorMessage(String message);
 
-    void changeToInvoiceActivity(UserType type, String username);
+    void changeToHomeActivity(UserType type, String username);
 }

@@ -8,7 +8,7 @@ public abstract class User {
 	private String username;
 	private List<Invoice> invoices;
 
-	public User(String username){
+	public User(String username) {
 		this.username = username;
 	}
 
@@ -23,7 +23,7 @@ public abstract class User {
 		return null;
 	}
 
-	public List<Invoice> getInvoices(){
+	public List<Invoice> getInvoices() {
 		return invoices;
 	}
-	}
+}

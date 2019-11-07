@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cvars.ScotiaTracker.R;
+import com.cvars.ScotiaTracker.model.User;
 import com.cvars.ScotiaTracker.model.UserType;
 import com.cvars.ScotiaTracker.presenter.LoginPresenter;
 import com.cvars.ScotiaTracker.view.LoginView;
@@ -21,7 +22,7 @@ import com.cvars.ScotiaTracker.view.LoginView;
 public class MainActivity extends AppCompatActivity implements LoginView {
 
     /**
-     * A reference to the Presenter that corresponds with the Login functionality
+     * A reference to the LoginPresenter that corresponds with the Login functionality
      */
     private LoginPresenter loginPresenter;
     private EditText password;
@@ -87,8 +88,8 @@ public class MainActivity extends AppCompatActivity implements LoginView {
      * @param username username of logged in User
      */
     @Override
-    public void changeToHomeActivity(UserType type, String username) {
-        showToast("Logged in as " + type + " with username " + username);
+    public void changeToHomeActivity(User user) {
+        //showToast("Logged in as " + user. + " with username " + username);
         requestProcessed = true;
         Intent myIntent = new Intent(this, UserActivity.class);
         startActivity(myIntent);

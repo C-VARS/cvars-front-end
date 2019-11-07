@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements LoginView {
     }
 
     /**
-     * This method is called by LoginPresenter to switch to InvoiceActivity after a successful
+     * This method is called by LoginPresenter to switch to HomeActivity after a successful
      * Login
      * @param type the type of logged in User
      * @param username username of logged in User
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements LoginView {
     public void changeToInvoiceActivity(UserType type, String username) {
         showToast("Logged in as " + type + " with username " + username);
         requestProcessed = true;
-        Intent myIntent = new Intent(this, InvoiceActivity.class);
+        Intent myIntent = new Intent(this, HomeActivity.class);
         startActivity(myIntent);
     }
 }

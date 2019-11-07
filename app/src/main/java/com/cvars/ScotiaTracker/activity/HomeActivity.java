@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.cvars.ScotiaTracker.R;
 
-public class InvoiceActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_invoice);
+        setContentView(R.layout.activity_home);
     }
 }

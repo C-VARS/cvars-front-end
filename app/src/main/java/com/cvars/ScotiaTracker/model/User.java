@@ -9,10 +9,7 @@ public abstract class User {
 
 	public User(String username){
 		this.username = username;
-		populateOrders();
 	}
-
-
 
 	public Invoice searchInvoicesByID(int id) {
 		// returns Invoice with id if exists, else, returns null
@@ -21,16 +18,15 @@ public abstract class User {
 			if (inv.getInvoiceId() == id) {
 				return inv;
 			}
-			l;
 		}
 		return null;
 	}
 
-	public List<Invoice> getInvoices() {
+	public List<Invoice> getInvoices(){
 		return invoices;
 	}
 
-	public List<Invoice> sortedInvoices() {
-
+	public List<Invoice> sortedInvoices(){
+		return null;
 	}
 }

@@ -1,9 +1,16 @@
 package com.cvars.ScotiaTracker.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Order {
     // Represents a specific Order and quantity ordered by a SmallBusinessOwner from Supplier
+    @SerializedName("item")
     private String name;
+
+    @SerializedName("price")
     private double singleItemPrice;
+
+    @SerializedName("amount")
     private int quantity;
 
     public Order(String name, double price, int quantity){

@@ -49,7 +49,7 @@ public class InvoicePresenter implements ResponseHandler {
     @Override
     public void notifyResponse() {
             System.out.println("invoice received.");
-            view.changeToInvoiceActivity(loginModel.getUserType(), loginModel.getUsername());
+            view.changeToHomeActivity(loginModel.getUserType(), loginModel.getUsername());
     }
 
 }

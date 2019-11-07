@@ -7,12 +7,12 @@ import java.util.Map;
 class Invoice {
     // Represents a total order made by a SmallBusinessOwner from Supplier, and delivered by Driver
 
-    private String invoiceId;
+    private int invoiceId;
     private List<Order> orders;
     private double totalCost;
     private Map<String, Boolean> status;
 
-    public Invoice(String invoiceId, List<Order> orders){
+    public Invoice(int invoiceId, List<Order> orders){
         this.invoiceId = invoiceId;
         this.orders = orders;
         this.totalCost = totalCost(orders);
@@ -47,9 +47,7 @@ class Invoice {
     }
 
 
-    public String getInvoiceId() {
-        return invoiceId;
-    }
+    public int getInvoiceId() { return invoiceId;}
 
     public List<Order> getOrders() {
         return orders;

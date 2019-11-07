@@ -16,7 +16,18 @@ public abstract class User {
 		// Send a GET request to REST API server to get all invoices for this user and populate self.invoices
 	}
 
-	public List<Invoice> searchOrdersByID()  {
+	public Invoice searchInvoicesByID(int id) {
+		// returns Invoice with id if exists, else, returns null
 
+		for (Invoice inv : invoices) {
+			if (inv.getInvoiceId() == id) {
+				return inv;
+			}
+			return null;
+		}
+	}
+
+	public List<Invoice> getInvoices() {
+		return invoices;
 	}
 }

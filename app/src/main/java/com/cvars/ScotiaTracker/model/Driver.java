@@ -9,7 +9,7 @@ public class Driver extends User {
 		super(username);
 	}
 
-	public void toggleOnMyWay(Order order){
+	public void toggleOnMyWay(Invoice invoice){
 
 	}
 

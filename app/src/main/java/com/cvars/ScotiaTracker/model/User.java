@@ -5,7 +5,7 @@ import java.util.List;
 public abstract class User {
 
 	private String username;
-	private List<Order> orders;
+	private List<Invoice> invoices;
 
 	public User(String username){
 		this.username = username;
@@ -13,7 +13,7 @@ public abstract class User {
 	}
 
 	public void populateOrders(){
-		// Send a GET request to REST API server to get all orders for this user and populate self.orders
+		// Send a GET request to REST API server to get all invoices for this user and populate self.invoices
 	}
 
 }

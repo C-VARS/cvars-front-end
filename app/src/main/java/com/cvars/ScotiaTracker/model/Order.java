@@ -1,58 +1,30 @@
 package com.cvars.ScotiaTracker.model;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+public class Order {
+    // Represents a specific Order and quantity ordered by a SmallBusinessOwner from Supplier
+    private String name;
+    private double singleItemPrice;
+    private int quantity;
 
-class Order {
-    // Represents a total order made by a SmallBusinessOwner from Supplier, and delivered by Driver
-
-    private String invoiceId;
-    private List<Item> items;
-    private double totalCost;
-    private Map<String, Boolean> status;
-
-    public Order(String invoiceId, List<Item> items){
-        this.invoiceId = invoiceId;
-        this.items = items;
-        this.totalCost = totalCost(items);
-
-        // initialize status to empty. Note: order_received is assumed to be True
-        this.status = new HashMap<>();
-        this.status.put("order_received", true);
-        this.status.put("on_the_way", false);
-        this.status.put("arrived", false);
-        this.status.put("payment_received", true);
-
+    public Order(String name, double price, int quantity){
+        this.name = name;
+        this.singleItemPrice = price;
+        this.quantity = quantity;
     }
 
-    
-    public void updateStatus(String key, Boolean value){
-        this.status.put(key, value);
+    public double getTotalPrice() {
+        return singleItemPrice * quantity;
     }
 
-    /**
-     * Iterates through the list of items contained in the order and
-     * adds their cost to sum.
-     * @param items a List of the items within this order.
-     * @return the total cost of all items.
-     */
-    public double totalCost(List<Item> items) {
-        // sums total price of all items
-        double sum = 0.0;
-        for (Item item : items){
-            sum += item.getTotalPrice();
-        }
-        return sum;
+    public String getName() {
+        return name;
     }
 
-
-    public String getInvoiceId() {
-        return invoiceId;
+    public double singleItemPrice() {
+        return singleItemPrice;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public int getQuantity() {
+        return quantity;
     }
-
 }

@@ -10,7 +10,6 @@ public abstract class User {
 
 	public User(String username) {
 		this.username = username;
-		//populateOrders();
 	}
 
 	public Invoice searchInvoicesByID(int id) {

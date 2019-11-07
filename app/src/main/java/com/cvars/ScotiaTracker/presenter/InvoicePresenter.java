@@ -3,10 +3,8 @@ package com.cvars.ScotiaTracker.presenter;
 import android.util.Log;
 
 import com.cvars.ScotiaTracker.model.InvoiceModel;
-import com.cvars.ScotiaTracker.model.LoginModel;
 import com.cvars.ScotiaTracker.responseHandlers.ResponseHandler;
 import com.cvars.ScotiaTracker.view.InvoiceView;
-import com.cvars.ScotiaTracker.view.LoginView;
 
 /**
  * The InvoicePresenter for the  functionality. Implements ResponseHandler to respond to HTTP
@@ -44,8 +42,7 @@ public class InvoicePresenter implements ResponseHandler{
      */
     @Override
     public void notifyResponse() {
-            System.out.println("invoice received.");
-
+            System.out.println("invoice received.");   
     }
 
 }

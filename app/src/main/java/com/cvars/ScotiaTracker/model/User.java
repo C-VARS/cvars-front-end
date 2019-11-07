@@ -13,7 +13,7 @@ public abstract class User {
 	}
 
 	public void populateOrders(){
-		// Send a GET request to REST API server to get all orders for this user and populate self.orders
+		// Send a GET request to REST API server to get all invoices for this user and populate self.invoices
 	}
 
 	public List<Invoice> searchOrdersByID()  {

@@ -6,7 +6,7 @@ public class SmallBusinessOwner extends User{
         super(username);
     }
 
-    public void confirmPayment(Order order){
+    public void confirmPayment(Invoice invoice){
 
     }
 }

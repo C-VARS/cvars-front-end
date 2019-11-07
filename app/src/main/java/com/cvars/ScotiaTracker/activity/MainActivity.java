@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements LoginView {
      * @param username username of logged in User
      */
     @Override
-    public void changeToInvoiceActivity(UserType type, String username) {
+    public void changeToHomeActivity(UserType type, String username) {
         showToast("Logged in as " + type + " with username " + username);
         requestProcessed = true;
         Intent myIntent = new Intent(this, HomeActivity.class);

@@ -6,5 +6,5 @@ import com.cvars.ScotiaTracker.presenter.LoginPresenter;
 public interface LoginView {
     void displayErrorMessage(String message);
 
-    void changeToInvoiceActivity(UserType type, String username);
+    void changeToHomeActivity(UserType type, String username);
 }

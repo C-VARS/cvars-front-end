@@ -1,7 +1,6 @@
 package com.cvars.ScotiaTracker.presenter;
 
 import com.cvars.ScotiaTracker.model.LoginModel;
-import com.cvars.ScotiaTracker.model.User;
 import com.cvars.ScotiaTracker.responseHandlers.ResponseHandler;
 import com.cvars.ScotiaTracker.view.LoginView;
 
@@ -11,7 +10,6 @@ import com.cvars.ScotiaTracker.view.LoginView;
  */
 public class LoginPresenter implements ResponseHandler {
 
-    public User user;
     /**
      * A reference to the UI that implements LoginView interface
      */
@@ -41,18 +39,25 @@ public class LoginPresenter implements ResponseHandler {
         loginModel.attemptLogin(username, password);
     }
 
-
     /**
      * Updates the view based on the information in the LoginModel
      */
     @Override
     public void notifyResponse() {
         if (loginModel.isLoginSuccess()) {
-            this.user = loginModel.user;
-            view.changeToHomeActivity(user);
+            view.changeToHomeActivity(loginModel.getUserType(), loginModel.getUsername(),
+                    loginModel.getPassword());
         } else {
             view.displayErrorMessage(loginModel.getErrorMessage());
         }
+    }
+
+    /**
+     * Life cycle handling methods to prevent data leak
+     */
+    public void onStop(){
+        view = null;
+        loginModel = null;
     }
 
 }

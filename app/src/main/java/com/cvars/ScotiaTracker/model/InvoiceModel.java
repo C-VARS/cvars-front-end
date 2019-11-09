@@ -39,7 +39,6 @@ public class InvoiceModel implements Callback<JsonObject> {
      */
     public void getInvoices(String username) {
         Call<JsonObject> call = endpointAPI.getInvoices(username);
-        // Asynchronous Call occurs, passing in this loginModel
         call.enqueue(this);
     }
 
@@ -51,14 +50,6 @@ public class InvoiceModel implements Callback<JsonObject> {
     @Override
     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
         JsonObject json = response.body();
-//        loginSuccess = json.get("loginStatus").getAsBoolean();
-//        if (loginSuccess) {
-//            String userType = json.get("userType").getAsString();
-//            this.userType = convertUserToEnum(userType);
-//        } else {
-//            this.errorMessage = "Incorrect username or password";
-//        }
-
         System.out.println(json);
         responseHandler.notifyResponse();
     }
@@ -70,9 +61,6 @@ public class InvoiceModel implements Callback<JsonObject> {
      */
     @Override
     public void onFailure(Call<JsonObject> call, Throwable t) {
-//        loginSuccess = false;
-//        errorMessage = "Connection failure";
-
         responseHandler.notifyResponse();
     }
 }

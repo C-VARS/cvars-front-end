@@ -20,7 +20,8 @@ public class LoginModel implements Callback<JsonObject> {
     private EndpointAPI endpointAPI;
     private Boolean loginSuccess;
     private String username;
-    public User user;
+    private String password;
+    private UserType userType;
     /**
      * A reference to a ResponseHandler interface that will be called whenever an HTTP response
      */
@@ -47,6 +48,7 @@ public class LoginModel implements Callback<JsonObject> {
         // Asynchronous Call occurs, passing in this loginModel
         call.enqueue(this);
         this.username = username;
+        this.password = password;
     }
 
     /**
@@ -57,11 +59,10 @@ public class LoginModel implements Callback<JsonObject> {
     @Override
     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
         JsonObject json = response.body();
-        Boolean loginSuccess = json.get("loginStatus").getAsBoolean();
+        loginSuccess = json.get("loginStatus").getAsBoolean();
         if (loginSuccess) {
             loginSuccess = true;
-            // create User and save it in instance variable
-            this.user = getUserFromServer(this.username,  json.get("getType").getAsString());
+            userType = convertUserToEnum(json.get("userType").getAsString());
 
         } else {
             this.errorMessage = "Incorrect username or password";
@@ -69,13 +70,7 @@ public class LoginModel implements Callback<JsonObject> {
 
         responseHandler.notifyResponse();
     }
-    // TODO
-    private User getUserFromServer(String username, String type) {
-        return null;
-    }
-    public Boolean isLoginSuccess(){
-        return loginSuccess;
-    }
+
     /**
      * On a failed HTTP request, change the errorMessage and notify a login response
      * @param call Call object
@@ -95,6 +90,32 @@ public class LoginModel implements Callback<JsonObject> {
     public String getErrorMessage() {
         return errorMessage;
     }
+
+    /**
+     * Getter for the login success status
+     * @return boolean of whether the last login succeeeded
+     */
+    public Boolean isLoginSuccess(){
+        return loginSuccess;
+    }
+
+    /**
+     * Getter for username
+     * @return username
+     */
+    public String getUsername(){return username;}
+
+    /**
+     * Getter for user type
+     * @return user type
+     */
+    public UserType getUserType(){return userType;}
+
+    /**
+     * Getter for password
+     * @return password
+     */
+    public String getPassword(){return password;}
 
     /**
      * A method that converts the JSON response of the user's type into the corresponding Enum

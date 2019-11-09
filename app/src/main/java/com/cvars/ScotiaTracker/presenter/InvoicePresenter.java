@@ -16,7 +16,6 @@ public class InvoicePresenter implements ResponseHandler{
      * A reference to the data model and connection object for the Login functionality
      */
     private InvoiceModel invoiceModel;
-
     private InvoiceView invoiceView;
 
     /**
@@ -24,7 +23,7 @@ public class InvoicePresenter implements ResponseHandler{
      *
      * @param view reference injection of a UI view that this presenter will manipulate
      */
-    public InvoicePresenter(InvoiceView view, InvoiceModel invoiceModel) {
+    public InvoicePresenter(InvoiceView view) {
         this.invoiceView = view;
         this.invoiceModel = new InvoiceModel(this);
     }

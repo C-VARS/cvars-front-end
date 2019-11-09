@@ -25,8 +25,6 @@ public class MainActivity extends AppCompatActivity implements LoginView {
      * A reference to the LoginPresenter that corresponds with the Login functionality
      */
     private LoginPresenter loginPresenter;
-    private EditText password;
-    private EditText username;
 
     /**
      * A flag variable used for concurrency purposes. Makes sure that the User does not give
@@ -53,10 +51,10 @@ public class MainActivity extends AppCompatActivity implements LoginView {
             return;
         }
 
-        this.username = findViewById(R.id.username);
-        this.password = findViewById(R.id.password);
-        String username = this.username.getText().toString();
-        String password = this.password.getText().toString();
+        EditText usernameField = findViewById(R.id.username);
+        EditText passwordField = findViewById(R.id.password);
+        String username = usernameField.getText().toString();
+        String password = passwordField.getText().toString();
 
         loginPresenter.attemptLogin(username, password);
         requestProcessed = false;
@@ -77,7 +75,8 @@ public class MainActivity extends AppCompatActivity implements LoginView {
      */
     @Override
     public void displayErrorMessage(String message) {
-        this.password.setError(message);
+        EditText passwordField = findViewById(R.id.password);
+        passwordField.setError(message);
         requestProcessed = true;
     }
 
@@ -88,10 +87,19 @@ public class MainActivity extends AppCompatActivity implements LoginView {
      * @param username username of logged in User
      */
     @Override
-    public void changeToHomeActivity(User user) {
-        //showToast("Logged in as " + user. + " with username " + username);
+    public void changeToHomeActivity(UserType type, String username, String password) {
         requestProcessed = true;
         Intent myIntent = new Intent(this, UserActivity.class);
+        myIntent.putExtra("username", username);
+        myIntent.putExtra("password", username);
+        myIntent.putExtra("userType", type.toString());
         startActivity(myIntent);
+        finish();
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        loginPresenter.onStop();
     }
 }

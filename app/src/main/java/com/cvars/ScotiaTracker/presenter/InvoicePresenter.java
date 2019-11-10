@@ -1,7 +1,5 @@
 package com.cvars.ScotiaTracker.presenter;
 
-import android.util.Log;
-
 import com.cvars.ScotiaTracker.model.InvoiceModel;
 import com.cvars.ScotiaTracker.responseHandlers.ResponseHandler;
 import com.cvars.ScotiaTracker.view.InvoiceView;

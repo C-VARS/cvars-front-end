@@ -17,6 +17,6 @@ public class InvoiceFragment extends Fragment implements InvoiceView {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_invoice, container, true);
+        return inflater.inflate(R.layout.fragment_invoice, container, false);
     }
 }

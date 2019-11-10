@@ -17,7 +17,7 @@ public class TabFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tab, container, true);
+        View view = inflater.inflate(R.layout.fragment_tab, container, false);
         TabLayout tab = view.findViewById(R.id.tab);
 
         int[] widgets = {R.drawable.ic_home, R.drawable.ic_clipboard_notes, R.drawable.ic_search_alt, R.drawable.ic_cog};

@@ -1,29 +1,40 @@
 package com.cvars.ScotiaTracker.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Collections;
 import java.util.List;
 
-public abstract class User {
+public class User {
+	/**
+	 * POJO for user information
+	 */
 
-	private String username;
-	private List<Invoice> invoices;
+	@SerializedName("name")
+	private String name;
 
-	public User(String username) {
-		this.username = username;
+	@SerializedName("contact")
+	private String contact;
+
+	@SerializedName("address")
+	private String address;
+
+	@SerializedName("bankInformation")
+	private String bankInformation;
+
+	public String getName() {
+		return name;
 	}
 
-	public Invoice searchInvoicesByID(int id) {
-		// returns Invoice with id if exists, else, returns null
-
-		for (Invoice inv : invoices) {
-			if (inv.getInvoiceId() == id) {
-				return inv;
-			}
-		}
-		return null;
+	public String getContact() {
+		return contact;
 	}
 
-	public List<Invoice> getInvoices() {
-		return invoices;
+	public String getAddress() {
+		return address;
+	}
+
+	public String getBankInformation() {
+		return bankInformation;
 	}
 }

@@ -1,10 +1,8 @@
 package com.cvars.ScotiaTracker.activity;
 
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.cvars.ScotiaTracker.R;
@@ -12,48 +10,49 @@ import com.cvars.ScotiaTracker.fragment.HomeFragment;
 import com.cvars.ScotiaTracker.fragment.InvoiceFragment;
 import com.cvars.ScotiaTracker.fragment.SearchFragment;
 import com.cvars.ScotiaTracker.fragment.SettingFragment;
+import com.cvars.ScotiaTracker.view.ViewType;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserActivity extends AppCompatActivity {
 
+    private Map<ViewType, Fragment> fragmentList;
+    private ViewType currentFragment;
+
+    private void initializeFragmentMap(){
+        fragmentList = new HashMap<>();
+        fragmentList.put(ViewType.HOME, new HomeFragment());
+        fragmentList.put(ViewType.INVOICE, new InvoiceFragment());
+        fragmentList.put(ViewType.SEARCH, new SearchFragment());
+        fragmentList.put(ViewType.SETTING, new SettingFragment());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        switchFragment(1);
+        initializeFragmentMap();
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        for (ViewType type: fragmentList.keySet()){
+            ft.add(R.id.fragmentContainer, fragmentList.get(type), type.name());
+            ft.hide(fragmentList.get((type)));
+        }
+        ft.show(fragmentList.get(ViewType.HOME));
+        ft.commit();
+        currentFragment = ViewType.HOME;
     }
 
-    public void switchFragment(int fragmentNum) {
 
-        /*
-        TODO: figure out how to make fragments persist in the background to avoid the need to remake
-        TODO: avoid the situation where you are already in a fragment and then click to restart the
-        same one
-         */
+    public void switchFragment(ViewType fragmentType) {
 
+        getSupportFragmentManager().beginTransaction()
+                .hide(fragmentList.get(currentFragment))
+                .show(fragmentList.get(fragmentType))
+                .commit();
 
-        Fragment fragment;
-        switch (fragmentNum) {
-            case 1:
-                fragment = new HomeFragment();
-                break;
-            case 2:
-                fragment = new InvoiceFragment();
-                break;
-            case 3:
-                fragment = new SearchFragment();
-                break;
-            case 4:
-                fragment = new SettingFragment();
-                break;
-            default:
-                return;
-        }
-
-        FragmentManager fm = this.getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragmentContainer, fragment);
-        ft.commit();
+        currentFragment = fragmentType;
     }
 
 

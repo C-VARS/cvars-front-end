@@ -2,6 +2,7 @@ package com.cvars.ScotiaTracker.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,12 @@ import androidx.fragment.app.Fragment;
 
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.activity.UserActivity;
+import com.cvars.ScotiaTracker.view.ViewType;
 import com.google.android.material.tabs.TabLayout;
 
 public class TabFragment extends Fragment {
 
-    TabSwitchListener listener = new TabSwitchListener();
+    private TabSwitchListener listener = new TabSwitchListener();
 
     @Nullable
     @Override
@@ -37,6 +39,7 @@ public class TabFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
+        Log.d("Tab", "This view is destroyed");
         super.onDestroyView();
         TabLayout tab = getView().findViewById(R.id.tab);
         tab.removeOnTabSelectedListener(listener);
@@ -46,10 +49,11 @@ public class TabFragment extends Fragment {
 
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
-            int tabNum = tab.getPosition() + 1;
+            int tabNum = tab.getPosition();
+            ViewType viewType = ViewType.valueOf(tabNum);
             Activity parentActivity = getActivity();
             if (parentActivity instanceof UserActivity) {
-                ((UserActivity) parentActivity).switchFragment(tabNum);
+                ((UserActivity) parentActivity).switchFragment(viewType);
             }
         }
 

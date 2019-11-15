@@ -10,6 +10,7 @@ import com.cvars.ScotiaTracker.fragment.HomeFragment;
 import com.cvars.ScotiaTracker.fragment.InvoiceFragment;
 import com.cvars.ScotiaTracker.fragment.SearchFragment;
 import com.cvars.ScotiaTracker.fragment.SettingFragment;
+import com.cvars.ScotiaTracker.model.InvoiceModel;
 import com.cvars.ScotiaTracker.view.ViewType;
 
 import java.util.HashMap;
@@ -44,6 +45,11 @@ public class UserActivity extends AppCompatActivity {
         currentFragment = ViewType.HOME;
     }
 
+    @Override
+    protected void onDestroy() {
+        fragmentList = null;
+        super.onDestroy();
+    }
 
     public void switchFragment(ViewType fragmentType) {
 
@@ -54,6 +60,5 @@ public class UserActivity extends AppCompatActivity {
 
         currentFragment = fragmentType;
     }
-
 
 }

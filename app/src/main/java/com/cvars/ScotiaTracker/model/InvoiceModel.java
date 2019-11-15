@@ -5,6 +5,8 @@ import com.cvars.ScotiaTracker.networkAPI.RetrofitNetwork;
 import com.cvars.ScotiaTracker.responseHandlers.ResponseHandler;
 import com.google.gson.JsonObject;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -13,7 +15,7 @@ import retrofit2.Response;
  * A Model object for the use case and information storage related to Invoices. Implements the Retrofit
  * Callback interface to handle asynchronous HTTP response.
  */
-public class InvoiceModel implements Callback<JsonObject> {
+public class InvoiceModel implements Callback<List<Invoice>> {
 
     private EndpointAPI endpointAPI;
 
@@ -38,29 +40,18 @@ public class InvoiceModel implements Callback<JsonObject> {
      * @param username
      */
     public void getInvoices(String username) {
-        Call<JsonObject> call = endpointAPI.getInvoices(username);
+        Call<List<Invoice>> call = endpointAPI.getInvoices(username);
         call.enqueue(this);
     }
 
-    /**
-     * On response from our HTTP request, notify a invoice response
-     * @param call retrofit Call object
-     * @param response retrofit Response object
-     */
+
     @Override
-    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-        JsonObject json = response.body();
-        System.out.println(json);
-        responseHandler.notifyResponse();
+    public void onResponse(Call<List<Invoice>> call, Response<List<Invoice>> response) {
+
     }
 
-    /**
-     * On a failed HTTP request, change the errorMessage and notify a invoice response
-     * @param call Call object
-     * @param t error object
-     */
     @Override
-    public void onFailure(Call<JsonObject> call, Throwable t) {
-        responseHandler.notifyResponse();
+    public void onFailure(Call<List<Invoice>> call, Throwable t) {
+
     }
 }

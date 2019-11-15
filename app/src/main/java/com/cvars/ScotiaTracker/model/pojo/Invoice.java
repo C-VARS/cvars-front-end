@@ -38,14 +38,6 @@ public class Invoice implements Comparable<Invoice> {
     @SerializedName("orderStatus")
     private OrderStatus orderStatus;
 
-    private double totalCost;
-
-    public Invoice(int invoiceId, List<Order> orders){
-        this.invoiceId = invoiceId;
-        this.orders = orders;
-        this.totalCost = totalCost(orders);
-    }
-
     /**
      * Iterates through the list of orders contained in the order and
      * adds their cost to sum.
@@ -136,17 +128,6 @@ public class Invoice implements Comparable<Invoice> {
     public OrderStatus getOrderStatus() {
         return orderStatus;
     }
-
-    public double getTotalCost() {
-        return totalCost;
-    }
 }
 
-    class OrderStatus{
-        @SerializedName("onTheWay")
-        public boolean onTheWay;
-        @SerializedName("arrived")
-        public boolean arrived;
-        @SerializedName("payment")
-        public boolean paymentProcessed;
-    }
+

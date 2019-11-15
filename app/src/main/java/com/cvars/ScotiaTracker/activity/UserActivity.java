@@ -13,6 +13,7 @@ import com.cvars.ScotiaTracker.fragment.SettingFragment;
 import com.cvars.ScotiaTracker.model.UserModel;
 import com.cvars.ScotiaTracker.presenter.UserPresenter;
 import com.cvars.ScotiaTracker.view.UserView;
+import com.cvars.ScotiaTracker.model.InvoiceModel;
 import com.cvars.ScotiaTracker.view.ViewType;
 
 import java.util.HashMap;
@@ -22,7 +23,6 @@ public class UserActivity extends AppCompatActivity implements UserView {
 
     private Map<ViewType, Fragment> fragmentList;
     private ViewType currentFragment;
-
 
     private void initializeFragmentMap(){
         fragmentList = new HashMap<>();
@@ -54,6 +54,11 @@ public class UserActivity extends AppCompatActivity implements UserView {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        fragmentList = null;
+        super.onDestroy();
+    }
 
     public void switchFragment(ViewType fragmentType) {
 

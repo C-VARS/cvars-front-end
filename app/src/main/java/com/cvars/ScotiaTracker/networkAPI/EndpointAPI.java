@@ -1,7 +1,10 @@
 package com.cvars.ScotiaTracker.networkAPI;
 
+import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.User;
 import com.google.gson.JsonObject;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -20,7 +23,10 @@ public interface EndpointAPI {
     Call<User> getUserInfo(@Query("username") String username);
 
     @GET("invoices")
-    Call<JsonObject> getInvoices(@Query("username") String username);
+    Call<List<Invoice>> getInvoices(@Query("username") String username);
+
+    @GET("users")
+    Call<User> getUserData(@Query("username") String username);
 
 }
 

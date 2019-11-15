@@ -1,5 +1,6 @@
 package com.cvars.ScotiaTracker.networkAPI;
 
+import com.cvars.ScotiaTracker.model.pojo.User;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -14,6 +15,9 @@ public interface EndpointAPI {
     @GET("users/login")
     Call<JsonObject> attemptLogin(@Query("username") String username,
                                   @Query("password") String password);
+
+    @GET("users")
+    Call<User> getUserInfo(@Query("username") String username);
 
     @GET("invoices")
     Call<JsonObject> getInvoices(@Query("username") String username);

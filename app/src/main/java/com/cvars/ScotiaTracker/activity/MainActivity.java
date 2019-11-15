@@ -10,8 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cvars.ScotiaTracker.R;
-import com.cvars.ScotiaTracker.model.User;
-import com.cvars.ScotiaTracker.model.UserType;
+import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.presenter.LoginPresenter;
 import com.cvars.ScotiaTracker.view.LoginView;
 

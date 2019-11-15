@@ -1,4 +1,4 @@
-package com.cvars.ScotiaTracker.model;
+package com.cvars.ScotiaTracker.model.pojo;
 public enum UserType {
     DRIVER,
     CUSTOMER,

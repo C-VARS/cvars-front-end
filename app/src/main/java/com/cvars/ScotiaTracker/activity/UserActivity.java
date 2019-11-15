@@ -10,15 +10,19 @@ import com.cvars.ScotiaTracker.fragment.HomeFragment;
 import com.cvars.ScotiaTracker.fragment.InvoiceFragment;
 import com.cvars.ScotiaTracker.fragment.SearchFragment;
 import com.cvars.ScotiaTracker.fragment.SettingFragment;
+import com.cvars.ScotiaTracker.model.UserModel;
+import com.cvars.ScotiaTracker.presenter.UserPresenter;
+import com.cvars.ScotiaTracker.view.UserView;
 import com.cvars.ScotiaTracker.view.ViewType;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserActivity extends AppCompatActivity {
+public class UserActivity extends AppCompatActivity implements UserView {
 
     private Map<ViewType, Fragment> fragmentList;
     private ViewType currentFragment;
+
 
     private void initializeFragmentMap(){
         fragmentList = new HashMap<>();
@@ -42,6 +46,12 @@ public class UserActivity extends AppCompatActivity {
         ft.show(fragmentList.get(ViewType.HOME));
         ft.commit();
         currentFragment = ViewType.HOME;
+
+        UserPresenter up = new UserPresenter( this);
+        UserModel um = new UserModel(up);
+        String username = getIntent().getStringExtra("username");
+        up.createUser(username);
+
     }
 
 

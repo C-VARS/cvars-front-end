@@ -1,5 +1,6 @@
 package com.cvars.ScotiaTracker.model;
 
+import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.networkAPI.EndpointAPI;
 import com.cvars.ScotiaTracker.networkAPI.RetrofitNetwork;
 import com.cvars.ScotiaTracker.responseHandlers.ResponseHandler;

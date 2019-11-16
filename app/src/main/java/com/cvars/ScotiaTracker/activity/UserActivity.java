@@ -50,7 +50,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
 
         TabLayout tab = findViewById(R.id.tab);
 
-        int[] widgets = {R.drawable.ic_home, R.drawable.ic_clipboard_notes, R.drawable.ic_search_alt, R.drawable.ic_cog};
+        int[] widgets = {R.drawable.ic_home, R.drawable.ic_clipboard_notes, R.drawable.ic_cog};
 
         for (int i = 0; i < tab.getTabCount(); i++) {
             tab.getTabAt(i).setIcon(widgets[i]);
@@ -63,7 +63,6 @@ public class UserActivity extends AppCompatActivity implements UserView {
     private void initializeFragmentMap(){
         fragmentMap = new HashMap<>();
         fragmentMap.put(ViewType.HOME, new HomeFragment());
-        fragmentMap.put(ViewType.INVOICE, new InvoiceFragment());
         fragmentMap.put(ViewType.SEARCH, new SearchFragment());
         fragmentMap.put(ViewType.SETTING, new SettingFragment());
 

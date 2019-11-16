@@ -1,5 +1,7 @@
 package com.cvars.ScotiaTracker.view;
 
-public interface InvoiceView {
+import com.cvars.ScotiaTracker.model.pojo.Invoice;
 
+public interface InvoiceView {
+    void updateInformation(Invoice invoice);
 }

@@ -20,20 +20,12 @@ public class UserModel implements Callback<User> {
      * A Retrofit API connection object for getting User Information
      */
     private EndpointAPI endpointAPI;
-    private Boolean loginSuccess;
     private User user;
+
     /**
-     * A reference to a ResponseHandler interface that will be called whenever an HTTP response
+     * Constructs a userModel
      */
-    private ResponseHandler responseHandler;
-    private String errorMessage;
-    /**
-     * Constructs a userModel with an injected ResponseHandler reference
-     * which interacts with the backend
-     * @param responseHandler
-     */
-    public UserModel(ResponseHandler responseHandler) {
-        this.responseHandler = responseHandler;
+    public UserModel() {
         endpointAPI = RetrofitNetwork.retrofit.create(EndpointAPI.class);
     }
 
@@ -41,7 +33,7 @@ public class UserModel implements Callback<User> {
      * Starts an Asynchronous Call using Retrofit to get a users's information
      * @param username
      */
-    public void createUser(String username) {
+    public void requestUser(String username) {
         Call<User> call = endpointAPI.getUserInfo(username);
         // Asynchronous Call occurs, passing in this
         call.enqueue(this);
@@ -56,8 +48,6 @@ public class UserModel implements Callback<User> {
     public void onResponse(Call<User> call, Response<User> response) {
         // TODO: add response, checking
         this.user = response.body();
-
-        responseHandler.notifyResponse();
     }
 
     /**
@@ -67,9 +57,6 @@ public class UserModel implements Callback<User> {
      */
     @Override
     public void onFailure(Call<User> call, Throwable t) {
-        errorMessage = "Connection failure";
-        this.loginSuccess = false;
-        responseHandler.notifyResponse();
     }
 
     /**
@@ -77,6 +64,7 @@ public class UserModel implements Callback<User> {
      * @return username
      */
     public String getUsername(){return this.user.getName();}
+
 
 
 }

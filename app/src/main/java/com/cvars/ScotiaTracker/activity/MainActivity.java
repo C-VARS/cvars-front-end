@@ -59,14 +59,6 @@ public class MainActivity extends AppCompatActivity implements LoginView {
         requestProcessed = false;
     }
 
-    /**
-     * Displays a Toast text to notify the user of some information
-     *
-     * @param message The string that is meant to be displayed
-     */
-    public void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
 
     /**
      * An overridden interface method for this UI to display a message
@@ -91,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements LoginView {
         Intent myIntent = new Intent(this, UserActivity.class);
         myIntent.putExtra("username", username);
         myIntent.putExtra("password", username);
-        myIntent.putExtra("userType", type.toString());
+        myIntent.putExtra("userType", type.name());
         startActivity(myIntent);
         finish();
     }

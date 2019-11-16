@@ -1,33 +1,20 @@
 package com.cvars.ScotiaTracker.presenter;
 
 import com.cvars.ScotiaTracker.model.UserModel;
-import com.cvars.ScotiaTracker.responseHandlers.ResponseHandler;
-import com.cvars.ScotiaTracker.view.UserView;
+import com.cvars.ScotiaTracker.responseListeners.LoginResponseListener;
 
 /**
  * The LoginPresenter for the login functionality. Implements LoginResponderHandler to respond to HTTP
  * results from the model.
  */
-public class UserPresenter implements ResponseHandler {
+public class UserPresenter implements LoginResponseListener {
 
-    /**
-     * A reference to the UI that implements LoginView interface
-     */
-    private UserView view;
 
     /**
      * A reference to the data model and connection object for the Login functionality
      */
     private UserModel userModel;
 
-    /**
-     * Constructor for a LoginPresenter that interacts with both the UI view and the Model data
-     *
-     * @param view reference injection of a UI view that this presenter will manipulate
-     */
-    public UserPresenter(UserView view) {
-        this.view = view;
-    }
 
     /**
      * Updates the view based on the information in the LoginModel
@@ -48,7 +35,6 @@ public class UserPresenter implements ResponseHandler {
      * Life cycle handling methods to prevent data leak
      */
     public void onStop(){
-        view = null;
         userModel = null;
     }
 

@@ -1,9 +1,9 @@
 package com.cvars.ScotiaTracker.model;
 
 import com.cvars.ScotiaTracker.model.pojo.UserType;
-import com.cvars.ScotiaTracker.networkAPI.EndpointAPI;
+import com.cvars.ScotiaTracker.networkAPI.LoginAPI;
 import com.cvars.ScotiaTracker.networkAPI.RetrofitNetwork;
-import com.cvars.ScotiaTracker.responseHandlers.ResponseHandler;
+import com.cvars.ScotiaTracker.responseListeners.LoginResponseListener;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -18,25 +18,25 @@ public class LoginModel implements Callback<JsonObject> {
     /**
      * A Retrofit API connection object for login
      */
-    private EndpointAPI endpointAPI;
+    private LoginAPI loginAPI;
     private Boolean loginSuccess;
     private String username;
     private String password;
     private UserType userType;
     /**
-     * A reference to a ResponseHandler interface that will be called whenever an HTTP response
+     * A reference to a LoginResponseListener interface that will be called whenever an HTTP response
      */
-    private ResponseHandler responseHandler;
+    private LoginResponseListener loginResponseListener;
     private String errorMessage;
     /**
-     * Constructs a loginModel with an injected ResponseHandler reference
+     * Constructs a loginModel with an injected LoginResponseListener reference
      * which interacts with the backend and has some information
      * about the status of the login
-     * @param responseHandler
+     * @param loginResponseListener
      */
-    public LoginModel(ResponseHandler responseHandler) {
-        this.responseHandler = responseHandler;
-        endpointAPI = RetrofitNetwork.retrofit.create(EndpointAPI.class);
+    public LoginModel(LoginResponseListener loginResponseListener) {
+        this.loginResponseListener = loginResponseListener;
+        loginAPI = RetrofitNetwork.retrofit.create(LoginAPI.class);
     }
 
     /**
@@ -45,7 +45,7 @@ public class LoginModel implements Callback<JsonObject> {
      * @param password
      */
     public void attemptLogin(String username, String password) {
-        Call<JsonObject> call = endpointAPI.attemptLogin(username, password);
+        Call<JsonObject> call = loginAPI.attemptLogin(username, password);
         // Asynchronous Call occurs, passing in this loginModel
         call.enqueue(this);
         this.username = username;
@@ -69,7 +69,7 @@ public class LoginModel implements Callback<JsonObject> {
             this.errorMessage = "Incorrect username or password";
         }
 
-        responseHandler.notifyResponse();
+        loginResponseListener.notifyResponse();
     }
 
     /**
@@ -81,7 +81,7 @@ public class LoginModel implements Callback<JsonObject> {
     public void onFailure(Call<JsonObject> call, Throwable t) {
         errorMessage = "Connection failure";
         this.loginSuccess = false;
-        responseHandler.notifyResponse();
+        loginResponseListener.notifyResponse();
     }
 
     /**

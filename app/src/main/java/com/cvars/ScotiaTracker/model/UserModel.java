@@ -1,11 +1,11 @@
 package com.cvars.ScotiaTracker.model;
 
+import android.app.DownloadManager;
+
 import com.cvars.ScotiaTracker.model.pojo.User;
-import com.cvars.ScotiaTracker.model.pojo.UserType;
-import com.cvars.ScotiaTracker.networkAPI.EndpointAPI;
+import com.cvars.ScotiaTracker.networkAPI.LoginAPI;
 import com.cvars.ScotiaTracker.networkAPI.RetrofitNetwork;
-import com.cvars.ScotiaTracker.responseHandlers.ResponseHandler;
-import com.google.gson.JsonObject;
+import com.cvars.ScotiaTracker.networkAPI.UserAPI;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,22 +19,33 @@ public class UserModel implements Callback<User> {
     /**
      * A Retrofit API connection object for getting User Information
      */
-    private EndpointAPI endpointAPI;
+    private UserAPI userAPI;
     private User user;
+    private UserResponseListener listener;
+
+    private boolean actionSuccess;
+
+    enum UserAction{
+        REQUEST, UPDATE
+    }
+
+    interface UserResponseListener{
+        void notifyUserAction(UserAction action);
+    }
 
     /**
      * Constructs a userModel
      */
-    public UserModel() {
-        endpointAPI = RetrofitNetwork.retrofit.create(EndpointAPI.class);
+    UserModel() {
+        userAPI = RetrofitNetwork.retrofit.create(UserAPI.class);
     }
 
     /**
      * Starts an Asynchronous Call using Retrofit to get a users's information
      * @param username
      */
-    public void requestUser(String username) {
-        Call<User> call = endpointAPI.getUserInfo(username);
+    void requestUser(String username) {
+        Call<User> call = userAPI.getUserInfo(username);
         // Asynchronous Call occurs, passing in this
         call.enqueue(this);
     }
@@ -46,8 +57,8 @@ public class UserModel implements Callback<User> {
      */
     @Override
     public void onResponse(Call<User> call, Response<User> response) {
-        // TODO: add response, checking
         this.user = response.body();
+       listener.notifyUserAction(UserAction.REQUEST);
     }
 
     /**
@@ -65,6 +76,11 @@ public class UserModel implements Callback<User> {
      */
     public String getUsername(){return this.user.getName();}
 
+    public User getUser(){
+        return this.user;
+    }
 
-
+    public void setListener(UserResponseListener listener) {
+        this.listener = listener;
+    }
 }

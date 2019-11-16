@@ -1,14 +1,14 @@
 package com.cvars.ScotiaTracker.presenter;
 
 import com.cvars.ScotiaTracker.model.InvoiceModel;
-import com.cvars.ScotiaTracker.responseHandlers.ResponseHandler;
+import com.cvars.ScotiaTracker.responseListeners.LoginResponseListener;
 import com.cvars.ScotiaTracker.view.InvoiceView;
 
 /**
- * The InvoicePresenter for the  functionality. Implements ResponseHandler to respond to HTTP
+ * The InvoicePresenter for the  functionality. Implements LoginResponseListener to respond to HTTP
  * results from the model.
  */
-public class InvoicePresenter implements ResponseHandler{
+public class InvoicePresenter implements LoginResponseListener {
 
     /**
      * A reference to the data model and connection object for the Login functionality

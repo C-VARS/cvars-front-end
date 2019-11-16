@@ -1,14 +1,14 @@
 package com.cvars.ScotiaTracker.presenter;
 
 import com.cvars.ScotiaTracker.model.LoginModel;
-import com.cvars.ScotiaTracker.responseHandlers.ResponseHandler;
+import com.cvars.ScotiaTracker.responseListeners.LoginResponseListener;
 import com.cvars.ScotiaTracker.view.LoginView;
 
 /**
  * The LoginPresenter for the login functionality. Implements LoginResponderHandler to respond to HTTP
  * results from the model.
  */
-public class LoginPresenter implements ResponseHandler {
+public class LoginPresenter implements LoginResponseListener {
 
     /**
      * A reference to the UI that implements LoginView interface

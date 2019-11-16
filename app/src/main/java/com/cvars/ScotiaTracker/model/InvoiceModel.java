@@ -1,10 +1,9 @@
 package com.cvars.ScotiaTracker.model;
 
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
-import com.cvars.ScotiaTracker.networkAPI.EndpointAPI;
+import com.cvars.ScotiaTracker.networkAPI.InvoiceAPI;
+import com.cvars.ScotiaTracker.networkAPI.LoginAPI;
 import com.cvars.ScotiaTracker.networkAPI.RetrofitNetwork;
-import com.cvars.ScotiaTracker.responseHandlers.ResponseHandler;
-import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -18,23 +17,33 @@ import retrofit2.Response;
  */
 public class InvoiceModel implements Callback<List<Invoice>> {
 
-    private EndpointAPI endpointAPI;
+    private InvoiceAPI invoiceAPI;
     private List<Invoice> invoices;
+    private InvoiceResponseListener listener;
 
+    private boolean actionSuccess;
+
+    public enum InvoiceAction{
+        REQUEST, UPDATE
+    }
+
+    interface InvoiceResponseListener{
+        void notifyInvoiceResponse(InvoiceAction action);
+    }
 
     /**
      * Constructs an invoiceModel
      */
-    public InvoiceModel() {
-        endpointAPI = RetrofitNetwork.retrofit.create(EndpointAPI.class);
+    InvoiceModel() {
+        invoiceAPI = RetrofitNetwork.retrofit.create(InvoiceAPI.class);
     }
 
     /**
      * Starts an Asynchronous Call using Retrofit to get Invoices
-     * @param username
+     * @param username username of the user
      */
-    public void requestInvoices(String username) {
-        Call<List<Invoice>> call = endpointAPI.getInvoices(username);
+    void requestInvoices(String username) {
+        Call<List<Invoice>> call = invoiceAPI.getInvoices(username);
         call.enqueue(this);
     }
 
@@ -42,13 +51,22 @@ public class InvoiceModel implements Callback<List<Invoice>> {
         return invoices;
     }
 
+    public Invoice getInvoice(int invoiceID){
+        return null;
+    }
+
     @Override
     public void onResponse(Call<List<Invoice>> call, Response<List<Invoice>> response) {
         invoices = response.body();
+        listener.notifyInvoiceResponse(InvoiceAction.REQUEST);
     }
 
     @Override
     public void onFailure(Call<List<Invoice>> call, Throwable t) {
 
+    }
+
+    public void setListener(InvoiceResponseListener listener) {
+        this.listener = listener;
     }
 }

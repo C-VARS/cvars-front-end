@@ -13,8 +13,15 @@ import androidx.fragment.app.Fragment;
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.UIComponents.InvoiceBox;
 import com.cvars.ScotiaTracker.UIComponents.InvoicesScroller;
+import com.cvars.ScotiaTracker.presenter.HomePresenter;
 
 public class HomeFragment extends Fragment {
+
+    HomePresenter hp;
+
+    public HomeFragment(HomePresenter hp) {
+        this.hp = hp;
+    }
 
     @Nullable
     @Override

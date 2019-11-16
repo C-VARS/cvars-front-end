@@ -19,6 +19,7 @@ import com.cvars.ScotiaTracker.fragment.SettingFragment;
 import com.cvars.ScotiaTracker.model.DataModelFacade;
 import com.cvars.ScotiaTracker.model.UserModel;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
+import com.cvars.ScotiaTracker.presenter.HomePresenter;
 import com.cvars.ScotiaTracker.presenter.UserPresenter;
 import com.cvars.ScotiaTracker.view.UserActivityView;
 import com.cvars.ScotiaTracker.model.InvoiceModel;
@@ -37,6 +38,8 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     private boolean loading;
 
     private DataModelFacade dataFacade;
+    // TODO: Should we store the presenters in an array?
+    private HomePresenter homePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +63,20 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         String username = getIntent().getStringExtra("username");
         String password = getIntent().getStringExtra("password");
         UserType userType = UserType.valueOf(getIntent().getStringExtra("userType"));
+
+        // initialize the dataFacade (Model)
         dataFacade = new DataModelFacade(username, password, userType);
-
         dataFacade.setUserActivityView(this);
-
         dataFacade.requestInvoices();
         dataFacade.requestUserInfo();
+
+        // TODO: initialize the presenters
+        this.homePresenter = new HomePresenter();
+//        HomePresenter invoicePresenter = new InvoicePresenter();
+//        HomePresenter searchPresenter = new SearchPresenter();
+//        HomePresenter settingsPresenter = new SettingPresenter();
+
+
     }
 
     private void initializeTab() {
@@ -104,7 +115,8 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
     private void initializeFragmentMap(){
         fragmentMap = new HashMap<>();
-        fragmentMap.put(ViewType.HOME, new HomeFragment());
+        // TODO: Construct the Fragments passing in their own presenters
+        fragmentMap.put(ViewType.HOME, new HomeFragment(homePresenter));
         fragmentMap.put(ViewType.SEARCH, new SearchFragment());
         fragmentMap.put(ViewType.SETTING, new SettingFragment());
 

@@ -31,11 +31,19 @@ public class UserPresenter implements ResponseHandler {
     }
 
     /**
-     * Asks the loginModel to attempt a login with given username and password
+     * Asks the userModel to create a user associated with a given username
      * @param username username that the user inputted
      */
     public void createUser(String username) {
         userModel.createUser(username);
+    }
+
+    /**
+     * Asks the userModel to create invoices associated with a given username
+     * @param username username that the user inputted
+     */
+    public void createInvoices(String username) {
+        userModel.createInvoices(username);
     }
 
     /**

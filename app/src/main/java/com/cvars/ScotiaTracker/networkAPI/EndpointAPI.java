@@ -2,6 +2,7 @@ package com.cvars.ScotiaTracker.networkAPI;
 
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.User;
+import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public interface EndpointAPI {
     Call<List<Invoice>> getInvoices(@Query("username") String username);
 
     @GET("users")
-    Call<User> getUserData(@Query("username") String username);
+    Call<User> getUser(@Query("username") String username);
 
 }
 

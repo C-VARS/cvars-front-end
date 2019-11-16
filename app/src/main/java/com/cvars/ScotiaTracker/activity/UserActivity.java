@@ -51,6 +51,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
         UserModel um = new UserModel(up);
         String username = getIntent().getStringExtra("username");
         up.createUser(username);
+        up.createInvoices(username);
 
     }
 

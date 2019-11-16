@@ -124,17 +124,6 @@ public class LoginModel implements Callback<JsonObject> {
      * @return a constant Enum UserType that corresponds with the string
      */
     private UserType convertUserToEnum(String userType) {
-
-        //TODO: Change this to a switch
-
-        if (userType.equals("Driver")) {
-            return UserType.DRIVER;
-        } else if (userType.equals("Customer")) {
-            return UserType.CUSTOMER;
-        } else if (userType.equals("Supplier")) {
-            return UserType.SUPPLIER;
-        }
-
-        return null;
+       return UserType.valueOf(userType.toUpperCase());
     }
 }

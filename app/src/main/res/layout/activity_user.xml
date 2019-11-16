@@ -6,15 +6,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.UserActivity">
 
-    <fragment
-        android:id="@+id/tabFragment"
-        android:name="com.cvars.ScotiaTracker.fragment.TabFragment"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintVertical_weight="1"
+        android:layout_height="60dp"
+        app:layout_constraintVertical_weight="1.5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+        
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+    </com.google.android.material.tabs.TabLayout>
 
     <FrameLayout
         android:id="@+id/fragmentContainer"
@@ -23,5 +38,7 @@
         app:layout_constraintVertical_weight="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tab"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,6 +18,6 @@ public class InvoiceFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d("Invoice", "You created new invoice page");
-        return inflater.inflate(R.layout.fragment_invoice, container, false);
+        return inflater.inflate(R.layout.individual_invoices, container, false);
     }
 }

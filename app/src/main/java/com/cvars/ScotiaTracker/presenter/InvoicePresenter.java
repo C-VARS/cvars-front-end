@@ -21,17 +21,14 @@ public class InvoicePresenter implements ResponseHandler{
      *
      * @param view reference injection of a UI view that this presenter will manipulate
      */
-    public InvoicePresenter(InvoiceView view) {
+    public InvoicePresenter(InvoiceView view, InvoiceModel invoiceModel) {
         this.invoiceView = view;
-        this.invoiceModel = new InvoiceModel(this);
+        this.invoiceModel = invoiceModel;
     }
 
-    /**
-     * Asks the invoiceModel to attempt a login with given username and password
-     * @param username username that the user inputted
-     */
-    public void getInvoices(String username) {
-        invoiceModel.getInvoices(username);
+
+    public void getInvoices(int invoiceID) {
+
     }
 
     /**

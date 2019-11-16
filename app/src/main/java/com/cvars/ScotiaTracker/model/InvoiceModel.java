@@ -19,20 +19,13 @@ import retrofit2.Response;
 public class InvoiceModel implements Callback<List<Invoice>> {
 
     private EndpointAPI endpointAPI;
+    private List<Invoice> invoices;
+
 
     /**
-     * A reference to a ResponseHandler interface that will be called whenever an HTTP response
+     * Constructs an invoiceModel
      */
-    private ResponseHandler responseHandler;
-
-    /**
-     * Constructs an invoiceModel with an injected ResponseHandler reference
-     * which interacts with the backend and has some information
-     * about the status of the Invoice
-     * @param responseHandler
-     */
-    public InvoiceModel(ResponseHandler responseHandler) {
-        this.responseHandler = responseHandler;
+    public InvoiceModel() {
         endpointAPI = RetrofitNetwork.retrofit.create(EndpointAPI.class);
     }
 
@@ -40,15 +33,18 @@ public class InvoiceModel implements Callback<List<Invoice>> {
      * Starts an Asynchronous Call using Retrofit to get Invoices
      * @param username
      */
-    public void getInvoices(String username) {
+    public void requestInvoices(String username) {
         Call<List<Invoice>> call = endpointAPI.getInvoices(username);
         call.enqueue(this);
     }
 
+    public List<Invoice> getInvoices() {
+        return invoices;
+    }
 
     @Override
     public void onResponse(Call<List<Invoice>> call, Response<List<Invoice>> response) {
-
+        invoices = response.body();
     }
 
     @Override

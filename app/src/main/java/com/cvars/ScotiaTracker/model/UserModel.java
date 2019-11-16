@@ -21,7 +21,6 @@ public class UserModel {
      * A Retrofit API connection object for getting User Information
      */
     private EndpointAPI endpointAPI;
-    private Boolean loginSuccess;
     private User user;
     private List<Invoice> invoices;
     // TODO: Remove hard dependency & use dependency injection
@@ -46,7 +45,6 @@ public class UserModel {
 
     /**
      * Starts an Asynchronous Call using Retrofit to get a users's information
-     *
      * @param username
      */
     public void createUser(String username) {
@@ -93,7 +91,6 @@ public class UserModel {
         @Override
         public void onFailure(Call<User> call, Throwable t) {
             errorMessage = "Connection failure";
-            loginSuccess = false;
             responseHandler.notifyResponse();
         }
 
@@ -117,7 +114,6 @@ public class UserModel {
         @Override
         public void onFailure(Call<List<Invoice>> call, Throwable t) {
             errorMessage = "Connection failure";
-            loginSuccess = false;
             responseHandler.notifyResponse();
         }
 

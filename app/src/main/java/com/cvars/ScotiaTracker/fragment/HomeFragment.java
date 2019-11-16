@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.UIComponents.InvoiceBox;
+import com.cvars.ScotiaTracker.UIComponents.InvoicesScroller;
 
 public class HomeFragment extends Fragment {
 
@@ -20,10 +21,11 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ConstraintLayout view = (ConstraintLayout) inflater.inflate(R.layout.fragment_home, container, false);
 
-        InvoiceBox box = new InvoiceBox(view.getContext(), 1, "on the way");
-        box.setX(100);
-        box.setY(100);
-        view.addView(box);
+        InvoicesScroller invoicesScroller = new InvoicesScroller(view.getContext());
+        // call invoicesScroller.pushInvoice(inv);
+        invoicesScroller.setX(100);
+        invoicesScroller.setY(100);
+        view.addView(invoicesScroller);
 
         return view;
     }

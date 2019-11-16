@@ -124,6 +124,6 @@ public class LoginModel implements Callback<JsonObject> {
      * @return a constant Enum UserType that corresponds with the string
      */
     private UserType convertUserToEnum(String userType) {
-       return UserType.valueOf(userType);
+       return UserType.valueOf(userType.toUpperCase());
     }
 }

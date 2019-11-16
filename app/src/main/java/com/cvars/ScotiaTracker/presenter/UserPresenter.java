@@ -27,15 +27,6 @@ public class UserPresenter implements ResponseHandler {
      */
     public UserPresenter(UserView view) {
         this.view = view;
-        userModel = new UserModel(this);
-    }
-
-    /**
-     * Asks the loginModel to attempt a login with given username and password
-     * @param username username that the user inputted
-     */
-    public void createUser(String username) {
-        userModel.createUser(username);
     }
 
     /**

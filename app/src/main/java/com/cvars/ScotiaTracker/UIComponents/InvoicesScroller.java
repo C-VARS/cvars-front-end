@@ -24,13 +24,19 @@ public class InvoicesScroller extends ScrollView {
         // initialize the ScrollView with LinearLayout nested inside it
         setBackgroundColor(Color.TRANSPARENT);
         setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        
+
 
         linearLayout = new LinearLayout(context);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         linearLayout.setGravity(Gravity.TOP);
         // add linearLayout to scroll view
+        linearLayout.addView(new InvoiceBox(context, 1, "Testing 1"));
+        linearLayout.addView(new InvoiceBox(context, 2, "Testing 2"));
+        linearLayout.addView(new InvoiceBox(context, 3, "Testing 3"));
         this.addView(linearLayout);
     }
+
 
     public void pushInvoice(Invoice inv) {
         InvoiceBox invoiceBox = new InvoiceBox(context, inv.getInvoiceId(), "Mutating Genomes");

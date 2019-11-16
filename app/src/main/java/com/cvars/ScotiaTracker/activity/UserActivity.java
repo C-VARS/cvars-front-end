@@ -33,11 +33,6 @@ public class UserActivity extends AppCompatActivity implements UserView {
         setContentView(R.layout.activity_user);
         initializeFragmentMap();
         initializeTab();
-
-        UserPresenter up = new UserPresenter( this);
-        UserModel um = new UserModel(up);
-        String username = getIntent().getStringExtra("username");
-        up.createUser(username);
     }
 
     @Override

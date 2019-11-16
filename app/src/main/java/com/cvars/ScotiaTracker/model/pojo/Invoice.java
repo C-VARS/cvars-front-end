@@ -1,6 +1,5 @@
 package com.cvars.ScotiaTracker.model.pojo;
 
-import com.cvars.ScotiaTracker.model.OrderStatus;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;

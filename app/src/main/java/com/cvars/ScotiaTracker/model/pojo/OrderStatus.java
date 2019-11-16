@@ -1,4 +1,4 @@
-package com.cvars.ScotiaTracker.model;
+package com.cvars.ScotiaTracker.model.pojo;
 
 import com.google.gson.annotations.SerializedName;
 

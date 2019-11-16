@@ -48,6 +48,14 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         initializeModelPresenter();
     }
 
+    @Override
+    protected void onDestroy() {
+        fragmentMap = null;
+        dataFacade.onDestroy();
+        dataFacade = null;
+        super.onDestroy();
+    }
+
     private void initializeModelPresenter() {
         String username = getIntent().getStringExtra("username");
         String password = getIntent().getStringExtra("password");
@@ -58,13 +66,6 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
         dataFacade.requestInvoices();
         dataFacade.requestUserInfo();
-    }
-
-    @Override
-    protected void onDestroy() {
-        fragmentMap = null;
-        dataFacade.onDestroy();
-        super.onDestroy();
     }
 
     private void initializeTab() {
@@ -127,11 +128,6 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         currentFragment = fragmentType;
     }
 
-    /**
-     * Displays a Toast text to notify the user of some information
-     *
-     * @param message The string that is meant to be displayed
-     */
     public void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
@@ -164,6 +160,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
     }
 
+    @Override
     public void displayMessage(String message){
         showToast(message);
     }

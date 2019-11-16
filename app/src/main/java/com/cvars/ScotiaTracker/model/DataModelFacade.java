@@ -6,7 +6,7 @@ import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.view.UserActivityView;
 
 public class DataModelFacade implements InvoiceModel.InvoiceResponseListener,
-                                        UserModel.UserResponseListener{
+                                        UserModel.UserResponseListener {
     private String username;
     private String password;
     private UserType userType;
@@ -27,18 +27,18 @@ public class DataModelFacade implements InvoiceModel.InvoiceResponseListener,
         userModel.setListener(this);
     }
 
-    public void requestInvoices(){
+    public void setUserActivityView(UserActivityView userActivityView) {
+        this.userActivityView = userActivityView;
+    }
+
+    public void requestInvoices() {
         userActivityView.showLoading();
         invoiceModel.requestInvoices(username);
     }
 
-    public void requestUserInfo(){
+    public void requestUserInfo() {
         userActivityView.showLoading();
         userModel.requestUser(username);
-    }
-
-    public void setUserActivityView(UserActivityView userActivityView) {
-        this.userActivityView = userActivityView;
     }
 
     @Override
@@ -51,15 +51,15 @@ public class DataModelFacade implements InvoiceModel.InvoiceResponseListener,
         userActivityView.finishLoading();
     }
 
-    public void onDestroy(){
+    public void onDestroy() {
         userActivityView = null;
     }
 
-    public Invoice getInvoice(int invoiceID){
+    public Invoice getInvoice(int invoiceID) {
         return invoiceModel.getInvoice(invoiceID);
     }
 
-    public User getUser(){
+    public User getUser() {
         return userModel.getUser();
     }
 }

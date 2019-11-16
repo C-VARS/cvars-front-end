@@ -21,6 +21,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ConstraintLayout view = (ConstraintLayout) inflater.inflate(R.layout.fragment_home, container, false);
 
+
         InvoicesScroller invoicesScroller = new InvoicesScroller(view.getContext());
         // call invoicesScroller.pushInvoice(inv);
         invoicesScroller.setX(100);

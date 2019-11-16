@@ -44,11 +44,45 @@ public class DataModelFacade implements InvoiceModel.InvoiceResponseListener,
     @Override
     public void notifyInvoiceResponse(InvoiceModel.InvoiceAction action) {
         userActivityView.finishLoading();
+
+        if (!invoiceModel.getActionSuccess()){
+            userActivityView.displayMessage("Network error!");
+            return;
+        }
+
+        switch(action){
+            case REQUEST:
+                if (!invoiceModel.getInvoices().get(0).getInfoRequestStatus()) {
+                    userActivityView.displayMessage("Incorrect user information");
+                }else{
+                    System.out.println("Update UI by making calls here");
+                }
+                break;
+            case UPDATE:
+                break;
+        }
     }
 
     @Override
     public void notifyUserAction(UserModel.UserAction action) {
         userActivityView.finishLoading();
+
+        if (!userModel.getActionSuccess()){
+            userActivityView.displayMessage("Network error!");
+            return;
+        }
+
+        switch(action){
+            case REQUEST:
+                if (!userModel.getUser().getInfoRequestStatus()) {
+                    userActivityView.displayMessage("Incorrect user information");
+                }else{
+                    System.out.println("Update UI by making calls here");
+                }
+                break;
+            case UPDATE:
+                break;
+        }
     }
 
     public void onDestroy() {

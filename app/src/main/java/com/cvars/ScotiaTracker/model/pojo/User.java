@@ -22,6 +22,9 @@ public class User {
 	@SerializedName("bankInformation")
 	private String bankInformation;
 
+	@SerializedName("infoRequestStatus")
+	private boolean infoRequestStatus;
+
 	public String getName() {
 		return name;
 	}
@@ -36,5 +39,9 @@ public class User {
 
 	public String getBankInformation() {
 		return bankInformation;
+	}
+
+	public boolean getInfoRequestStatus(){
+		return infoRequestStatus;
 	}
 }

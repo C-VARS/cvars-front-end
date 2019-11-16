@@ -25,8 +25,5 @@ public interface EndpointAPI {
     @GET("invoices")
     Call<List<Invoice>> getInvoices(@Query("username") String username);
 
-    @GET("users")
-    Call<User> getUserData(@Query("username") String username);
-
 }
 

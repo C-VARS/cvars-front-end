@@ -29,13 +29,6 @@ public class InvoiceBox extends FrameLayout {
 
         setBackgroundColor(Color.GRAY);
         boxView = View.inflate(getContext(), R.layout.component_invoice_box, null);
-
-        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, 0, 6, 6);
-        params.gravity = Gravity.TOP;
-        boxView.setLayoutParams(params);
-
         addView(boxView);
     }
 

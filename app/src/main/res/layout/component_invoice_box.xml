@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="320dp"
     android:layout_height="60dp"
-    android:background="#DEFFFFFF">
+    android:background="#03DAC6">
 
     <TextView
         android:id="@+id/statusText"
@@ -16,7 +16,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="120dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="6dp"
         android:gravity="top"
         android:lineSpacingExtra="2sp"
         android:text="Status: On the way"
@@ -35,6 +35,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="120dp"
+        android:layout_marginTop="14dp"
         android:layout_marginBottom="36dp"
         android:gravity="top"
         android:lineSpacingExtra="2sp"
@@ -43,7 +44,8 @@
         android:textSize="16sp"
         android:translationY="-0.82sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -52,7 +54,9 @@
         android:layout_marginStart="18dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="228dp"
+        android:layout_marginBottom="9dp"
         android:src="@mipmap/scotialogo_foreground"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

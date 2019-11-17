@@ -1,6 +1,6 @@
 package com.cvars.ScotiaTracker.activity;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,15 +13,14 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.fragment.HomeFragment;
-import com.cvars.ScotiaTracker.fragment.InvoiceFragment;
 import com.cvars.ScotiaTracker.fragment.SearchFragment;
 import com.cvars.ScotiaTracker.fragment.SettingFragment;
 import com.cvars.ScotiaTracker.model.DataModelFacade;
-import com.cvars.ScotiaTracker.model.UserModel;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
-import com.cvars.ScotiaTracker.presenter.UserPresenter;
+import com.cvars.ScotiaTracker.presenter.SettingPresenter;
+import com.cvars.ScotiaTracker.view.FragmentView;
+import com.cvars.ScotiaTracker.view.SettingView;
 import com.cvars.ScotiaTracker.view.UserActivityView;
-import com.cvars.ScotiaTracker.model.InvoiceModel;
 import com.cvars.ScotiaTracker.view.ViewType;
 import com.google.android.material.tabs.TabLayout;
 
@@ -57,12 +56,19 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     }
 
     private void initializeModelPresenter() {
+        //Initialize data facade
         String username = getIntent().getStringExtra("username");
         String password = getIntent().getStringExtra("password");
         UserType userType = UserType.valueOf(getIntent().getStringExtra("userType"));
         dataFacade = new DataModelFacade(username, password, userType);
 
+        //Have the activity observe data facade for top-level functions
         dataFacade.setUserActivityView(this);
+
+        //Create the setting presenter and inject dependencies
+        SettingView settingView = (SettingView) fragmentMap.get(ViewType.SETTING);
+        SettingPresenter settingPresenter = new SettingPresenter(dataFacade, settingView);
+        settingView.setPresenter(settingPresenter);
 
         dataFacade.requestInvoices();
         dataFacade.requestUserInfo();
@@ -163,6 +169,13 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     @Override
     public void displayMessage(String message){
         showToast(message);
+    }
+
+    @Override
+    public void logOut() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }

@@ -8,4 +8,6 @@ public interface UserActivityView {
     void displayInvoice(int invoiceID);
 
     void displayMessage(String message);
+
+    void logOut();
 }

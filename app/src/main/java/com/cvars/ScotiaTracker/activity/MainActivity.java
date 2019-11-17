@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.cvars.ScotiaTracker.R;
@@ -46,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements LoginView {
      */
     public void login(View view) {
         if (!requestProcessed){
-            Log.d("Testing", "Denied!");
             return;
         }
 
@@ -55,8 +56,26 @@ public class MainActivity extends AppCompatActivity implements LoginView {
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
 
+        showLoading();
         loginPresenter.attemptLogin(username, password);
+    }
+
+    private void showLoading(){
         requestProcessed = false;
+
+        ProgressBar bar = findViewById(R.id.loginProgressBar);
+        bar.setVisibility(View.VISIBLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    private void finishLoading(){
+
+        requestProcessed = true;
+
+        ProgressBar bar = findViewById(R.id.loginProgressBar);
+        bar.setVisibility(View.GONE);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
 
@@ -68,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements LoginView {
     public void displayErrorMessage(String message) {
         EditText passwordField = findViewById(R.id.password);
         passwordField.setError(message);
-        requestProcessed = true;
+        finishLoading();
     }
 
     /**
@@ -79,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements LoginView {
      */
     @Override
     public void changeToHomeActivity(UserType type, String username, String password) {
-        requestProcessed = true;
+        finishLoading();
         Intent myIntent = new Intent(this, UserActivity.class);
         myIntent.putExtra("username", username);
         myIntent.putExtra("password", username);

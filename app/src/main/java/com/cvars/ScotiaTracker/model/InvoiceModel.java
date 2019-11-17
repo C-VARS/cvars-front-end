@@ -21,14 +21,14 @@ public class InvoiceModel {
         REQUEST, UPDATE
     }
 
-    interface InvoiceResponseListener {
-        void notifyInvoiceResponse(InvoiceAction action);
+    interface InvoiceActionListener {
+        void notifyInvoiceAction(InvoiceAction action);
     }
 
     private List<Invoice> invoices;
 
     private InvoiceAPI invoiceAPI = RetrofitNetwork.retrofit.create(InvoiceAPI.class);
-    private InvoiceResponseListener listener;
+    private InvoiceActionListener listener;
     private RequestInvoiceCallback requestCallback = new RequestInvoiceCallback();
     private boolean actionSuccess;
 
@@ -47,13 +47,13 @@ public class InvoiceModel {
         public void onResponse(Call<List<Invoice>> call, Response<List<Invoice>> response) {
             actionSuccess = true;
             invoices = response.body();
-            listener.notifyInvoiceResponse(InvoiceAction.REQUEST);
+            listener.notifyInvoiceAction(InvoiceAction.REQUEST);
         }
 
         @Override
         public void onFailure(Call<List<Invoice>> call, Throwable t) {
             actionSuccess = false;
-            listener.notifyInvoiceResponse(InvoiceAction.REQUEST);
+            listener.notifyInvoiceAction(InvoiceAction.REQUEST);
         }
     }
 
@@ -66,7 +66,7 @@ public class InvoiceModel {
         return null;
     }
 
-    public void setListener(InvoiceResponseListener listener) {
+    public void setListener(InvoiceActionListener listener) {
         this.listener = listener;
     }
 

@@ -3,9 +3,10 @@ package com.cvars.ScotiaTracker.model;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.User;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
+import com.cvars.ScotiaTracker.responseListeners.SettingResponseListener;
 import com.cvars.ScotiaTracker.view.UserActivityView;
 
-public class DataModelFacade implements InvoiceModel.InvoiceResponseListener,
+public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
                                         UserModel.UserResponseListener {
     private String username;
     private String password;
@@ -15,6 +16,9 @@ public class DataModelFacade implements InvoiceModel.InvoiceResponseListener,
     private UserModel userModel;
 
     private UserActivityView userActivityView;
+
+    private SettingResponseListener settingResponseListener;
+
 
     public DataModelFacade(String username, String password, UserType userType) {
         this.username = username;
@@ -42,7 +46,7 @@ public class DataModelFacade implements InvoiceModel.InvoiceResponseListener,
     }
 
     @Override
-    public void notifyInvoiceResponse(InvoiceModel.InvoiceAction action) {
+    public void notifyInvoiceAction(InvoiceModel.InvoiceAction action) {
         userActivityView.finishLoading();
 
         if (!invoiceModel.getActionSuccess()){
@@ -77,7 +81,9 @@ public class DataModelFacade implements InvoiceModel.InvoiceResponseListener,
                 if (!userModel.getUser().getInfoRequestStatus()) {
                     userActivityView.displayMessage("Incorrect user information");
                 }else{
-                    System.out.println("Update UI by making calls here");
+                    if (settingResponseListener != null){
+                        settingResponseListener.notifySettingResponse();
+                    }
                 }
                 break;
             case UPDATE:
@@ -95,5 +101,21 @@ public class DataModelFacade implements InvoiceModel.InvoiceResponseListener,
 
     public User getUser() {
         return userModel.getUser();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setSettingResponseListener(SettingResponseListener settingResponseListener) {
+        this.settingResponseListener = settingResponseListener;
     }
 }

@@ -3,6 +3,7 @@ package com.cvars.ScotiaTracker.model;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.User;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
+import com.cvars.ScotiaTracker.responseListeners.SearchResponseListener;
 import com.cvars.ScotiaTracker.responseListeners.SettingResponseListener;
 import com.cvars.ScotiaTracker.view.UserActivityView;
 
@@ -18,6 +19,7 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
     private UserActivityView userActivityView;
 
     private SettingResponseListener settingResponseListener;
+    private SearchResponseListener searchResponseListener;
 
 
     public DataModelFacade(String username, String password, UserType userType) {
@@ -117,5 +119,9 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
 
     public void setSettingResponseListener(SettingResponseListener settingResponseListener) {
         this.settingResponseListener = settingResponseListener;
+    }
+
+    public void setSearchResponseListener(SearchResponseListener searchResponseListener) {
+        this.searchResponseListener = searchResponseListener;
     }
 }

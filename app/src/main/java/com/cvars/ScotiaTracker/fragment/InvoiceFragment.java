@@ -11,15 +11,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.cvars.ScotiaTracker.R;
-import com.cvars.ScotiaTracker.presenter.InvoicePresenter;
+import com.cvars.ScotiaTracker.model.pojo.Invoice;
+import com.cvars.ScotiaTracker.presenter.FragmentPresenter;
+import com.cvars.ScotiaTracker.presenter.SearchPresenter;
+import com.cvars.ScotiaTracker.view.SearchView;
 
 public class InvoiceFragment extends Fragment {
 
-    InvoicePresenter ip;
-
-    public InvoiceFragment(InvoicePresenter ip) {
-        this.ip = ip;
-    }
 
     @Nullable
     @Override
@@ -27,4 +25,5 @@ public class InvoiceFragment extends Fragment {
         Log.d("Invoice", "You created new invoice page");
         return inflater.inflate(R.layout.individual_invoices, container, false);
     }
+
 }

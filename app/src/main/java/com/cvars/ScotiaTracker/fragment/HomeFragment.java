@@ -11,10 +11,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.cvars.ScotiaTracker.R;
-import com.cvars.ScotiaTracker.UIComponents.InvoiceBox;
 import com.cvars.ScotiaTracker.UIComponents.InvoicesScroller;
+import com.cvars.ScotiaTracker.presenter.FragmentPresenter;
+import com.cvars.ScotiaTracker.presenter.HomePresenter;
+import com.cvars.ScotiaTracker.view.HomeView;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeView {
+
+    HomePresenter hp;
 
     @Nullable
     @Override
@@ -29,5 +33,10 @@ public class HomeFragment extends Fragment {
         view.addView(invoicesScroller);
 
         return view;
+    }
+
+    @Override
+    public void setPresenter(FragmentPresenter presenter) {
+        hp = (HomePresenter) presenter;
     }
 }

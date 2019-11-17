@@ -13,14 +13,17 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.fragment.HomeFragment;
+import com.cvars.ScotiaTracker.fragment.InvoiceFragment;
 import com.cvars.ScotiaTracker.fragment.SearchFragment;
 import com.cvars.ScotiaTracker.fragment.SettingFragment;
 import com.cvars.ScotiaTracker.model.DataModelFacade;
+import com.cvars.ScotiaTracker.model.UserModel;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.presenter.SettingPresenter;
 import com.cvars.ScotiaTracker.view.FragmentView;
 import com.cvars.ScotiaTracker.view.SettingView;
 import com.cvars.ScotiaTracker.view.UserActivityView;
+import com.cvars.ScotiaTracker.model.InvoiceModel;
 import com.cvars.ScotiaTracker.view.ViewType;
 import com.google.android.material.tabs.TabLayout;
 
@@ -110,6 +113,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
     private void initializeFragmentMap(){
         fragmentMap = new HashMap<>();
+        // TODO: Construct the Fragments passing in their own presenters
         fragmentMap.put(ViewType.HOME, new HomeFragment());
         fragmentMap.put(ViewType.SEARCH, new SearchFragment());
         fragmentMap.put(ViewType.SETTING, new SettingFragment());

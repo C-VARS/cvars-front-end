@@ -55,11 +55,13 @@
             android:layout_height="match_parent"
             android:baselineAligned="false"
             android:outlineProvider="paddedBounds"
-            android:outlineSpotShadowColor="#E5E8EA" />
-    </com.google.android.material.appbar.AppBarLayout>
+            android:outlineSpotShadowColor="#E5E8EA" >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="563dp" />
+        </SearchView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.appbar.AppBarLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -58,7 +58,6 @@ public class SettingFragment extends Fragment implements SettingView {
                 ((UserActivity)getActivity()).logOut();
             }
         });
-
     }
 
     private void initializeTabListener(){

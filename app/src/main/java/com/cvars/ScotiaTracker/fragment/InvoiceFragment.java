@@ -11,15 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.cvars.ScotiaTracker.R;
-import com.cvars.ScotiaTracker.presenter.InvoicePresenter;
 
 public class InvoiceFragment extends Fragment {
-
-    InvoicePresenter ip;
-
-    public InvoiceFragment(InvoicePresenter ip) {
-        this.ip = ip;
-    }
 
     @Nullable
     @Override

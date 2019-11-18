@@ -62,10 +62,6 @@ public class InvoiceModel {
         return invoices;
     }
 
-    public Invoice getInvoice(int invoiceID) {
-        return null;
-    }
-
     public void setListener(InvoiceActionListener listener) {
         this.listener = listener;
     }

@@ -36,7 +36,7 @@ public class SearchFragment extends Fragment implements SearchView {
         // get all users invoices
         List<Invoice> invoices = new ArrayList<>();
 
-        invoicesScroller.initializeWithInvoiceBoxes(invoices);
+        invoicesScroller.initializeWithInvoices(invoices);
 
         invoicesScroller.setX(100);
         invoicesScroller.setY(100);

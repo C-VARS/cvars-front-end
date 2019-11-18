@@ -98,12 +98,12 @@ public class MainActivity extends AppCompatActivity implements LoginView {
      */
     @Override
     public void changeToHomeActivity(UserType type, String username, String password) {
-        finishLoading();
         Intent myIntent = new Intent(this, UserActivity.class);
         myIntent.putExtra("username", username);
         myIntent.putExtra("password", username);
         myIntent.putExtra("userType", type.name());
         startActivity(myIntent);
+        finishLoading();
         finish();
     }
 

@@ -35,7 +35,8 @@ public class InvoicesScroller extends ScrollView {
     private void initView() {
         // initialize the ScrollView with LinearLayout nested inside it
         setBackgroundColor(Color.TRANSPARENT);
-        setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
 
 
         linearLayout = new LinearLayout(context);

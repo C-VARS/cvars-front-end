@@ -1,53 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/settingTabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:forceDarkAllowed="false"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:tabMode="fixed">
 
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#E5E8EA"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:navigationIcon="@drawable/ic_menu"
-            app:title="My Profile"
-            app:titleMargin="4dp"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Large" />
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/settingTabs"
-            android:layout_width="match_parent"
+        <com.google.android.material.tabs.TabItem
+            style="@style/WhiteText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:forceDarkAllowed="false"
+            android:text="Account" />
 
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:tabMode="fixed">
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:theme="@style/WhiteText" />
 
-            <com.google.android.material.tabs.TabItem
-                style="@style/WhiteText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Account" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Settings"
-                android:theme="@style/WhiteText" />
-
-        </com.google.android.material.tabs.TabLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
+    </com.google.android.material.tabs.TabLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/settingFrameContainer"
@@ -56,6 +38,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appbar" />
+        app:layout_constraintTop_toBottomOf="@id/settingTabs" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

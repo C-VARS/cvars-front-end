@@ -28,7 +28,7 @@ public class HomeFragment extends Fragment implements HomeView {
 
 
         InvoicesScroller invoicesScroller = new InvoicesScroller(view.getContext());
-        invoicesScroller.addInvoiceBox(new InvoiceBox(view.getContext(), 1, "your driver is currently in a high-speed police pursuit with your order"));
+        invoicesScroller.addInvoiceBox(new InvoiceBox(view.getContext(), 1);
 
         invoicesScroller.setX(100);
         invoicesScroller.setY(100);

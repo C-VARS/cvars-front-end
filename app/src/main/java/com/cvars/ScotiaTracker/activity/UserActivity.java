@@ -2,12 +2,15 @@ package com.cvars.ScotiaTracker.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -46,6 +49,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         initializeFragmentMap();
         initializeTab();
         initializeModelPresenter();
+        initializeToolBar();
     }
 
     @Override
@@ -54,6 +58,23 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         dataFacade.onDestroy();
         dataFacade = null;
         super.onDestroy();
+    }
+
+    private void initializeToolBar(){
+        Toolbar bar = findViewById(R.id.toolBar);
+        bar.inflateMenu(R.menu.tool_bar_menu);
+        bar.setOnMenuItemClickListener(new ToolBarListener());
+    }
+
+    private class ToolBarListener implements Toolbar.OnMenuItemClickListener{
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            if (item.getItemId() == R.id.action_refresh){
+                dataFacade.requestAllInvoices();
+                dataFacade.requestUserInfo();
+            }
+            return false;
+        }
     }
 
     private void initializeModelPresenter() {
@@ -139,6 +160,19 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
                 .commit();
 
         currentFragment = fragmentType;
+
+        Toolbar bar = findViewById(R.id.toolBar);
+        switch(fragmentType){
+            case HOME:
+                bar.setTitle("Home");
+                break;
+            case SEARCH:
+                bar.setTitle("Invoices");
+                break;
+            case SETTING:
+                bar.setTitle("Setting");
+                break;
+        }
     }
 
     public void showToast(String message) {

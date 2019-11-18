@@ -1,67 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/searchTabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:tag='"Invoices"'>
+        android:forceDarkAllowed="false"
 
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#E5E8EA"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:navigationIcon="@drawable/ic_menu"
-            app:title="Invoices"
-            app:titleMargin="4dp"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"></androidx.appcompat.widget.Toolbar>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:tabMode="fixed">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
+        <com.google.android.material.tabs.TabItem
+            style="@style/WhiteText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:forceDarkAllowed="false"
+            android:text="Most Recent" />
 
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:tabMode="fixed">
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:theme="@style/WhiteText" />
 
-            <com.google.android.material.tabs.TabItem
-                style="@style/WhiteText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Most Recent" />
+        <com.google.android.material.tabs.TabItem
+            style="@style/WhiteText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Oldest" />
+    </com.google.android.material.tabs.TabLayout>
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Status"
-                android:theme="@style/WhiteText" />
+    <SearchView
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:outlineProvider="paddedBounds"
+        android:outlineSpotShadowColor="#E5E8EA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchTabs" />
 
-            <com.google.android.material.tabs.TabItem
-                style="@style/WhiteText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Oldest" />
-        </com.google.android.material.tabs.TabLayout>
+    <FrameLayout
+        android:id="@+id/scrollerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchBar" />
 
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:baselineAligned="false"
-            android:outlineProvider="paddedBounds"
-            android:outlineSpotShadowColor="#E5E8EA" >
 
-        </SearchView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </com.google.android.material.appbar.AppBarLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

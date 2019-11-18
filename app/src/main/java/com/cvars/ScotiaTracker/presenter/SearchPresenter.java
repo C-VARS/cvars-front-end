@@ -1,8 +1,11 @@
 package com.cvars.ScotiaTracker.presenter;
 
 import com.cvars.ScotiaTracker.model.DataModelFacade;
+import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.responseListeners.SearchResponseListener;
 import com.cvars.ScotiaTracker.view.SearchView;
+
+import java.util.List;
 
 public class SearchPresenter extends FragmentPresenter implements SearchResponseListener {
 
@@ -23,6 +26,7 @@ public class SearchPresenter extends FragmentPresenter implements SearchResponse
 
     @Override
     public void notifyInvoiceResponse() {
-        // TODO: Update information about a an invoice
+        List<Invoice> invoices = modelFacade.getInvoices();
+        searchView.updateScroller(invoices);
     }
 }

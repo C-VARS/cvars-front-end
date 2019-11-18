@@ -62,7 +62,7 @@ public class InvoicesScroller extends ScrollView {
     public void initializeWithInvoices(List<Invoice> invs) {
         //  initializes with list of invoices
         for (Invoice inv : invs) {
-            addInvoiceBox(new InvoiceBox(inv));
+            addInvoiceBox(new InvoiceBox(context, inv));
         }
 
     }

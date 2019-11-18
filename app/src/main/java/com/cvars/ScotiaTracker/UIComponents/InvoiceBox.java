@@ -38,14 +38,7 @@ public class InvoiceBox extends FrameLayout {
 
         idText.setText("Invoice ID: " + inv.getInvoiceId());
         // using the OrderStatus toString method
-        statusText.setText("Status: " + getOrderStatus());
+        statusText.setText("Status: " + inv.getOrderStatus());
     }
 
-    public int getInvoiceID() {
-        return invoiceID;
-    }
-
-    public String getOrderStatus() {
-        return orderStatus;
-    }
 }

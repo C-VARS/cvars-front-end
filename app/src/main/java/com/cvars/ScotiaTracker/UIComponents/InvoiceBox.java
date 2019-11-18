@@ -9,36 +9,36 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.cvars.ScotiaTracker.R;
+import com.cvars.ScotiaTracker.model.pojo.Invoice;
 
 public class InvoiceBox extends FrameLayout {
 
     private View boxView;
-    private int invoiceID;
-    private String orderStatus;
 
-    public InvoiceBox(Context context, int invoiceID, String orderStatus) {
+    private Invoice inv;
+
+    public InvoiceBox(Context context, Invoice inv) {
         super(context);
-        this.invoiceID = invoiceID;
-        this.orderStatus = orderStatus;
+        this.inv = inv;
 
         initView();
-        setContent(invoiceID, orderStatus);
+        setContent();
     }
 
     private void initView() {
 
         setBackgroundColor(Color.GRAY);
         boxView = View.inflate(getContext(), R.layout.component_invoice_box, null);
-        addView(boxView);
+        this.addView(boxView);
     }
 
-    public void setContent(int invoiceID, String orderStatus){
-        this.invoiceID = invoiceID;
-        this.orderStatus = orderStatus;
+    public void setContent(){
         TextView idText = boxView.findViewById(R.id.idText);
         TextView statusText = boxView.findViewById(R.id.statusText);
-        idText.setText("Invoice ID: " + invoiceID);
-        statusText.setText("Status: " + orderStatus);
+
+        idText.setText("Invoice ID: " + inv.getInvoiceId());
+        // using the OrderStatus toString method
+        statusText.setText("Status: " + getOrderStatus());
     }
 
     public int getInvoiceID() {

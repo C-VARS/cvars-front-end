@@ -10,4 +10,6 @@ public interface UserActivityView {
     void displayMessage(String message);
 
     void logOut();
+
+    void initializeInvoices();
 }

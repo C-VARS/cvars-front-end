@@ -9,4 +9,17 @@ public class OrderStatus {
     public boolean arrived;
     @SerializedName("payment")
     public boolean paymentProcessed;
+
+    @Override
+    public String toString() {
+        // Return String of most recent order status
+        if (paymentProcessed) {
+            return "Payment Processed";
+        } else if (arrived) {
+            return "Arrived";
+        } else if (onTheWay) {
+            return "On The Way";
+        }
+        return "OrderStatus toString error";
+    }
 }

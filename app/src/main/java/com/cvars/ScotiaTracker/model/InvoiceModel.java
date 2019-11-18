@@ -37,7 +37,7 @@ public class InvoiceModel {
      *
      * @param username username of the user
      */
-    void requestInvoices(String username) {
+    public void requestAllInvoices(String username) {
         Call<List<Invoice>> call = invoiceAPI.getInvoices(username);
         call.enqueue(this.requestCallback);
     }

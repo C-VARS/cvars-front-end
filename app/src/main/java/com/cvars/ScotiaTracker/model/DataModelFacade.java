@@ -37,9 +37,9 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
         this.userActivityView = userActivityView;
     }
 
-    public void requestInvoices() {
+    public void requestAllInvoices() {
         userActivityView.showLoading();
-        invoiceModel.requestInvoices(username);
+        invoiceModel.requestAllInvoices(username);
     }
 
     public void requestUserInfo() {

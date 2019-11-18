@@ -76,7 +76,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         SearchPresenter searchPresenter = new SearchPresenter(dataFacade, searchView);
         searchView.setPresenter(searchPresenter);
 
-        dataFacade.requestInvoices();
+        dataFacade.requestAllInvoices();
         dataFacade.requestUserInfo();
     }
 
@@ -183,6 +183,11 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void initializeInvoices() {
+
     }
 
 }

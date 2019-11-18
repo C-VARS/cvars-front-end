@@ -20,6 +20,8 @@ public class OrderStatus {
         } else if (onTheWay) {
             return "On The Way";
         }
-        return "OrderStatus toString error";
+        else {
+            return "Your order is deadass missing";
+        }
     }
 }

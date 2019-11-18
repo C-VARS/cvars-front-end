@@ -7,6 +7,9 @@ import com.cvars.ScotiaTracker.responseListeners.SearchResponseListener;
 import com.cvars.ScotiaTracker.responseListeners.SettingResponseListener;
 import com.cvars.ScotiaTracker.view.UserActivityView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
                                         UserModel.UserResponseListener {
     private String username;
@@ -38,8 +41,14 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
     }
 
     public void requestAllInvoices() {
+        // Request all Invoices of a user. Call getInvoices() to get after
         userActivityView.showLoading();
         invoiceModel.requestAllInvoices(username);
+    }
+
+    public List<Invoice> getInvoices() {
+        // Returns a List of Invoices - USE ONLY AFTER requestAllInvoices() is called!
+        return invoiceModel.getInvoices();
     }
 
     public void requestUserInfo() {
@@ -61,6 +70,10 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
                 if (!invoiceModel.getInvoices().get(0).getInfoRequestStatus()) {
                     userActivityView.displayMessage("Incorrect user information");
                 }else{
+
+                    // get returned invoices from invoiceModel
+                    searchResponseListener.notifyInvoiceResponse();
+
                     System.out.println("Update UI by making calls here");
                 }
                 break;
@@ -97,9 +110,7 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
         userActivityView = null;
     }
 
-    public Invoice getInvoice(int invoiceID) {
-        return invoiceModel.getInvoice(invoiceID);
-    }
+
 
     public User getUser() {
         return userModel.getUser();

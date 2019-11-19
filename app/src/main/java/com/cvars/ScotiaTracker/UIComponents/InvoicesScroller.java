@@ -14,21 +14,24 @@ import com.cvars.ScotiaTracker.model.DataModelFacade;
 import com.cvars.ScotiaTracker.model.InvoiceModel;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
+import com.cvars.ScotiaTracker.view.ScrollerView;
 import com.cvars.ScotiaTracker.view.UserActivityView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InvoicesScroller extends ScrollView {
+public class InvoicesScroller extends ScrollView implements ScrollerView {
 
     private final Context context;
     private LinearLayout linearLayout;
     private List<InvoiceBox> invoices;
+    private UserActivityView userActivityView;
 
-    public InvoicesScroller(Context context) {
+    public InvoicesScroller(Context context, UserActivityView userActivityView) {
         super(context);
         this.context = context;
+        this.userActivityView = userActivityView;
         initView();
     }
 
@@ -63,7 +66,7 @@ public class InvoicesScroller extends ScrollView {
     public void initializeWithInvoices(List<Invoice> invs) {
         //  initializes with list of invoices - POJO
         for (Invoice inv : invs) {
-            addInvoiceBox(new InvoiceBox(context, inv));
+            addInvoiceBox(new InvoiceBox(context, inv, this));
         }
 
     }
@@ -81,5 +84,9 @@ public class InvoicesScroller extends ScrollView {
         for (InvoiceBox inv : invoices) {
             removeInvoiceBox(inv);
         }
+    }
+
+    public void displayInvoice(int invoiceID){
+        this.userActivityView.displayInvoice(invoiceID);
     }
 }

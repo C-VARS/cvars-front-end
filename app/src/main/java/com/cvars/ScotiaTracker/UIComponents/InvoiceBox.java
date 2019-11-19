@@ -2,16 +2,17 @@ package com.cvars.ScotiaTracker.UIComponents;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 
-public class InvoiceBox extends FrameLayout {
+public class InvoiceBox extends CardView{
 
     private View boxView;
 
@@ -41,23 +42,16 @@ public class InvoiceBox extends FrameLayout {
         initView();
         setContent();
     }
-    public InvoiceBox(Context context, int id, String status, String issuedDate) {
-        super(context);
-        invoiceId = id;
-        orderStatus = status;
-        this.issuedDate = issuedDate;
-        this.completedDate = "";
-
-        initView();
-        setContent();
-    }
-
 
     private void initView() {
-
-        setBackgroundColor(Color.GRAY);
         boxView = View.inflate(getContext(), R.layout.component_invoice_box, null);
         this.addView(boxView);
+
+        setCardBackgroundColor(Color.GRAY);
+        setRadius(60);
+        setElevation(15);
+
+
     }
 
     public void setContent(){
@@ -69,7 +63,6 @@ public class InvoiceBox extends FrameLayout {
         idText.setText("Invoice ID: " + invoiceId);
         // using the OrderStatus toString method
         statusText.setText("Status: " + orderStatus);
-
 
         // set either completion or issued date
         if (this.completedDate != null && !this.completedDate.equals("")) {

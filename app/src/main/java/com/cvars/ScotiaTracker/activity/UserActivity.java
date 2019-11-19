@@ -21,6 +21,7 @@ import com.cvars.ScotiaTracker.fragment.InvoiceFragment;
 import com.cvars.ScotiaTracker.fragment.SearchFragment;
 import com.cvars.ScotiaTracker.fragment.SettingFragment;
 import com.cvars.ScotiaTracker.model.DataModelFacade;
+import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.presenter.SearchPresenter;
 import com.cvars.ScotiaTracker.presenter.SettingPresenter;
@@ -31,7 +32,9 @@ import com.cvars.ScotiaTracker.view.UserActivityView;
 import com.cvars.ScotiaTracker.view.ViewType;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserActivity extends AppCompatActivity implements UserActivityView {
@@ -219,8 +222,16 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     @Override
     public void displayInvoice(int invoiceID) {
         switchFragment(ViewType.INVOICE);
-        InvoiceFragment invoiceFragment = (InvoiceFragment) fragmentMap.get(ViewType.INVOICE);
-        //TODO: add invoice display logic
+        List<Invoice> invoices;
+        invoices = dataFacade.getInvoices();
+        for (Invoice inv : invoices) {
+            if (inv.getInvoiceId() == invoiceID) {
+                InvoiceFragment invoiceFragment = (InvoiceFragment) fragmentMap.get(ViewType.INVOICE);
+                invoiceFragment.updateFields(inv);
+                return;
+            }
+        }
+
     }
 
     @Override

@@ -10,20 +10,10 @@
         android:layout_height="wrap_content"
         android:background="@drawable/red_gradient">
 
-        <TextView
-            android:id="@+id/welcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15sp"
-            android:text="Welcome,"
-            android:textSize="32sp" />
-
         <ImageView
             android:id="@+id/user_ic"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_below="@+id/welcome"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="9dp"
             android:layout_marginTop="9dp"

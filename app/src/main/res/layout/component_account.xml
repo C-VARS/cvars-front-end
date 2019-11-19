@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/constraintLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:id="@+id/welcome_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/red_gradient"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@drawable/red_gradient">
 
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15sp"
+            android:text="Welcome,"
+            android:textSize="32sp" />
 
         <ImageView
             android:id="@+id/user_ic"
             android:layout_width="120dp"
             android:layout_height="120dp"
+            android:layout_below="@+id/welcome"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="9dp"
             android:layout_marginTop="9dp"
@@ -34,124 +38,138 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/user_ic"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15sp"
-            android:text="Your information"
+            android:text="username"
             android:textSize="32sp" />
+
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/info_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/welcome_message"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_message">
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/name_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="Name"
+            android:textSize="13sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Name"
-                android:textSize="13sp"/>
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name_text"
+            android:text="Name"
+            android:textSize="22sp" />
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Name"
-                android:textSize="22sp" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="15dp"
-                android:background="#A9A7B3">
-            </View>
+        <View
+            android:id="@+id/name_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/name"
+            android:background="#A9A7B3"></View>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Contact Information"
-                android:textSize="13sp"/>
+        <TextView
+            android:id="@+id/contact_text"
+            android:layout_below="@+id/name_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact Information"
+            android:textSize="13sp" />
 
-            <TextView
-                android:id="@+id/contact"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Contact Information"
-                android:textSize="22sp" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="15dp"
-                android:background="#A9A7B3">
-            </View>
+        <TextView
+            android:id="@+id/contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_text"
+            android:text="Contact Information"
+            android:textSize="22sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Address"
-                android:textSize="13sp"/>
+        <View
+            android:id="@+id/contact_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/contact"
+            android:layout_marginTop="15dp"
+            android:background="#A9A7B3"></View>
 
-            <TextView
-                android:id="@+id/address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Address"
-                android:textSize="22sp" />
+        <TextView
+            android:id="@+id/address_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_line"
+            android:text="Address"
+            android:textSize="13sp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="15dp"
-                android:background="#A9A7B3">
-            </View>
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/address_text"
+            android:text="Address"
+            android:textSize="22sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="User Type"
-                android:textSize="13sp"/>
+        <View
+            android:id="@+id/address_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/address"
+            android:background="#A9A7B3"></View>
 
-            <TextView
-                android:id="@+id/userType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="User Type"
-                android:textSize="22sp" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="15dp"
-                android:background="#A9A7B3">
-            </View>
+        <TextView
+            android:id="@+id/user_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/address_line"
+            android:text="User Type"
+            android:textSize="13sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Credit Card Number"
-                android:textSize="13sp"/>
+        <TextView
+            android:id="@+id/userType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_text"
+            android:text="User Type"
+            android:textSize="22sp" />
 
-            <TextView
-                android:id="@+id/bankInformation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Credit Card Number"
-                android:textSize="22sp" />
+        <View
+            android:id="@+id/user_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/userType"
+            android:layout_marginTop="15dp"
+            android:background="#A9A7B3"></View>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="15dp"
-                android:background="#A9A7B3">
-            </View>
+        <TextView
+            android:id="@+id/bankInformation_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_line"
+            android:text="Credit Card Number"
+            android:textSize="13sp" />
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/bankInformation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bankInformation_text"
+            android:text="Credit Card Number"
+            android:textSize="22sp" />
 
-    </LinearLayout>
+        <View
+            android:id="@+id/bankInformation_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/bankInformation"
+            android:layout_marginTop="15dp"
+            android:background="#A9A7B3"></View>
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/logOut"
@@ -159,9 +177,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/info_list"
         android:layout_centerHorizontal="true"
-        android:text="logOut"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info_list" />
+        android:text="logOut" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

@@ -28,14 +28,14 @@ public class HomeFragment extends Fragment implements HomeView {
         ConstraintLayout view = (ConstraintLayout) inflater.inflate(R.layout.fragment_home, container, false);
 
 
-        InvoicesScroller invoicesScroller = new InvoicesScroller(view.getContext(), (UserActivity)this.getActivity());
-
-        invoicesScroller.addInvoiceBox(new InvoiceBox(view.getContext(), 1, "your driver is currently in a high-speed police pursuit with your order", "Jan 1.", "", invoicesScroller));
-
-        invoicesScroller.setX(50);
-        invoicesScroller.setY(100);
-
-        view.addView(invoicesScroller);
+//        InvoicesScroller invoicesScroller = new InvoicesScroller(view.getContext(), (UserActivity)this.getActivity());
+//
+//        invoicesScroller.addInvoiceBox(new InvoiceBox(view.getContext(), 1, "your driver is currently in a high-speed police pursuit with your order", "Jan 1.", "", invoicesScroller));
+//
+//        invoicesScroller.setX(50);
+//        invoicesScroller.setY(100);
+//
+//        view.addView(invoicesScroller);
 
         return view;
     }

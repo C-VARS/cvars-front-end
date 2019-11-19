@@ -13,6 +13,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 
 import com.cvars.ScotiaTracker.R;
+import com.cvars.ScotiaTracker.UIComponents.InvoiceBox;
 import com.cvars.ScotiaTracker.UIComponents.InvoicesScroller;
 import com.cvars.ScotiaTracker.activity.UserActivity;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
@@ -24,25 +25,27 @@ import com.cvars.ScotiaTracker.view.UserActivityView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchFragment extends Fragment implements SearchView {
+public class SearchFragment extends Fragment implements SearchView{
 
     private SearchPresenter searchPresenter;
 
+    private View rootView;
     private InvoicesScroller invoicesScroller;
+    private View.OnClickListener invoiceListener;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search, container, false);
-
-        FrameLayout scrollContainer = view.findViewById(R.id.scrollerContainer);
-
-        invoicesScroller = new InvoicesScroller(scrollContainer.getContext(), (UserActivity) this.getActivity());
+        rootView = inflater.inflate(R.layout.fragment_search, container, false);
+        FrameLayout scrollContainer = rootView.findViewById(R.id.scrollerContainer);
+        invoicesScroller = new InvoicesScroller(scrollContainer.getContext(), invoiceListener);
         scrollContainer.addView(invoicesScroller);
-
-        return view;
+        return rootView;
     }
 
+    public void setInvoiceListener(View.OnClickListener listener){
+        this.invoiceListener = listener;
+    }
 
     @Override
     public void setPresenter(FragmentPresenter presenter) {

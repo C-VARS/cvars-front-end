@@ -3,21 +3,16 @@ package com.cvars.ScotiaTracker.UIComponents;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.provider.ContactsContract;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import com.cvars.ScotiaTracker.R;
-import com.cvars.ScotiaTracker.model.DataModelFacade;
-import com.cvars.ScotiaTracker.model.InvoiceModel;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.view.ScrollerView;
 import com.cvars.ScotiaTracker.view.UserActivityView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,7 +71,6 @@ public class InvoicesScroller extends ScrollView implements ScrollerView {
         for (InvoiceBox inv : invs) {
             addInvoiceBox(inv);
         }
-
     }
 
     public void clearInvoiceBoxes() {

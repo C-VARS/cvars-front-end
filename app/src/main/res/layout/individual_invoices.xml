@@ -1,94 +1,313 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/invoice_info"
         android:layout_width="match_parent"
-        android:layout_height="519dp">
+        android:layout_height="wrap_content"
+        android:background="@drawable/red_gradient">
 
-
-        <TextView
-            android:id="@+id/customerContact"
+        <RelativeLayout
+            android:id="@+id/important_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_centerHorizontal="true"
+            android:paddingVertical="20dp">
 
-        <TextView
-            android:id="@+id/driverContact"
+            <RelativeLayout
+                android:id="@+id/invoiceID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="15dp">
+
+                <TextView
+                    android:id="@+id/invoiceNum_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="Invoice ID"
+                    android:textSize="20dp" />
+
+
+                <TextView
+                    android:id="@+id/invoiceNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/invoiceNum_text"
+                    android:layout_centerHorizontal="true"
+                    android:text="Invoice #1"
+                    android:textSize="30dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/orderStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@+id/invoiceID"
+                android:paddingHorizontal="15dp">
+
+                <TextView
+                    android:id="@+id/invoiceStatus_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="Invoice Status"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/invoiceStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/invoiceStatus_text"
+                    android:layout_centerHorizontal="true"
+                    android:text="TextView"
+                    android:textSize="30dp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_below="@+id/important_info"
+            android:layout_centerHorizontal="true">
 
-        <TextView
-            android:id="@+id/totalPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            <TextView
+                android:id="@+id/issuedDate_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Issued Date: " />
 
-        <TextView
-            android:id="@+id/driverName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/supplierName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/completionDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/invoiceStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/issuedDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/supplierContact"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/invoiceNum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Invoice #1" />
-
-        <TextView
-            android:id="@+id/customerAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/customerName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Alex" />
+            <TextView
+                android:id="@+id/issuedDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/issuedDate_text"
+                android:text="TextView" />
+        </RelativeLayout>
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/button9"
+    <ScrollView
+        android:id="@+id/info_scroll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="confirm" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/invoice_info">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/customer_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:paddingVertical="5dp"
+                    android:text="Customer"
+                    android:textStyle="bold"
+                    android:textSize="20dp"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/customerName_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:text="Customer Name" />
+
+            <TextView
+                android:id="@+id/customerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/red_box"
+                android:paddingVertical="5dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/customerAddress_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:text="Customer Address" />
+
+            <TextView
+                android:id="@+id/customerAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/red_box"
+                android:paddingVertical="5dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/customerContact_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:text="Customer Contact Information" />
+
+            <TextView
+                android:id="@+id/customerContact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/red_box"
+                android:paddingVertical="5dp"
+                android:text="TextView" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/driver_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:paddingVertical="5dp"
+                    android:text="Driver"
+                    android:textStyle="bold"
+                    android:textSize="20dp"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/driverName_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:text="Driver Name" />
+
+            <TextView
+                android:id="@+id/driverName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/red_box"
+                android:paddingVertical="5dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/driverContact_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:text="Driver Contact Information" />
+
+            <TextView
+                android:id="@+id/driverContact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/red_box"
+                android:paddingVertical="5dp"
+                android:text="TextView" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/supplier_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:paddingVertical="5dp"
+                    android:text="Supplier"
+                    android:textStyle="bold"
+                    android:textSize="20dp"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/supplierName_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:text="Supplier Name" />
+
+            <TextView
+                android:id="@+id/supplierName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/red_box"
+                android:paddingVertical="5dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/supplierContact_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:text="Supplier Contact Information" />
+
+            <TextView
+                android:id="@+id/supplierContact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/red_box"
+                android:paddingVertical="5dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/totalPrice_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:text="Total Price" />
+
+            <TextView
+                android:id="@+id/totalPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/red_box"
+                android:paddingVertical="5dp"
+                android:text="TextView" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/button9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:paddingVertical="5dp"
+                    android:text="confirm" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/button9">
+
+                    <TextView
+                        android:id="@+id/completionDate_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Completion Date: " />
+
+                    <TextView
+                        android:id="@+id/completionDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/completionDate_text"
+                        android:text="TextView" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </RelativeLayout>

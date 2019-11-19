@@ -3,9 +3,6 @@ package com.cvars.ScotiaTracker.UIComponents;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -16,8 +13,6 @@ import com.cvars.ScotiaTracker.model.pojo.Invoice;
 public class InvoiceBox extends CardView{
 
     private View boxView;
-
-    private ImageView imageView;
 
     private int invoiceId;
     private String orderStatus;
@@ -30,17 +25,8 @@ public class InvoiceBox extends CardView{
         orderStatus = inv.getOrderStatus().toString();
         issuedDate = inv.getIssuedDate();
         completedDate = inv.getCompletionDate();
-        imageView = findViewById(R.id.imageView);
-
         initView();
         setContent();
-
-        this.imageView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                // TODO: Create onClick method for InvoiceBox
-            }
-        });
     }
 
     public InvoiceBox(Context context, int id, String status, String issuedDate, String completedDate) {
@@ -59,10 +45,16 @@ public class InvoiceBox extends CardView{
         this.addView(boxView);
 
         setCardBackgroundColor(Color.GRAY);
-        setRadius(60);
+        setRadius(65);
         setElevation(15);
 
 
+        boxView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                // TODO: Create onClick method for InvoiceBox
+            }
+        });
     }
 
     public void setContent(){

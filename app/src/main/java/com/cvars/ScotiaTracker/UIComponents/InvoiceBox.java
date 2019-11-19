@@ -9,6 +9,7 @@ import androidx.cardview.widget.CardView;
 
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
+import com.cvars.ScotiaTracker.view.ScrollerView;
 
 public class InvoiceBox extends CardView{
 
@@ -18,24 +19,26 @@ public class InvoiceBox extends CardView{
     private String orderStatus;
     private String issuedDate;
     private String completedDate;
+    private ScrollerView scrollerView;
 
-    public InvoiceBox(Context context, Invoice inv) {
+    public InvoiceBox(Context context, Invoice inv, ScrollerView scrollerView) {
         super(context);
         invoiceId = inv.getInvoiceId();
         orderStatus = inv.getOrderStatus().toString();
         issuedDate = inv.getIssuedDate();
         completedDate = inv.getCompletionDate();
+        this.scrollerView = scrollerView;
         initView();
         setContent();
     }
 
-    public InvoiceBox(Context context, int id, String status, String issuedDate, String completedDate) {
+    public InvoiceBox(Context context, int id, String status, String issuedDate, String completedDate, ScrollerView scrollerView) {
         super(context);
         invoiceId = id;
         orderStatus = status;
         this.issuedDate = issuedDate;
         this.completedDate = completedDate;
-
+        this.scrollerView = scrollerView;
         initView();
         setContent();
     }
@@ -53,6 +56,7 @@ public class InvoiceBox extends CardView{
             @Override
             public void onClick(View view){
                 // TODO: Create onClick method for InvoiceBox
+                scrollerView.displayInvoice(invoiceId);
             }
         });
     }

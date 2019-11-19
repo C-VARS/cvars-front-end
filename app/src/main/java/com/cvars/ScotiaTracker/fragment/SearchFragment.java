@@ -14,10 +14,12 @@ import androidx.fragment.app.Fragment;
 
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.UIComponents.InvoicesScroller;
+import com.cvars.ScotiaTracker.activity.UserActivity;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.presenter.FragmentPresenter;
 import com.cvars.ScotiaTracker.presenter.SearchPresenter;
 import com.cvars.ScotiaTracker.view.SearchView;
+import com.cvars.ScotiaTracker.view.UserActivityView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +37,7 @@ public class SearchFragment extends Fragment implements SearchView {
 
         FrameLayout scrollContainer = view.findViewById(R.id.scrollerContainer);
 
-        invoicesScroller = new InvoicesScroller(scrollContainer.getContext());
+        invoicesScroller = new InvoicesScroller(scrollContainer.getContext(), (UserActivity) this.getActivity());
         scrollContainer.addView(invoicesScroller);
 
         return view;

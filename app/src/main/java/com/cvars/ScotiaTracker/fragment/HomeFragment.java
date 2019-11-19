@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.UIComponents.InvoiceBox;
 import com.cvars.ScotiaTracker.UIComponents.InvoicesScroller;
+import com.cvars.ScotiaTracker.activity.UserActivity;
 import com.cvars.ScotiaTracker.presenter.FragmentPresenter;
 import com.cvars.ScotiaTracker.presenter.HomePresenter;
 import com.cvars.ScotiaTracker.view.HomeView;
@@ -27,9 +28,9 @@ public class HomeFragment extends Fragment implements HomeView {
         ConstraintLayout view = (ConstraintLayout) inflater.inflate(R.layout.fragment_home, container, false);
 
 
-        InvoicesScroller invoicesScroller = new InvoicesScroller(view.getContext());
+        InvoicesScroller invoicesScroller = new InvoicesScroller(view.getContext(), (UserActivity)this.getActivity());
 
-        invoicesScroller.addInvoiceBox(new InvoiceBox(view.getContext(), 1, "your driver is currently in a high-speed police pursuit with your order", "Jan 1.", ""));
+        invoicesScroller.addInvoiceBox(new InvoiceBox(view.getContext(), 1, "your driver is currently in a high-speed police pursuit with your order", "Jan 1.", "", invoicesScroller));
 
         invoicesScroller.setX(50);
         invoicesScroller.setY(100);

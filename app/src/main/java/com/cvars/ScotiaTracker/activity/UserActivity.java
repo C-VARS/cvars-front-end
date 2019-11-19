@@ -30,7 +30,9 @@ import com.cvars.ScotiaTracker.view.UserActivityView;
 import com.cvars.ScotiaTracker.view.ViewType;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserActivity extends AppCompatActivity implements UserActivityView {
@@ -208,8 +210,17 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     @Override
     public void displayInvoice(int invoiceID){
         switchFragment(ViewType.INVOICE);
+        List<Invoice> invoices;
+        invoices = dataFacade.getInvoices();
+        Invoice selectInvoice = new Invoice();
+        for (Invoice inv: invoices){
+            if (inv.getInvoiceId() == invoiceID){
+                selectInvoice = inv;
+                break;
+            }
+        }
         InvoiceFragment invoiceFragment = (InvoiceFragment) fragmentMap.get(ViewType.INVOICE);
-        invoiceFragment.updateFields(new Invoice());
+        invoiceFragment.updateFields(selectInvoice);
     }
 
     @Override

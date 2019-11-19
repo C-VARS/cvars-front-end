@@ -16,9 +16,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.fragment.HomeFragment;
+import com.cvars.ScotiaTracker.fragment.InvoiceFragment;
 import com.cvars.ScotiaTracker.fragment.SearchFragment;
 import com.cvars.ScotiaTracker.fragment.SettingFragment;
 import com.cvars.ScotiaTracker.model.DataModelFacade;
+import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.presenter.SearchPresenter;
 import com.cvars.ScotiaTracker.presenter.SettingPresenter;
@@ -141,6 +143,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         fragmentMap.put(ViewType.HOME, new HomeFragment());
         fragmentMap.put(ViewType.SEARCH, new SearchFragment());
         fragmentMap.put(ViewType.SETTING, new SettingFragment());
+        fragmentMap.put(ViewType.INVOICE, new InvoiceFragment());
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         for (ViewType type: fragmentMap.keySet()){
@@ -204,7 +207,9 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
     @Override
     public void displayInvoice(int invoiceID){
-
+        switchFragment(ViewType.INVOICE);
+        InvoiceFragment invoiceFragment = (InvoiceFragment) fragmentMap.get(ViewType.INVOICE);
+        invoiceFragment.updateFields(new Invoice());
     }
 
     @Override

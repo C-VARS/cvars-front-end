@@ -2,7 +2,7 @@ package com.cvars.ScotiaTracker.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.cvars.ScotiaTracker.R;
+import com.cvars.ScotiaTracker.UIComponents.InvoiceBox;
 import com.cvars.ScotiaTracker.fragment.HomeFragment;
 import com.cvars.ScotiaTracker.fragment.InvoiceFragment;
 import com.cvars.ScotiaTracker.fragment.SearchFragment;
@@ -24,6 +25,7 @@ import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.presenter.SearchPresenter;
 import com.cvars.ScotiaTracker.presenter.SettingPresenter;
+import com.cvars.ScotiaTracker.responseListeners.InvoiceBoxListener;
 import com.cvars.ScotiaTracker.view.SearchView;
 import com.cvars.ScotiaTracker.view.SettingView;
 import com.cvars.ScotiaTracker.view.UserActivityView;
@@ -40,6 +42,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     private Map<ViewType, Fragment> fragmentMap;
     private ViewType currentFragment;
     private TabSwitchListener tabListener;
+    private InvoiceBoxListener invoiceListener;
 
     private boolean loading;
 
@@ -61,19 +64,21 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         fragmentMap = null;
         dataFacade.onDestroy();
         dataFacade = null;
+        invoiceListener.onDestroy();
+        invoiceListener = null;
         super.onDestroy();
     }
 
-    private void initializeToolBar(){
+    private void initializeToolBar() {
         Toolbar bar = findViewById(R.id.toolBar);
         bar.inflateMenu(R.menu.tool_bar_menu);
         bar.setOnMenuItemClickListener(new ToolBarListener());
     }
 
-    private class ToolBarListener implements Toolbar.OnMenuItemClickListener{
+    private class ToolBarListener implements Toolbar.OnMenuItemClickListener {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-            if (item.getItemId() == R.id.action_refresh){
+            if (item.getItemId() == R.id.action_refresh) {
                 dataFacade.requestAllInvoices();
                 dataFacade.requestUserInfo();
             }
@@ -139,7 +144,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         }
     }
 
-    private void initializeFragmentMap(){
+    private void initializeFragmentMap() {
         fragmentMap = new HashMap<>();
         // TODO: Construct the Fragments passing in their own presenters
         fragmentMap.put(ViewType.HOME, new HomeFragment());
@@ -147,14 +152,21 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         fragmentMap.put(ViewType.SETTING, new SettingFragment());
         fragmentMap.put(ViewType.INVOICE, new InvoiceFragment());
 
+        initializeInvoiceBoxListener();
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        for (ViewType type: fragmentMap.keySet()){
+        for (ViewType type : fragmentMap.keySet()) {
             ft.add(R.id.fragmentContainer, fragmentMap.get(type), type.name());
             ft.hide(fragmentMap.get((type)));
         }
         ft.show(fragmentMap.get(ViewType.HOME));
         ft.commit();
         currentFragment = ViewType.HOME;
+    }
+
+    private void initializeInvoiceBoxListener() {
+        invoiceListener = new InvoiceBoxListener(this);
+        ((SearchFragment) fragmentMap.get(ViewType.SEARCH)).setInvoiceListener(invoiceListener);
     }
 
     public void switchFragment(ViewType fragmentType) {
@@ -167,7 +179,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         currentFragment = fragmentType;
 
         Toolbar bar = findViewById(R.id.toolBar);
-        switch(fragmentType){
+        switch (fragmentType) {
             case HOME:
                 bar.setTitle("Home");
                 break;
@@ -186,7 +198,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
     @Override
     public void showLoading() {
-        if (loading){
+        if (loading) {
             return;
         }
 
@@ -208,23 +220,22 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     }
 
     @Override
-    public void displayInvoice(int invoiceID){
+    public void displayInvoice(int invoiceID) {
         switchFragment(ViewType.INVOICE);
         List<Invoice> invoices;
         invoices = dataFacade.getInvoices();
-        Invoice selectInvoice = new Invoice();
-        for (Invoice inv: invoices){
-            if (inv.getInvoiceId() == invoiceID){
-                selectInvoice = inv;
-                break;
+        for (Invoice inv : invoices) {
+            if (inv.getInvoiceId() == invoiceID) {
+                InvoiceFragment invoiceFragment = (InvoiceFragment) fragmentMap.get(ViewType.INVOICE);
+                invoiceFragment.updateFields(inv);
+                return;
             }
         }
-        InvoiceFragment invoiceFragment = (InvoiceFragment) fragmentMap.get(ViewType.INVOICE);
-        invoiceFragment.updateFields(selectInvoice);
+
     }
 
     @Override
-    public void displayMessage(String message){
+    public void displayMessage(String message) {
         showToast(message);
     }
 

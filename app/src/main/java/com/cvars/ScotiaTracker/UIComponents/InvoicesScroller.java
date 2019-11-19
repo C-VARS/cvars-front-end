@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -21,12 +22,13 @@ public class InvoicesScroller extends ScrollView implements ScrollerView {
     private final Context context;
     private LinearLayout linearLayout;
     private List<InvoiceBox> invoices;
-    private UserActivityView userActivityView;
 
-    public InvoicesScroller(Context context, UserActivityView userActivityView) {
+    private View.OnClickListener invoiceListener;
+
+    public InvoicesScroller(Context context, View.OnClickListener invoiceListener) {
         super(context);
         this.context = context;
-        this.userActivityView = userActivityView;
+        this.invoiceListener = invoiceListener;
         initView();
     }
 
@@ -61,7 +63,7 @@ public class InvoicesScroller extends ScrollView implements ScrollerView {
     public void initializeWithInvoices(List<Invoice> invs) {
         //  initializes with list of invoices - POJO
         for (Invoice inv : invs) {
-            addInvoiceBox(new InvoiceBox(context, inv, this));
+            addInvoiceBox(new InvoiceBox(context, inv, this.invoiceListener));
         }
 
     }
@@ -78,9 +80,5 @@ public class InvoicesScroller extends ScrollView implements ScrollerView {
         for (InvoiceBox inv : invoices) {
             removeInvoiceBox(inv);
         }
-    }
-
-    public void displayInvoice(int invoiceID){
-        this.userActivityView.displayInvoice(invoiceID);
     }
 }

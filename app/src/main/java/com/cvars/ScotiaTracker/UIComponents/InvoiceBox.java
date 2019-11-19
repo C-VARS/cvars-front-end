@@ -9,7 +9,6 @@ import androidx.cardview.widget.CardView;
 
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
-import com.cvars.ScotiaTracker.view.ScrollerView;
 
 public class InvoiceBox extends CardView{
 
@@ -19,26 +18,17 @@ public class InvoiceBox extends CardView{
     private String orderStatus;
     private String issuedDate;
     private String completedDate;
-    private ScrollerView scrollerView;
 
-    public InvoiceBox(Context context, Invoice inv, ScrollerView scrollerView) {
+    private View.OnClickListener listener;
+
+    public InvoiceBox(Context context, Invoice inv, View.OnClickListener listener) {
         super(context);
         invoiceId = inv.getInvoiceId();
         orderStatus = inv.getOrderStatus().toString();
         issuedDate = inv.getIssuedDate();
         completedDate = inv.getCompletionDate();
-        this.scrollerView = scrollerView;
-        initView();
-        setContent();
-    }
 
-    public InvoiceBox(Context context, int id, String status, String issuedDate, String completedDate, ScrollerView scrollerView) {
-        super(context);
-        invoiceId = id;
-        orderStatus = status;
-        this.issuedDate = issuedDate;
-        this.completedDate = completedDate;
-        this.scrollerView = scrollerView;
+        this.listener = listener;
         initView();
         setContent();
     }
@@ -50,15 +40,9 @@ public class InvoiceBox extends CardView{
         setCardBackgroundColor(Color.GRAY);
         setRadius(65);
         setElevation(15);
+        setClickable(true);
 
-
-        boxView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                // TODO: Create onClick method for InvoiceBox
-                scrollerView.displayInvoice(invoiceId);
-            }
-        });
+        setOnClickListener(listener);
     }
 
     public void setContent(){

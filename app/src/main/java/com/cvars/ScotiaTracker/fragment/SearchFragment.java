@@ -24,6 +24,7 @@ import com.cvars.ScotiaTracker.view.UserActivityView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SearchFragment extends Fragment implements SearchView{
 
@@ -58,7 +59,7 @@ public class SearchFragment extends Fragment implements SearchView{
     }
 
     @Override
-    public void updateScroller(List<Invoice> invoices) {
+    public void updateScroller(Map<Integer, Invoice> invoices) {
         invoicesScroller.initializeWithInvoices(invoices);
     }
 }

@@ -15,7 +15,9 @@ import com.cvars.ScotiaTracker.view.ScrollerView;
 import com.cvars.ScotiaTracker.view.UserActivityView;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class InvoicesScroller extends ScrollView implements ScrollerView {
 
@@ -60,10 +62,10 @@ public class InvoicesScroller extends ScrollView implements ScrollerView {
         linearLayout.removeView(inv);
     }
 
-    public void initializeWithInvoices(List<Invoice> invs) {
+    public void initializeWithInvoices(Map<Integer, Invoice> invs) {
         //  initializes with list of invoices - POJO
-        for (Invoice inv : invs) {
-            addInvoiceBox(new InvoiceBox(context, inv, this.invoiceListener));
+        for (Invoice invoice: invs.values()) {
+            addInvoiceBox(new InvoiceBox(context, invoice, this.invoiceListener));
         }
 
     }

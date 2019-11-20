@@ -36,7 +36,7 @@ public class InvoiceFragment extends Fragment {
         ((TextView) view.findViewById(R.id.supplierName)).setText(invoice.getSupplierName());
         ((TextView) view.findViewById(R.id.supplierContact)).setText(invoice.getSupplierContact());
         ((TextView) view.findViewById(R.id.completionDate)).setText(invoice.getCompletionDate());
-        ((TextView) view.findViewById(R.id.invoiceNum)).setText(invoice.getInvoiceId());
+        ((TextView) view.findViewById(R.id.invoiceNum)).setText(Integer.toString(invoice.getInvoiceId()));
         ((TextView) view.findViewById(R.id.invoiceStatus)).setText(invoice.getOrderStatus().toString());
 
     }

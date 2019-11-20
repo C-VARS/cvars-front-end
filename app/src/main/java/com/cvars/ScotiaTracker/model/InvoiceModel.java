@@ -28,8 +28,6 @@ public class InvoiceModel {
         void notifyInvoiceAction(InvoiceAction action);
     }
 
-    private List<Invoice> invoices;
-    private boolean updateStatus;
     private Map<Integer, Invoice> invoiceMap = new HashMap<>();
 
     private InvoiceAPI invoiceAPI = RetrofitNetwork.retrofit.create(InvoiceAPI.class);
@@ -74,13 +72,14 @@ public class InvoiceModel {
     private class UpdateStatusCallback implements Callback<JsonObject> {
         @Override
         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-            // TODO: What to do if updateStatus returns false.
-            updateStatus = response.body().get("updateStatus").getAsBoolean();
+            actionSuccess = response.body().get("updateStatus").getAsBoolean();
+            listener.notifyInvoiceAction(InvoiceAction.UPDATE);
         }
 
         @Override
         public void onFailure(Call<JsonObject> call, Throwable t) {
-            System.out.println("The Request Failed :(");
+            actionSuccess = false;
+            listener.notifyInvoiceAction(InvoiceAction.UPDATE);
         }
     }
 

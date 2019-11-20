@@ -9,5 +9,5 @@ public interface SearchView extends FragmentView {
     // TODO: What information do we need to update the search
     void updateSearchInformation();
 
-    void updateScroller(Map<Integer, Invoice> invoices);
+    void updateScroller(List<Invoice> invoices);
 }

@@ -47,7 +47,7 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
         invoiceModel.requestAllInvoices(username);
     }
 
-    public Map<Integer, Invoice> getInvoices() {
+    public List<Invoice> getInvoices() {
         // Returns a List of Invoices - USE ONLY AFTER requestAllInvoices() is called!
         return invoiceModel.getInvoices();
     }

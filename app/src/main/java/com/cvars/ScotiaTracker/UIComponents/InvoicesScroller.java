@@ -62,9 +62,9 @@ public class InvoicesScroller extends ScrollView implements ScrollerView {
         linearLayout.removeView(inv);
     }
 
-    public void initializeWithInvoices(Map<Integer, Invoice> invs) {
+    public void initializeWithInvoices(List<Invoice> invs) {
         //  initializes with list of invoices - POJO
-        for (Invoice invoice: invs.values()) {
+        for (Invoice invoice: invs) {
             addInvoiceBox(new InvoiceBox(context, invoice, this.invoiceListener));
         }
 

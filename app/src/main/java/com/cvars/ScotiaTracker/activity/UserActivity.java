@@ -69,6 +69,15 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         super.onDestroy();
     }
 
+    @Override
+    public void onBackPressed() {
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                getSupportFragmentManager().popBackStack();
+            } else {
+                super.onBackPressed();
+            }
+    }
+
     private void initializeToolBar() {
         Toolbar bar = findViewById(R.id.toolBar);
         bar.inflateMenu(R.menu.tool_bar_menu);
@@ -140,7 +149,11 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
         @Override
         public void onTabReselected(TabLayout.Tab tab) {
-            //unimplemented
+            int tabNum = tab.getPosition();
+            ViewType viewType = ViewType.valueOf(tabNum);
+            if (viewType == ViewType.SEARCH){
+                switchFragment(viewType);
+            }
         }
     }
 

@@ -5,6 +5,7 @@ import com.cvars.ScotiaTracker.networkAPI.InvoiceAPI;
 import com.cvars.ScotiaTracker.networkAPI.LoginAPI;
 import com.cvars.ScotiaTracker.networkAPI.RetrofitNetwork;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,8 +28,7 @@ public class InvoiceModel {
         void notifyInvoiceAction(InvoiceAction action);
     }
 
-    private List<Invoice> invoices;
-    private Map<Integer, Invoice> invoiceMap;
+    private Map<Integer, Invoice> invoiceMap = new HashMap<>();
 
     private InvoiceAPI invoiceAPI = RetrofitNetwork.retrofit.create(InvoiceAPI.class);
     private InvoiceActionListener listener;
@@ -49,7 +49,7 @@ public class InvoiceModel {
         @Override
         public void onResponse(Call<List<Invoice>> call, Response<List<Invoice>> response) {
             actionSuccess = true;
-            invoices = response.body();
+            List<Invoice> invoices = response.body();
             for (Invoice inv: invoices){
                 invoiceMap.put(inv.getInvoiceId(), inv);
             }
@@ -64,19 +64,20 @@ public class InvoiceModel {
     }
 
 
-    public Map<Integer, Invoice> getInvoices() {
-        return invoiceMap;
+    List<Invoice> getInvoices() {
+        List<Invoice> list = new ArrayList<>(invoiceMap.values());
+        return list;
     }
 
-    public Invoice getInvoice(int invoiceID){
+    Invoice getInvoice(int invoiceID){
         return invoiceMap.get(invoiceID);
     }
 
-    public void setListener(InvoiceActionListener listener) {
+    void setListener(InvoiceActionListener listener) {
         this.listener = listener;
     }
 
-    public boolean getActionSuccess() {
+    boolean getActionSuccess() {
         return actionSuccess;
     }
 }

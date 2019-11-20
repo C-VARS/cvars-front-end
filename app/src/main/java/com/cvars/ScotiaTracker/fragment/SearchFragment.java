@@ -59,7 +59,7 @@ public class SearchFragment extends Fragment implements SearchView{
     }
 
     @Override
-    public void updateScroller(Map<Integer, Invoice> invoices) {
+    public void updateScroller(List<Invoice> invoices) {
         invoicesScroller.initializeWithInvoices(invoices);
     }
 }

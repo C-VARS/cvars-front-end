@@ -5,7 +5,9 @@ import com.cvars.ScotiaTracker.networkAPI.InvoiceAPI;
 import com.cvars.ScotiaTracker.networkAPI.LoginAPI;
 import com.cvars.ScotiaTracker.networkAPI.RetrofitNetwork;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +28,7 @@ public class InvoiceModel {
     }
 
     private List<Invoice> invoices;
+    private Map<Integer, Invoice> invoiceMap;
 
     private InvoiceAPI invoiceAPI = RetrofitNetwork.retrofit.create(InvoiceAPI.class);
     private InvoiceActionListener listener;
@@ -47,6 +50,9 @@ public class InvoiceModel {
         public void onResponse(Call<List<Invoice>> call, Response<List<Invoice>> response) {
             actionSuccess = true;
             invoices = response.body();
+            for (Invoice inv: invoices){
+                invoiceMap.put(inv.getInvoiceId(), inv);
+            }
             listener.notifyInvoiceAction(InvoiceAction.REQUEST);
         }
 
@@ -58,8 +64,12 @@ public class InvoiceModel {
     }
 
 
-    public List<Invoice> getInvoices() {
-        return invoices;
+    public Map<Integer, Invoice> getInvoices() {
+        return invoiceMap;
+    }
+
+    public Invoice getInvoice(int invoiceID){
+        return invoiceMap.get(invoiceID);
     }
 
     public void setListener(InvoiceActionListener listener) {

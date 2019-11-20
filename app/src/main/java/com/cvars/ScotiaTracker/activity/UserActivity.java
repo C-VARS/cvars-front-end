@@ -222,16 +222,8 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     @Override
     public void displayInvoice(int invoiceID) {
         switchFragment(ViewType.INVOICE);
-        List<Invoice> invoices;
-        invoices = dataFacade.getInvoices();
-        for (Invoice inv : invoices) {
-            if (inv.getInvoiceId() == invoiceID) {
-                InvoiceFragment invoiceFragment = (InvoiceFragment) fragmentMap.get(ViewType.INVOICE);
-                invoiceFragment.updateFields(inv);
-                return;
-            }
-        }
-
+        Invoice inv = dataFacade.getInvoice(invoiceID);
+        ((InvoiceFragment) fragmentMap.get(ViewType.INVOICE)).updateFields(inv);
     }
 
     @Override

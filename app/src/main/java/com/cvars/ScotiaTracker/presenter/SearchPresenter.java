@@ -6,6 +6,7 @@ import com.cvars.ScotiaTracker.responseListeners.SearchResponseListener;
 import com.cvars.ScotiaTracker.view.SearchView;
 
 import java.util.List;
+import java.util.Map;
 
 public class SearchPresenter extends FragmentPresenter implements SearchResponseListener {
 
@@ -26,7 +27,7 @@ public class SearchPresenter extends FragmentPresenter implements SearchResponse
 
     @Override
     public void notifyInvoiceResponse() {
-        List<Invoice> invoices = modelFacade.getInvoices();
+        Map<Integer, Invoice> invoices = modelFacade.getInvoices();
         searchView.updateScroller(invoices);
     }
 }

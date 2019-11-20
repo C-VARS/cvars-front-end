@@ -51,6 +51,10 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
         return invoiceModel.getInvoices();
     }
 
+    public void updateStatus(int invoiceID, String status) {
+        invoiceModel.updateStatus(invoiceID, status);
+    }
+
     public void requestUserInfo() {
         userActivityView.showLoading();
         userModel.requestUser(username);

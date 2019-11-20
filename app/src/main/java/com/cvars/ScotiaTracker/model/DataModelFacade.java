@@ -9,6 +9,7 @@ import com.cvars.ScotiaTracker.view.UserActivityView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
                                         UserModel.UserResponseListener {
@@ -49,6 +50,10 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
     public List<Invoice> getInvoices() {
         // Returns a List of Invoices - USE ONLY AFTER requestAllInvoices() is called!
         return invoiceModel.getInvoices();
+    }
+
+    public Invoice getInvoice(int invoiceID){
+        return invoiceModel.getInvoice(invoiceID);
     }
 
     public void updateStatus(int invoiceID, String status) {

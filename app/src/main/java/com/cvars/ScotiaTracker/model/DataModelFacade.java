@@ -25,6 +25,14 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
     private SettingResponseListener settingResponseListener;
     private SearchResponseListener searchResponseListener;
 
+    /**
+     * Construct a facade that stores components needed for the model and views held by this
+     * facade to interact with each other.
+     *
+     * @param username
+     * @param password
+     * @param userType
+     */
 
     public DataModelFacade(String username, String password, UserType userType) {
         this.username = username;
@@ -41,6 +49,9 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
         this.userActivityView = userActivityView;
     }
 
+    /**
+     * Pull all invoices of the user with username
+     */
     public void requestAllInvoices() {
         // Request all Invoices of a user. Call getInvoices() to get after
         userActivityView.showLoading();
@@ -54,6 +65,10 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
 
     public Invoice getInvoice(int invoiceID){
         return invoiceModel.getInvoice(invoiceID);
+    }
+
+    public void updateStatus(int invoiceID, String status) {
+        invoiceModel.updateStatus(invoiceID, status);
     }
 
     public void requestUserInfo() {

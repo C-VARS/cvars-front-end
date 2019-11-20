@@ -117,6 +117,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
         dataFacade.requestAllInvoices();
         dataFacade.requestUserInfo();
+
     }
 
     private void initializeTab() {

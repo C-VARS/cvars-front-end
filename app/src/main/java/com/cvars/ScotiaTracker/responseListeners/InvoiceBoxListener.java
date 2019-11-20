@@ -17,7 +17,7 @@ public class InvoiceBoxListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         InvoiceBox box = (InvoiceBox)v;
-        view.displayInvoice(box.getId());
+        view.displayInvoice(box.getInvoiceId());
     }
 
     public void onDestroy(){

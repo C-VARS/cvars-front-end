@@ -63,4 +63,8 @@ public class InvoiceBox extends CardView{
         }
     }
 
+    public int getInvoiceId(){
+        return this.invoiceId;
+    }
+
 }

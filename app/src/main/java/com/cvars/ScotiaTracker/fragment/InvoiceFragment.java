@@ -26,6 +26,12 @@ public class InvoiceFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onDestroy() {
+        view = null;
+        super.onDestroy();
+    }
+
     public void updateFields(Invoice invoice){
 
         ((TextView) view.findViewById(R.id.customerName)).setText(invoice.getCustomerName());

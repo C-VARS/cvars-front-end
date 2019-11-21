@@ -2,6 +2,7 @@ package com.cvars.ScotiaTracker.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +46,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     private InvoiceBoxListener invoiceListener;
 
     private boolean loading;
+    private boolean doubleBackToExitPressedOnce = false;
 
     private DataModelFacade dataFacade;
 
@@ -71,11 +73,24 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
     @Override
     public void onBackPressed() {
-            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                getSupportFragmentManager().popBackStack();
-            } else {
+        if(currentFragment == ViewType.INVOICE){
+            switchFragment(ViewType.SEARCH);
+        } else{
+            if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();
+                return;
             }
+
+            this.doubleBackToExitPressedOnce = true;
+            showToast("Click BACK Again to Exit");
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
+        }
     }
 
     private void initializeToolBar() {
@@ -123,13 +138,6 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     private void initializeTab() {
 
         TabLayout tab = findViewById(R.id.tab);
-
-        int[] widgets = {R.drawable.ic_home, R.drawable.ic_clipboard_notes, R.drawable.ic_cog};
-
-        for (int i = 0; i < tab.getTabCount(); i++) {
-            tab.getTabAt(i).setIcon(widgets[i]);
-        }
-
         tabListener = new TabSwitchListener();
         tab.addOnTabSelectedListener(tabListener);
     }
@@ -210,7 +218,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     }
 
     public void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

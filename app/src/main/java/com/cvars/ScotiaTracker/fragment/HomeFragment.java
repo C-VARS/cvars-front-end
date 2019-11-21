@@ -40,6 +40,7 @@ public class HomeFragment extends Fragment implements HomeView {
         return view;
     }
 
+
     @Override
     public void setPresenter(FragmentPresenter presenter) {
         hp = (HomePresenter) presenter;

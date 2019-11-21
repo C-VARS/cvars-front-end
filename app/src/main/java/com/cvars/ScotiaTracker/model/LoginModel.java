@@ -64,7 +64,6 @@ public class LoginModel implements Callback<JsonObject> {
         if (loginSuccess) {
             loginSuccess = true;
             userType = convertUserToEnum(json.get("userType").getAsString());
-
         } else {
             this.errorMessage = "Incorrect username or password";
         }

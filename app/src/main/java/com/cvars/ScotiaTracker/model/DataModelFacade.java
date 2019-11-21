@@ -7,9 +7,7 @@ import com.cvars.ScotiaTracker.responseListeners.SearchResponseListener;
 import com.cvars.ScotiaTracker.responseListeners.SettingResponseListener;
 import com.cvars.ScotiaTracker.view.UserActivityView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
                                         UserModel.UserResponseListener {

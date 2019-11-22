@@ -1,6 +1,12 @@
 package com.cvars.ScotiaTracker.activity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -12,8 +18,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.UIComponents.InvoiceBox;
@@ -48,17 +57,26 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     private boolean loading;
     private boolean doubleBackToExitPressedOnce = false;
 
+    private String CHANNEL_ID;
+
     private DataModelFacade dataFacade;
+
+    private BroadcastReceiver mMessageReceiver = new NotificationBroadcastReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
+        initializeNotificationChannel();
         initializeFragmentMap();
         initializeTab();
         initializeModelPresenter();
         initializeToolBar();
+
+        LocalBroadcastManager.getInstance(this).registerReceiver((mMessageReceiver),
+                new IntentFilter("Message")
+        );
     }
 
     @Override
@@ -68,6 +86,8 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         dataFacade = null;
         invoiceListener.onDestroy();
         invoiceListener = null;
+
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
         super.onDestroy();
     }
 
@@ -90,6 +110,41 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
                     doubleBackToExitPressedOnce=false;
                 }
             }, 2000);
+        }
+    }
+
+    private void initializeNotificationChannel() {
+        CHANNEL_ID = getResources().getString(R.string.channel_name);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getResources().getString(R.string.channel_name);
+            String description = getResources().getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
+                    name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    public void showPushNotification(String message) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_logo_scotiabank)
+                .setContentTitle("Scotia Tracker Notification")
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+        notificationManager.notify(123, builder.build());
+    }
+
+    private class NotificationBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            showPushNotification(intent.getStringExtra("message"));
+            dataFacade.requestAllInvoices();
         }
     }
 
@@ -263,10 +318,4 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         startActivity(intent);
         finish();
     }
-
-    @Override
-    public void initializeInvoices() {
-
-    }
-
 }

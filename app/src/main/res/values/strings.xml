@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">ScotiaTracker</string>
+
+    <string name="channel_name">ScotiaTrackerChannel</string>
+    <string name="channel_description">a notification channel for displaying push notif</string>
 </resources>

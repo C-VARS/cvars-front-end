@@ -44,13 +44,12 @@ public class Invoice implements Comparable<Invoice> {
     /**
      * Iterates through the list of orders contained in the order and
      * adds their cost to sum.
-     * @param orders a List of the orders within this order.
      * @return the total cost of all orders.
      */
-    public double totalCost(List<Order> orders) {
+    public double getTotalCost() {
         // sums total price of all orders
         double sum = 0.0;
-        for (Order order : orders){
+        for (Order order : this.orders){
             sum += order.getTotalPrice();
         }
         return sum;

@@ -20,7 +20,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/invoiceID"
+                android:id="@+id/invoiceNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Invoice ID"
@@ -85,52 +85,63 @@
     </RelativeLayout>
 
 
-    <LinearLayout
-        android:id = "@+id/relativeLayout1"
-        android:layout_width = "fill_parent"
-        android:layout_height = "wrap_content"
-        android:layout_below="@+id/basic_info"
-        android:paddingVertical="10dp"
-        android:background = "@drawable/red_gradient" >
+    <TableLayout
+        android:id="@+id/invoiceTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/basic_info">
 
-        <TextView
-            android:layout_width = "wrap_content"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "2"
-            android:gravity = "center"
-            android:padding = "5dp"
-            android:text = "ITEM"
-            android:textStyle="bold"
-            android:textColor = "#ffffff" />
+        <TableRow
+            android:id="@+id/order_columns"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="10dp"
+            android:background="@drawable/red_gradient">
 
-        <TextView
-            android:layout_width = "wrap_content"
-            android:layout_height = "wrap_content"
-            android:gravity = "center"
-            android:padding = "5dp"
-            android:text = "QTY"
-            android:textStyle="bold"
-            android:textColor = "#ffffff"/>
+            <TextView
+                android:id="@+id/item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="ITEM"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
 
-        <TextView
-            android:layout_width = "wrap_content"
-            android:layout_height = "wrap_content"
-            android:layout_weight="1"
-            android:gravity = "center"
-            android:padding = "5dp"
-            android:text = "UNIT PRICE"
-            android:textStyle="bold"
-            android:textColor = "#ffffff" />
+            <TextView
+                android:id="@+id/amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="QTY"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
 
-        <TextView
-            android:layout_width = "wrap_content"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "1"
-            android:gravity = "center"
-            android:padding = "5dp"
-            android:text = "SUBTOTAL"
-            android:textStyle="bold"
-            android:textColor = "#ffffff" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="UNIT PRICE"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/subtotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="SUBTOTAL"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+        </TableRow>
+
+    </TableLayout>
 
 </RelativeLayout>

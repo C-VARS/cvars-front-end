@@ -93,6 +93,11 @@ public class InvoiceModel {
         return invoiceMap.get(invoiceID);
     }
 
+    List<Integer> getInvoiceID(){
+        List<Integer> list = new ArrayList<>(invoiceMap.keySet());
+        return list;
+    }
+
     void setListener(InvoiceActionListener listener) {
         this.listener = listener;
     }

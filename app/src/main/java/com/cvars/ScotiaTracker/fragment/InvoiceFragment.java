@@ -21,7 +21,6 @@ public class InvoiceFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.d("Invoice", "You created new invoice page");
         this.view = inflater.inflate(R.layout.individual_invoices, container, false);
         return view;
     }

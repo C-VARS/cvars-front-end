@@ -11,5 +11,5 @@ public interface UserActivityView {
 
     void logOut();
 
-    void initializeInvoices();
+    void showPushNotification(String message);
 }

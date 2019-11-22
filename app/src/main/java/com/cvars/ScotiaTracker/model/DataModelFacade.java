@@ -1,11 +1,19 @@
 package com.cvars.ScotiaTracker.model;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.User;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
+import com.cvars.ScotiaTracker.networkAPI.FirebaseService;
 import com.cvars.ScotiaTracker.responseListeners.SearchResponseListener;
 import com.cvars.ScotiaTracker.responseListeners.SettingResponseListener;
 import com.cvars.ScotiaTracker.view.UserActivityView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.List;
 
@@ -22,6 +30,8 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
 
     private SettingResponseListener settingResponseListener;
     private SearchResponseListener searchResponseListener;
+
+    private FirebaseService firebaseService;
 
     /**
      * Construct a facade that stores components needed for the model and views held by this
@@ -41,6 +51,8 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
         invoiceModel.setListener(this);
         userModel = new UserModel();
         userModel.setListener(this);
+
+        firebaseService = new FirebaseService();
     }
 
     public void setUserActivityView(UserActivityView userActivityView) {
@@ -51,7 +63,6 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
      * Pull all invoices of the user with username
      */
     public void requestAllInvoices() {
-        // Request all Invoices of a user. Call getInvoices() to get after
         userActivityView.showLoading();
         invoiceModel.requestAllInvoices(username);
     }
@@ -61,7 +72,7 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
         return invoiceModel.getInvoices();
     }
 
-    public Invoice getInvoice(int invoiceID){
+    public Invoice getInvoice(int invoiceID) {
         return invoiceModel.getInvoice(invoiceID);
     }
 
@@ -74,26 +85,39 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
         userModel.requestUser(username);
     }
 
+    public void subscribeToTopic(List<Integer> invoiceList) {
+        for (Integer i: invoiceList){
+            FirebaseMessaging.getInstance().subscribeToTopic(i.toString())
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            String msg = "success!";
+                            if (!task.isSuccessful()) {
+                                msg = "failed!";
+                            }
+                            Log.d("Topic Subscription", msg);
+                        }
+                    });
+        }
+    }
+
     @Override
     public void notifyInvoiceAction(InvoiceModel.InvoiceAction action) {
         userActivityView.finishLoading();
 
-        if (!invoiceModel.getActionSuccess()){
+        if (!invoiceModel.getActionSuccess()) {
             userActivityView.displayMessage("Network error!");
             return;
         }
 
-        switch(action){
+        switch (action) {
             case REQUEST:
                 if (!invoiceModel.getInvoices().get(0).getInfoRequestStatus()) {
                     userActivityView.displayMessage("Incorrect user information");
-                }else{
-
+                } else {
                     // get returned invoices from invoiceModel
                     searchResponseListener.notifyInvoiceResponse();
-
-                    System.out.println("Update UI by making calls here");
-
+                    subscribeToTopic(invoiceModel.getInvoiceID());
                 }
                 break;
             case UPDATE:
@@ -106,17 +130,17 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
     public void notifyUserAction(UserModel.UserAction action) {
         userActivityView.finishLoading();
 
-        if (!userModel.getActionSuccess()){
+        if (!userModel.getActionSuccess()) {
             userActivityView.displayMessage("Network error!");
             return;
         }
 
-        switch(action){
+        switch (action) {
             case REQUEST:
                 if (!userModel.getUser().getInfoRequestStatus()) {
                     userActivityView.displayMessage("Incorrect user information");
-                }else{
-                    if (settingResponseListener != null){
+                } else {
+                    if (settingResponseListener != null) {
                         settingResponseListener.notifySettingResponse();
                     }
                 }
@@ -129,8 +153,6 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
     public void onDestroy() {
         userActivityView = null;
     }
-
-
 
     public User getUser() {
         return userModel.getUser();

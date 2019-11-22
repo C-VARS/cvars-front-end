@@ -41,8 +41,13 @@ public class InvoiceBox extends CardView{
         setRadius(65);
         setElevation(15);
         setClickable(true);
-
         setOnClickListener(listener);
+        LayoutParams params = new LayoutParams(
+                LayoutParams.MATCH_PARENT,
+                LayoutParams.WRAP_CONTENT
+        );
+        params.setMargins(0, 0, 0, 3);
+        setLayoutParams(params);
     }
 
     public void setContent(){

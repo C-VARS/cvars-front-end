@@ -1,7 +1,6 @@
 package com.cvars.ScotiaTracker.fragment;
 
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,7 +17,6 @@ import androidx.fragment.app.Fragment;
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.Order;
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
 
@@ -30,7 +28,6 @@ public class InvoiceFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d("Invoice", "You created new invoice page");
-//        this.view = inflater.inflate(R.layout.individual_invoices, container, false);
         this.view = inflater.inflate(R.layout.single_invoice, container, false);
         return view;
     }
@@ -56,6 +53,8 @@ public class InvoiceFragment extends Fragment {
             TableRow row = new TableRow(view.getContext());
             row.setGravity(Gravity.CENTER);
             row.setPadding(50, 50, 50, 50);
+
+            // Set up new cells
             TextView item = new TextView(view.getContext());
             TextView amount = new TextView(view.getContext());
             TextView price = new TextView(view.getContext());
@@ -70,12 +69,13 @@ public class InvoiceFragment extends Fragment {
             subtotal.setPadding(5, 5, 5, 5);
             subtotal.setGravity(Gravity.CENTER);
 
-
+            // Fill in the cells
             item.setText(order.getName());
             amount.setText(Integer.toString(order.getQuantity()));
             price.setText(Double.toString(order.singleItemPrice()));
             subtotal.setText(Double.toString(order.getTotalPrice()));
 
+            // add the cells on to the row
             row.addView(item);
             row.addView(amount);
             row.addView(price);

@@ -46,6 +46,7 @@ import com.cvars.ScotiaTracker.view.ViewType;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserActivity extends AppCompatActivity implements UserActivityView {
@@ -58,6 +59,8 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
     private boolean loading;
     private boolean doubleBackToExitPressedOnce = false;
+
+    private SearchPresenter searchPresenter;
 
     private String CHANNEL_ID;
 
@@ -187,7 +190,8 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
         // Create the search presenter
         InvoiceView searchView = (InvoiceView) fragmentMap.get(ViewType.INVOICES);
-        SearchPresenter searchPresenter = new SearchPresenter(dataFacade, searchView);
+//        SearchPresenter searchPresenter = new SearchPresenter(dataFacade, searchView);
+        this.searchPresenter = new SearchPresenter(dataFacade, searchView);
         searchView.setPresenter(searchPresenter);
 
         // Create the status presenter
@@ -266,7 +270,8 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
     @Override
     public void executeSearch(String searchAttribute) {
-        dataFacade.executeSearch(searchAttribute);
+        List<Invoice> invs = dataFacade.executeSearch(searchAttribute);
+        this.searchPresenter.updateSearch(invs);
     }
 
     // TODO: May change implmementation

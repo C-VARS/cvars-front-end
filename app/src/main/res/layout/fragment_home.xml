@@ -1,20 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/homeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="179dp"
-        android:layout_marginTop="184dp"
-        android:layout_marginEnd="173dp"
-        android:text="you are in home"
+        android:id="@+id/welcomeMsg"
+        android:layout_width="307dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="67dp"
+        android:layout_marginEnd="68dp"
+        android:gravity="center"
+        android:margin_top="5"
+        android:text="Welcome"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <FrameLayout
+        android:layout_width="408dp"
+        android:layout_height="277dp"
+        android:layout_marginTop="122dp"
+        android:layout_marginBottom="197dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeMsg">
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/header1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="In-Progress Orders"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="220dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

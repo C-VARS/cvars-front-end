@@ -54,12 +54,10 @@ public class SearchFragment extends Fragment implements SearchView{
     }
 
     @Override
-    public void updateSearchInformation() {
-        // TODO: Add logic to update the search info
-    }
-
-    @Override
     public void updateScroller(List<Invoice> invoices) {
+        invoicesScroller.clearInvoiceBoxes();
         invoicesScroller.initializeWithInvoices(invoices);
     }
+
+
 }

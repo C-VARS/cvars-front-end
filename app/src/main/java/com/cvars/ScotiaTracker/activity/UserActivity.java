@@ -261,6 +261,10 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         ((InvoiceFragment) fragmentMap.get(ViewType.INVOICES)).setInvoiceListeners(invoiceListener, searchListener);
     }
 
+    @Override
+    public void executeSearch(String searchAttribute) {
+        dataFacade.executeSearch(searchAttribute);
+    }
 
     public void switchFragment(ViewType fragmentType) {
 

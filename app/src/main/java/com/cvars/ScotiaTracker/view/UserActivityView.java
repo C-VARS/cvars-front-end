@@ -12,4 +12,6 @@ public interface UserActivityView {
     void logOut();
 
     void showPushNotification(String message);
+
+    void executeSearch(String searchAttribute);
 }

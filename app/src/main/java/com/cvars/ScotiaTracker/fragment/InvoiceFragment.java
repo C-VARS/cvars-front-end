@@ -29,7 +29,6 @@ public class InvoiceFragment extends Fragment implements InvoiceView {
     private SearchView searchBar;
     private InvoicesScroller invoicesScroller;
     private View.OnClickListener invoiceListener;
-    private View.OnClickListener searchListener;
 
     @Nullable
     @Override
@@ -43,9 +42,9 @@ public class InvoiceFragment extends Fragment implements InvoiceView {
         return rootView;
     }
 
-    public void setInvoiceListeners(View.OnClickListener invoiceListener, View.OnClickListener searchListener){
+    public void setInvoiceListeners(View.OnClickListener invoiceListener, SearchView.OnQueryTextListener searchListener){
         this.invoiceListener = invoiceListener;
-        this.searchBar.setOnSearchClickListener(searchListener);
+        this.searchBar.setOnQueryTextListener(searchListener);
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.cvars.ScotiaTracker.view;
 import android.util.SparseArray;
 
 public enum ViewType {
-    HOME (0), SEARCH(1), SETTING(2), INVOICE(3);
+    HOME (0), INVOICES(1), SETTING(2), INDIVIDUAL_INVOICE(3);
 
     private int tabNum;
     private static SparseArray<ViewType> map;

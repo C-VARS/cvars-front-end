@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class SearchFragment extends Fragment implements SearchView{
+public class InvoiceFragment extends Fragment implements SearchView{
 
     private SearchPresenter searchPresenter;
 

@@ -25,6 +25,7 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
 
     private InvoiceModel invoiceModel;
     private UserModel userModel;
+    private SearchModel searchModel;
 
     private UserActivityView userActivityView;
 

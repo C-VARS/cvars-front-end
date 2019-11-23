@@ -5,7 +5,7 @@ import com.cvars.ScotiaTracker.responseListeners.SearchResponseListener;
 import com.cvars.ScotiaTracker.responseListeners.SettingResponseListener;
 import com.cvars.ScotiaTracker.view.HomeView;
 
-public class HomePresenter extends FragmentPresenter implements SearchResponseListener, SettingResponseListener {
+public class HomePresenter extends FragmentPresenter implements SearchResponseListener {
     private DataModelFacade modelFacade;
     private HomeView homeView;
 
@@ -23,14 +23,14 @@ public class HomePresenter extends FragmentPresenter implements SearchResponseLi
 
     @Override
     public void notifyInvoiceResponse() {
+        // On the async response of Invoice, update the scroller
         homeView.updateScroller(modelFacade.getInvoices());
     }
 
 
-    @Override
-    public void notifySettingResponse() {
-        System.out.println("Goat's are the worst animal after salamanders " + modelFacade.getUser().getName());
-        // Display welcome message this is called after successful modelFacade.requestUserInfo()
-        homeView.updateMessage("Welcome " + modelFacade.getUser().getName());
+    public void setWelcomeMessage() {
+        // set the welcome message to Welcome Name
+        String name = modelFacade.getUser().getName();
+        homeView.updateMessage("Welcome " + name);
     }
 }

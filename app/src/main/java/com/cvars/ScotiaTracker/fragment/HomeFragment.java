@@ -44,9 +44,9 @@ public class HomeFragment extends Fragment implements HomeView {
 
         scrollContainer.addView(invoicesScroller);
 
-//        // welcome message
-//        welcomeMessage = view.findViewById(R.id.welcomeMsg);
-//        homePresenter.setWelcomeMessage();
+        // welcome message
+        //welcomeMessage = view.findViewById(R.id.welcomeMsg);
+        homePresenter.setWelcomeMessage();
 
         return view;
     }

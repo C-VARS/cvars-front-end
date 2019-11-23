@@ -35,7 +35,6 @@ public class InvoiceFragment extends Fragment implements InvoiceView {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_search, container, false);
         this.searchBar = rootView.findViewById(R.id.searchBar);
-
         FrameLayout scrollContainer = rootView.findViewById(R.id.scrollerContainer);
         invoicesScroller = new InvoicesScroller(scrollContainer.getContext(), invoiceListener);
         scrollContainer.addView(invoicesScroller);

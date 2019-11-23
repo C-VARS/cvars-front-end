@@ -9,7 +9,6 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -25,10 +24,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.cvars.ScotiaTracker.R;
-import com.cvars.ScotiaTracker.UIComponents.InvoiceBox;
 import com.cvars.ScotiaTracker.fragment.HomeFragment;
 import com.cvars.ScotiaTracker.fragment.IndividualInvoiceFragment;
-import com.cvars.ScotiaTracker.fragment.SearchFragment;
+import com.cvars.ScotiaTracker.fragment.InvoiceFragment;
 import com.cvars.ScotiaTracker.fragment.SettingFragment;
 import com.cvars.ScotiaTracker.model.DataModelFacade;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
@@ -42,9 +40,7 @@ import com.cvars.ScotiaTracker.view.UserActivityView;
 import com.cvars.ScotiaTracker.view.ViewType;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class UserActivity extends AppCompatActivity implements UserActivityView {
@@ -225,7 +221,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         fragmentMap = new HashMap<>();
         // TODO: Construct the Fragments passing in their own presenters
         fragmentMap.put(ViewType.HOME, new HomeFragment());
-        fragmentMap.put(ViewType.SEARCH, new SearchFragment());
+        fragmentMap.put(ViewType.SEARCH, new InvoiceFragment());
         fragmentMap.put(ViewType.SETTING, new SettingFragment());
         fragmentMap.put(ViewType.INVOICE, new IndividualInvoiceFragment());
 
@@ -243,7 +239,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
     private void initializeInvoiceBoxListener() {
         invoiceListener = new InvoiceBoxListener(this);
-        ((SearchFragment) fragmentMap.get(ViewType.SEARCH)).setInvoiceListener(invoiceListener);
+        ((InvoiceFragment) fragmentMap.get(ViewType.SEARCH)).setInvoiceListener(invoiceListener);
     }
 
     public void switchFragment(ViewType fragmentType) {

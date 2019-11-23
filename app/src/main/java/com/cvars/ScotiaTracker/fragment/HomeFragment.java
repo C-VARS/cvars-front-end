@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,7 +37,7 @@ public class HomeFragment extends Fragment implements HomeView {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ConstraintLayout view = (ConstraintLayout) inflater.inflate(R.layout.fragment_home, container, false);
+        RelativeLayout view = (RelativeLayout) inflater.inflate(R.layout.fragment_home, container, false);
 
         // setup in-progress invoices invoicescroller
         FrameLayout scrollContainer = view.findViewById(R.id.inProgressScroller);
@@ -45,7 +46,7 @@ public class HomeFragment extends Fragment implements HomeView {
         scrollContainer.addView(invoicesScroller);
 
         // welcome message
-        //welcomeMessage = view.findViewById(R.id.welcomeMsg);
+        welcomeMessage = ((View)view).findViewById(R.id.welcomeMsg);
         homePresenter.setWelcomeMessage();
 
         return view;

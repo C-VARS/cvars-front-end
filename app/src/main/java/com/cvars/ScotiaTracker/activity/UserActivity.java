@@ -177,6 +177,9 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         //Have the activity observe data facade for top-level functions
         dataFacade.setUserActivityView(this);
 
+        dataFacade.requestAllInvoices();
+        dataFacade.requestUserInfo();
+
         //Create the setting presenter and inject dependencies
         SettingView settingView = (SettingView) fragmentMap.get(ViewType.SETTING);
         SettingPresenter settingPresenter = new SettingPresenter(dataFacade, settingView);
@@ -198,8 +201,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         homeView.setPresenter(homePresenter);
 
 
-        dataFacade.requestAllInvoices();
-        dataFacade.requestUserInfo();
+
 
     }
 

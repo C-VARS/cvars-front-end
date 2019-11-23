@@ -20,7 +20,7 @@ import com.cvars.ScotiaTracker.model.pojo.Order;
 
 import java.util.List;
 
-public class InvoiceFragment extends Fragment {
+public class IndividualInvoiceFragment extends Fragment {
 
     private View view;
 

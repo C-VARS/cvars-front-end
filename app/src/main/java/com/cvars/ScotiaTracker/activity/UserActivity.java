@@ -27,7 +27,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.UIComponents.InvoiceBox;
 import com.cvars.ScotiaTracker.fragment.HomeFragment;
-import com.cvars.ScotiaTracker.fragment.InvoiceFragment;
+import com.cvars.ScotiaTracker.fragment.IndividualInvoiceFragment;
 import com.cvars.ScotiaTracker.fragment.SearchFragment;
 import com.cvars.ScotiaTracker.fragment.SettingFragment;
 import com.cvars.ScotiaTracker.model.DataModelFacade;
@@ -227,7 +227,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         fragmentMap.put(ViewType.HOME, new HomeFragment());
         fragmentMap.put(ViewType.SEARCH, new SearchFragment());
         fragmentMap.put(ViewType.SETTING, new SettingFragment());
-        fragmentMap.put(ViewType.INVOICE, new InvoiceFragment());
+        fragmentMap.put(ViewType.INVOICE, new IndividualInvoiceFragment());
 
         initializeInvoiceBoxListener();
 
@@ -304,7 +304,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         switchFragment(ViewType.INVOICE);
         Invoice inv = dataFacade.getInvoice(invoiceID);
 
-        ((InvoiceFragment) fragmentMap.get(ViewType.INVOICE)).updateFields(inv);
+        ((IndividualInvoiceFragment) fragmentMap.get(ViewType.INVOICE)).updateFields(inv);
     }
 
     @Override

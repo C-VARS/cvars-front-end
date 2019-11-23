@@ -31,11 +31,13 @@ import com.cvars.ScotiaTracker.fragment.SettingFragment;
 import com.cvars.ScotiaTracker.model.DataModelFacade;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
+import com.cvars.ScotiaTracker.presenter.HomePresenter;
 import com.cvars.ScotiaTracker.presenter.SearchPresenter;
 import com.cvars.ScotiaTracker.presenter.SettingPresenter;
 import com.cvars.ScotiaTracker.presenter.StatusPresenter;
 import com.cvars.ScotiaTracker.responseListeners.InvoiceBoxListener;
 import com.cvars.ScotiaTracker.view.IndividualInvoiceView;
+import com.cvars.ScotiaTracker.view.HomeView;
 import com.cvars.ScotiaTracker.view.SearchView;
 import com.cvars.ScotiaTracker.view.SettingView;
 import com.cvars.ScotiaTracker.view.UserActivityView;
@@ -187,6 +189,11 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         IndividualInvoiceView individualInvoiceView = (IndividualInvoiceView) fragmentMap.get(ViewType.INDIVIDUAL_INVOICE);
         StatusPresenter statusPresenter = new StatusPresenter(dataFacade);
         individualInvoiceView.setPresenter(statusPresenter);
+
+        // Create the home presenter
+        HomeView homeView = (HomeView) fragmentMap.get(ViewType.HOME);
+        HomePresenter homePresenter = new HomePresenter(dataFacade, homeView);
+        homeView.setPresenter(homePresenter);
 
 
         dataFacade.requestAllInvoices();

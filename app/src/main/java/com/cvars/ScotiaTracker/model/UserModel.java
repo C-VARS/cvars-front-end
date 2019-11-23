@@ -66,6 +66,8 @@ public class UserModel {
          */
         @Override
         public void onFailure(Call<User> call, Throwable t) {
+            user = new User();
+            System.out.println("Error getting user");
             actionSuccess = false;
             listener.notifyUserAction(UserAction.REQUEST);
         }
@@ -81,7 +83,7 @@ public class UserModel {
     }
 
     public User getUser() {
-        return user;
+        return this.user;
     }
 
     public boolean getActionSuccess() {

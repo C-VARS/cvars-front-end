@@ -36,6 +36,7 @@ import com.cvars.ScotiaTracker.presenter.SearchPresenter;
 import com.cvars.ScotiaTracker.presenter.SettingPresenter;
 import com.cvars.ScotiaTracker.presenter.StatusPresenter;
 import com.cvars.ScotiaTracker.responseListeners.InvoiceBoxListener;
+import com.cvars.ScotiaTracker.responseListeners.SearchListener;
 import com.cvars.ScotiaTracker.view.IndividualInvoiceView;
 import com.cvars.ScotiaTracker.view.HomeView;
 import com.cvars.ScotiaTracker.view.SearchView;
@@ -53,6 +54,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     private ViewType currentFragment;
     private TabSwitchListener tabListener;
     private InvoiceBoxListener invoiceListener;
+    private SearchListener searchListener;
 
     private boolean loading;
     private boolean doubleBackToExitPressedOnce = false;
@@ -240,7 +242,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         fragmentMap.put(ViewType.SETTING, new SettingFragment());
         fragmentMap.put(ViewType.INDIVIDUAL_INVOICE, new IndividualInvoiceFragment());
 
-        initializeInvoiceBoxListener();
+        initializeInvoiceListeners();
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         for (ViewType type : fragmentMap.keySet()) {
@@ -252,10 +254,12 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         currentFragment = ViewType.HOME;
     }
 
-    private void initializeInvoiceBoxListener() {
+    private void initializeInvoiceListeners() {
         invoiceListener = new InvoiceBoxListener(this);
+        searchListener = new SearchListener(this);
         ((InvoiceFragment) fragmentMap.get(ViewType.INVOICES)).setInvoiceListener(invoiceListener);
     }
+
 
     public void switchFragment(ViewType fragmentType) {
 

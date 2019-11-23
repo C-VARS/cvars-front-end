@@ -6,38 +6,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/welcomeMsg"
-        android:layout_width="307dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="67dp"
-        android:layout_marginEnd="68dp"
-        android:gravity="center"
-        android:margin_top="5"
-        android:text="Welcome"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <FrameLayout
-        android:layout_width="408dp"
-        android:layout_height="277dp"
-        android:layout_marginTop="122dp"
-        android:layout_marginBottom="197dp"
+    <RelativeLayout
+        android:layout_width="410dp"
+        android:layout_height="645dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeMsg">
+        app:layout_constraintTop_toTopOf="parent">
 
-    </FrameLayout>
+        <TextView
+            android:id="@+id/welcomeMsg"
+            android:layout_width="307dp"
+            android:layout_height="69dp"
+            android:gravity="center"
+            android:text="Welcome"
+            android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/header1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="In-Progress Orders"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="220dp" />
+        <TextView
+            android:id="@+id/header1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="84dp"
+            android:text="In-Progress Orders"
+            android:layout_below = "@+id/welcomeMsg"
+            />
+
+        <FrameLayout
+            android:id="@+id/inProgressScroller"
+            android:layout_width="408dp"
+            android:layout_height="277dp"
+            android:layout_below = "@+id/header1">
+
+        </FrameLayout>
+    </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

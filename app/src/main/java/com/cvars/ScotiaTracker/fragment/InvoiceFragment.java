@@ -34,12 +34,18 @@ public class InvoiceFragment extends Fragment implements InvoiceView {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Set up rootView
         rootView = inflater.inflate(R.layout.fragment_search, container, false);
+
+        // set up search bar to the corresponding listener
         this.searchBar = rootView.findViewById(R.id.searchBar);
         this.searchBar.setOnQueryTextListener(searchListener);
+
+        //set up scoll container to display in-process invoices
         FrameLayout scrollContainer = rootView.findViewById(R.id.scrollerContainer);
         invoicesScroller = new InvoicesScroller(scrollContainer.getContext(), invoiceListener);
         scrollContainer.addView(invoicesScroller);
+
         return rootView;
     }
 

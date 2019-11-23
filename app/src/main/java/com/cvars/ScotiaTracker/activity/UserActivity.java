@@ -33,7 +33,9 @@ import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.presenter.SearchPresenter;
 import com.cvars.ScotiaTracker.presenter.SettingPresenter;
+import com.cvars.ScotiaTracker.presenter.StatusPresenter;
 import com.cvars.ScotiaTracker.responseListeners.InvoiceBoxListener;
+import com.cvars.ScotiaTracker.view.IndividualInvoiceView;
 import com.cvars.ScotiaTracker.view.SearchView;
 import com.cvars.ScotiaTracker.view.SettingView;
 import com.cvars.ScotiaTracker.view.UserActivityView;
@@ -89,8 +91,8 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
     @Override
     public void onBackPressed() {
-        if(currentFragment == ViewType.INVOICE){
-            switchFragment(ViewType.SEARCH);
+        if(currentFragment == ViewType.INDIVIDUAL_INVOICE){
+            switchFragment(ViewType.INVOICES);
         } else{
             if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();
@@ -177,9 +179,15 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         settingView.setPresenter(settingPresenter);
 
         // Create the search presenter
-        SearchView searchView = (SearchView) fragmentMap.get(ViewType.SEARCH);
+        SearchView searchView = (SearchView) fragmentMap.get(ViewType.INVOICES);
         SearchPresenter searchPresenter = new SearchPresenter(dataFacade, searchView);
         searchView.setPresenter(searchPresenter);
+
+        // Create the status presenter
+        IndividualInvoiceView individualInvoiceView = (IndividualInvoiceView) fragmentMap.get(ViewType.INDIVIDUAL_INVOICE);
+        StatusPresenter statusPresenter = new StatusPresenter(dataFacade);
+        individualInvoiceView.setPresenter(statusPresenter);
+
 
         dataFacade.requestAllInvoices();
         dataFacade.requestUserInfo();
@@ -211,7 +219,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         public void onTabReselected(TabLayout.Tab tab) {
             int tabNum = tab.getPosition();
             ViewType viewType = ViewType.valueOf(tabNum);
-            if (viewType == ViewType.SEARCH){
+            if (viewType == ViewType.INVOICES){
                 switchFragment(viewType);
             }
         }
@@ -221,9 +229,9 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         fragmentMap = new HashMap<>();
         // TODO: Construct the Fragments passing in their own presenters
         fragmentMap.put(ViewType.HOME, new HomeFragment());
-        fragmentMap.put(ViewType.SEARCH, new InvoiceFragment());
+        fragmentMap.put(ViewType.INVOICES, new InvoiceFragment());
         fragmentMap.put(ViewType.SETTING, new SettingFragment());
-        fragmentMap.put(ViewType.INVOICE, new IndividualInvoiceFragment());
+        fragmentMap.put(ViewType.INDIVIDUAL_INVOICE, new IndividualInvoiceFragment());
 
         initializeInvoiceBoxListener();
 
@@ -239,7 +247,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
     private void initializeInvoiceBoxListener() {
         invoiceListener = new InvoiceBoxListener(this);
-        ((InvoiceFragment) fragmentMap.get(ViewType.SEARCH)).setInvoiceListener(invoiceListener);
+        ((InvoiceFragment) fragmentMap.get(ViewType.INVOICES)).setInvoiceListener(invoiceListener);
     }
 
     public void switchFragment(ViewType fragmentType) {
@@ -256,13 +264,13 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
             case HOME:
                 bar.setTitle("Home");
                 break;
-            case SEARCH:
+            case INVOICES:
                 bar.setTitle("Invoices");
                 break;
             case SETTING:
                 bar.setTitle("Setting");
                 break;
-            case INVOICE:
+            case INDIVIDUAL_INVOICE:
                 bar.setTitle("Invoice");
                 break;
         }
@@ -297,10 +305,10 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
     @Override
     public void displayInvoice(int invoiceID) {
-        switchFragment(ViewType.INVOICE);
+        switchFragment(ViewType.INDIVIDUAL_INVOICE);
         Invoice inv = dataFacade.getInvoice(invoiceID);
 
-        ((IndividualInvoiceFragment) fragmentMap.get(ViewType.INVOICE)).updateFields(inv);
+        ((IndividualInvoiceFragment) fragmentMap.get(ViewType.INDIVIDUAL_INVOICE)).updateFields(inv);
     }
 
     @Override

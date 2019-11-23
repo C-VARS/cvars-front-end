@@ -52,6 +52,9 @@ public class InvoiceModel {
     }
 
     private class RequestInvoiceCallback implements Callback<List<Invoice>> {
+        /**
+         * Populate the invoiceMap with invoiceIDs and map it to the corresponding invoice instance
+         */
         @Override
         public void onResponse(Call<List<Invoice>> call, Response<List<Invoice>> response) {
             actionSuccess = true;
@@ -62,6 +65,9 @@ public class InvoiceModel {
             listener.notifyInvoiceAction(InvoiceAction.REQUEST);
         }
 
+        /**
+         * Fail silently.
+         */
         @Override
         public void onFailure(Call<List<Invoice>> call, Throwable t) {
             actionSuccess = false;

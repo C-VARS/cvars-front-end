@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -17,19 +18,40 @@ import androidx.fragment.app.Fragment;
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.Order;
+import com.cvars.ScotiaTracker.model.pojo.OrderStatus;
+import com.cvars.ScotiaTracker.presenter.FragmentPresenter;
+import com.cvars.ScotiaTracker.presenter.StatusPresenter;
+import com.cvars.ScotiaTracker.view.IndividualInvoiceView;
+import com.google.firebase.firestore.core.OrderBy;
 
 import java.util.List;
 
-public class IndividualInvoiceFragment extends Fragment {
+public class IndividualInvoiceFragment extends Fragment implements IndividualInvoiceView {
 
     private View view;
+    private Invoice invoice;
+    private StatusPresenter statusPresenter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d("Invoice", "You created new invoice page");
         this.view = inflater.inflate(R.layout.single_invoice, container, false);
+
+        // Set up the button to change the status for the selected invoice
+        Button button = (Button) view.findViewById(R.id.payNow);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateStatus(view);
+            }
+        });
         return view;
+    }
+
+    @Override
+    public void setPresenter(FragmentPresenter presenter){
+        statusPresenter = (StatusPresenter) presenter;
     }
 
     @Override
@@ -43,6 +65,9 @@ public class IndividualInvoiceFragment extends Fragment {
      * @param invoice
      */
     public void updateFields(Invoice invoice){
+        // Save this invoice
+        this.invoice = invoice;
+
         // Table to populate
         TableLayout table = view.findViewById(R.id.invoiceTable);
 
@@ -88,5 +113,15 @@ public class IndividualInvoiceFragment extends Fragment {
         ((TextView) view.findViewById(R.id.invoiceNum)).setText(Integer.toString(invoice.getInvoiceId()));
         ((TextView) view.findViewById(R.id.totalPrice)).setText(Double.toString(invoice.getTotalCost()));
 
+    }
+
+    /**
+     * update the status of the invoice that this view is showing
+     */
+    @Override
+    public void updateStatus(View view){
+        int invoiceID = this.invoice.getInvoiceId();
+        String status = this.invoice.getOrderStatus().toString();
+        statusPresenter.updateStatus(invoiceID, status);
     }
 }

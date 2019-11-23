@@ -261,6 +261,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         searchListener = new SearchListener(this);
 
         ((InvoiceFragment) fragmentMap.get(ViewType.INVOICES)).setInvoiceListeners(invoiceListener, searchListener);
+        ((HomeFragment) fragmentMap.get(ViewType.HOME)).setInvoiceListener(invoiceListener);
     }
 
     @Override

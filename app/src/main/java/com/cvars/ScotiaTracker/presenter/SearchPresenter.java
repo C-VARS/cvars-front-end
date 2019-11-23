@@ -23,7 +23,6 @@ public class SearchPresenter extends FragmentPresenter implements SearchResponse
 
     @Override
     public void notifyInvoiceResponse() {
-        invoiceView.updateScroller(modelFacade.executeSearch("1"));
-//        invoiceView.updateScroller(modelFacade.getInvoices());
+        invoiceView.updateScroller(modelFacade.getInvoices());
     }
 }

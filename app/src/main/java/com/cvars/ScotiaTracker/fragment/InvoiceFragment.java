@@ -45,7 +45,7 @@ public class InvoiceFragment extends Fragment implements InvoiceView {
 
     public void setInvoiceListeners(View.OnClickListener invoiceListener, View.OnClickListener searchListener){
         this.invoiceListener = invoiceListener;
-        this.searchBar.set
+        this.searchBar.setOnSearchClickListener(searchListener);
     }
 
     @Override
@@ -63,7 +63,6 @@ public class InvoiceFragment extends Fragment implements InvoiceView {
     @Override
     public boolean searchable() {
         SearchView searchView = rootView.findViewById(R.id.searchBar);
-        searchView.setOn
         String search = searchView.toString();
         return ((search != null) && !search.isEmpty());
 

@@ -39,7 +39,7 @@ import com.cvars.ScotiaTracker.responseListeners.InvoiceBoxListener;
 import com.cvars.ScotiaTracker.responseListeners.SearchListener;
 import com.cvars.ScotiaTracker.view.IndividualInvoiceView;
 import com.cvars.ScotiaTracker.view.HomeView;
-import com.cvars.ScotiaTracker.view.SearchView;
+import com.cvars.ScotiaTracker.view.InvoiceView;
 import com.cvars.ScotiaTracker.view.SettingView;
 import com.cvars.ScotiaTracker.view.UserActivityView;
 import com.cvars.ScotiaTracker.view.ViewType;
@@ -183,7 +183,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         settingView.setPresenter(settingPresenter);
 
         // Create the search presenter
-        SearchView searchView = (SearchView) fragmentMap.get(ViewType.INVOICES);
+        InvoiceView searchView = (InvoiceView) fragmentMap.get(ViewType.INVOICES);
         SearchPresenter searchPresenter = new SearchPresenter(dataFacade, searchView);
         searchView.setPresenter(searchPresenter);
 

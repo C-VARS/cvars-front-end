@@ -52,6 +52,8 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
         invoiceModel.setListener(this);
         userModel = new UserModel();
         userModel.setListener(this);
+        searchModel = new SearchModel();
+
 
         firebaseService = new FirebaseService();
     }
@@ -149,6 +151,11 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
             case UPDATE:
                 break;
         }
+    }
+    //TODO: Add in type of search as a parameter (dependency injection?)
+    public List<Invoice> executeSearch(String searchAttribute) {
+        searchModel.setSearch(new IdSearch());
+        return searchModel.executeSearch(this.getInvoices(), searchAttribute);
     }
 
     public void onDestroy() {

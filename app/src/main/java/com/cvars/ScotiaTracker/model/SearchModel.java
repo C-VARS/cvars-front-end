@@ -6,6 +6,7 @@ import java.util.List;
 
 public class SearchModel {
     private SearchStrategy searchStrategy;
+
     void setSearch(SearchStrategy searchStrategy) {
         this.searchStrategy = searchStrategy;
     }

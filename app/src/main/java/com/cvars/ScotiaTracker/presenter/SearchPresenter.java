@@ -1,32 +1,29 @@
 package com.cvars.ScotiaTracker.presenter;
 
 import com.cvars.ScotiaTracker.model.DataModelFacade;
-import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.responseListeners.SearchResponseListener;
-import com.cvars.ScotiaTracker.view.SearchView;
-
-import java.util.List;
-import java.util.Map;
+import com.cvars.ScotiaTracker.view.InvoiceView;
 
 public class SearchPresenter extends FragmentPresenter implements SearchResponseListener {
 
     private DataModelFacade modelFacade;
-    private SearchView searchView;
+    private InvoiceView invoiceView;
 
-    public SearchPresenter(DataModelFacade modelFacade, SearchView searchView) {
+    public SearchPresenter(DataModelFacade modelFacade, InvoiceView invoiceView) {
         this.modelFacade = modelFacade;
-        this.searchView = searchView;
+        this.invoiceView = invoiceView;
         modelFacade.setSearchResponseListener(this);
     }
 
     @Override
     public void onDestroy() {
-        searchView = null;
+        invoiceView = null;
         modelFacade = null;
     }
 
     @Override
     public void notifyInvoiceResponse() {
-        searchView.updateScroller(modelFacade.getInvoices());
+        invoiceView.updateScroller(modelFacade.executeSearch("1"));
+//        invoiceView.updateScroller(modelFacade.getInvoices());
     }
 }

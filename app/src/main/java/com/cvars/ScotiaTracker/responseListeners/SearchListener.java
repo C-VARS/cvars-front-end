@@ -14,14 +14,18 @@ public class SearchListener implements SearchView.OnQueryTextListener {
 
     @Override
     public boolean onQueryTextSubmit(String newText) {
-        view.executeSearch(newText);
+        if (newText != null) {
+            view.executeSearch(newText);
+        }
         return true;
     }
 
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        view.executeSearch(newText);
+        if (newText != null) {
+            view.executeSearch(newText);
+        }
         return true;
     }
 

@@ -54,7 +54,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     private ViewType currentFragment;
     private TabSwitchListener tabListener;
     private InvoiceBoxListener invoiceListener;
-    private SearchListener searchListener;
+    private SearchListener searchListener = new SearchListener(this);
 
     private boolean loading;
     private boolean doubleBackToExitPressedOnce = false;
@@ -265,6 +265,8 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     public void executeSearch(String searchAttribute) {
         dataFacade.executeSearch(searchAttribute);
     }
+
+    // TODO: May change implmementation
 
     public void switchFragment(ViewType fragmentType) {
 

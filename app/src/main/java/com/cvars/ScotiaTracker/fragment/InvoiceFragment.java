@@ -29,13 +29,14 @@ public class InvoiceFragment extends Fragment implements InvoiceView {
     private SearchView searchBar;
     private InvoicesScroller invoicesScroller;
     private View.OnClickListener invoiceListener;
+    private SearchView.OnQueryTextListener searchListener;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_search, container, false);
         this.searchBar = rootView.findViewById(R.id.searchBar);
-
+        this.searchBar.setOnQueryTextListener(searchListener);
         FrameLayout scrollContainer = rootView.findViewById(R.id.scrollerContainer);
         invoicesScroller = new InvoicesScroller(scrollContainer.getContext(), invoiceListener);
         scrollContainer.addView(invoicesScroller);
@@ -44,7 +45,7 @@ public class InvoiceFragment extends Fragment implements InvoiceView {
 
     public void setInvoiceListeners(View.OnClickListener invoiceListener, SearchView.OnQueryTextListener searchListener){
         this.invoiceListener = invoiceListener;
-        this.searchBar.setOnQueryTextListener(searchListener);
+        this.searchListener = searchListener;
     }
 
     @Override

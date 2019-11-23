@@ -14,6 +14,7 @@
         android:layout_marginTop="67dp"
         android:layout_marginEnd="68dp"
         android:gravity="center"
+        android:margin_top="5"
         android:text="Welcome"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"

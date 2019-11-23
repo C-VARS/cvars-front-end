@@ -11,7 +11,7 @@ public class SearchListener implements View.OnClickListener {
     public SearchListener(UserActivityView view ) {this.view = view;}
 
     @Override
-    public void onClick(View view) {
+    public void onClick(View v) {
 
     }
 

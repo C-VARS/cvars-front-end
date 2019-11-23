@@ -26,21 +26,26 @@ public class InvoiceFragment extends Fragment implements InvoiceView {
     private SearchPresenter searchPresenter;
 
     private View rootView;
+    private SearchView searchBar;
     private InvoicesScroller invoicesScroller;
     private View.OnClickListener invoiceListener;
+    private View.OnClickListener searchListener;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_search, container, false);
+        this.searchBar = rootView.findViewById(R.id.searchBar);
+
         FrameLayout scrollContainer = rootView.findViewById(R.id.scrollerContainer);
         invoicesScroller = new InvoicesScroller(scrollContainer.getContext(), invoiceListener);
         scrollContainer.addView(invoicesScroller);
         return rootView;
     }
 
-    public void setInvoiceListener(View.OnClickListener listener){
-        this.invoiceListener = listener;
+    public void setInvoiceListeners(View.OnClickListener invoiceListener, View.OnClickListener searchListener){
+        this.invoiceListener = invoiceListener;
+        this.searchBar.set
     }
 
     @Override

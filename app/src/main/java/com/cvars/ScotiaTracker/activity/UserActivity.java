@@ -257,7 +257,8 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     private void initializeInvoiceListeners() {
         invoiceListener = new InvoiceBoxListener(this);
         searchListener = new SearchListener(this);
-        ((InvoiceFragment) fragmentMap.get(ViewType.INVOICES)).setInvoiceListener(invoiceListener);
+
+        ((InvoiceFragment) fragmentMap.get(ViewType.INVOICES)).setInvoiceListeners(invoiceListener, searchListener);
     }
 
 

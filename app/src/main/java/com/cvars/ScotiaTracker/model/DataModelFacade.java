@@ -10,6 +10,7 @@ import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.networkAPI.FirebaseService;
 import com.cvars.ScotiaTracker.responseListeners.SearchResponseListener;
 import com.cvars.ScotiaTracker.responseListeners.SettingResponseListener;
+import com.cvars.ScotiaTracker.strategy.IdSearch;
 import com.cvars.ScotiaTracker.view.UserActivityView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

@@ -40,10 +40,10 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
 
         // Set up the button to change the status for the selected invoice
         Button button = (Button) view.findViewById(R.id.payNow);
-        button.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
-                updateStatus(view);
+            public void onClick(View v) {
+                updatePay();
             }
         });
         return view;
@@ -112,16 +112,24 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         // Fill in invoiceID
         ((TextView) view.findViewById(R.id.invoiceNum)).setText(Integer.toString(invoice.getInvoiceId()));
         ((TextView) view.findViewById(R.id.totalPrice)).setText(Double.toString(invoice.getTotalCost()));
-
     }
 
-    /**
-     * update the status of the invoice that this view is showing
-     */
     @Override
-    public void updateStatus(View view){
+    public void updateOnTheWay() {
         int invoiceID = this.invoice.getInvoiceId();
-        String status = this.invoice.getOrderStatus().toString();
-        statusPresenter.updateStatus(invoiceID, status);
+        statusPresenter.updateStatus(invoiceID, "onTheWay");
+    }
+
+    @Override
+    public void updateArrived() {
+        int invoiceID = this.invoice.getInvoiceId();
+
+        statusPresenter.updateStatus(invoiceID, "arrived");
+    }
+
+    @Override
+    public void updatePay() {
+        int invoiceID = this.invoice.getInvoiceId();
+        statusPresenter.updateStatus(invoiceID, "payment");
     }
 }

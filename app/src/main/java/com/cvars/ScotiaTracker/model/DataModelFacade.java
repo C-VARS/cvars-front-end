@@ -128,7 +128,9 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
                 }
                 break;
             case UPDATE:
-                //TODO: handle invoice update callback
+                if(invoiceModel.getActionSuccess()){
+                    userActivityView.displayMessage("Update Success!");
+                }
                 break;
         }
     }

@@ -15,7 +15,7 @@ public class SearchPresenter extends FragmentPresenter implements SearchResponse
     public SearchPresenter(DataModelFacade modelFacade, InvoiceView invoiceView) {
         this.modelFacade = modelFacade;
         this.invoiceView = invoiceView;
-        modelFacade.setSearchResponseListener(this);
+        modelFacade.setInvoiceResponseListener(this);
     }
 
     @Override

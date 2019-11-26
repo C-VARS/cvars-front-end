@@ -31,7 +31,9 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
     private UserActivityView userActivityView;
 
     private SettingResponseListener settingResponseListener;
-    private SearchResponseListener searchResponseListener;
+    private SettingResponseListener homeSettingResponseListener;
+    private SearchResponseListener homeResponseListener;
+    private SearchResponseListener invoiceResponseListener;
 
     private FirebaseService firebaseService;
 
@@ -120,7 +122,8 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
                     userActivityView.displayMessage("Incorrect user information");
                 } else {
                     // get returned invoices from invoiceModel
-                    searchResponseListener.notifyInvoiceResponse();
+                    homeResponseListener.notifyInvoiceResponse();
+                    invoiceResponseListener.notifyInvoiceResponse();
                     subscribeToTopic(invoiceModel.getInvoiceID());
                 }
                 break;
@@ -146,6 +149,7 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
                 } else {
                     if (settingResponseListener != null) {
                         settingResponseListener.notifySettingResponse();
+                        homeSettingResponseListener.notifySettingResponse();
                     }
                 }
                 break;
@@ -183,7 +187,15 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
         this.settingResponseListener = settingResponseListener;
     }
 
-    public void setSearchResponseListener(SearchResponseListener searchResponseListener) {
-        this.searchResponseListener = searchResponseListener;
+    public void setHomeSettingResponseListener(SettingResponseListener settingResponseListener){
+        this.homeSettingResponseListener = settingResponseListener;
+    }
+
+    public void setHomeResponseListener(SearchResponseListener searchResponseListener) {
+        this.homeResponseListener = searchResponseListener;
+    }
+
+    public void setInvoiceResponseListener(SearchResponseListener searchResponseListener) {
+        this.invoiceResponseListener = searchResponseListener;
     }
 }

@@ -5,15 +5,15 @@ import com.cvars.ScotiaTracker.responseListeners.SearchResponseListener;
 import com.cvars.ScotiaTracker.responseListeners.SettingResponseListener;
 import com.cvars.ScotiaTracker.view.HomeView;
 
-public class HomePresenter extends FragmentPresenter implements SettingResponseListener {
+public class HomePresenter extends FragmentPresenter implements SettingResponseListener, SearchResponseListener {
     private DataModelFacade modelFacade;
     private HomeView homeView;
 
     public HomePresenter(DataModelFacade modelFacade, HomeView homeView) {
         this.modelFacade = modelFacade;
         this.homeView = homeView;
-//        modelFacade.setSearchResponseListener(this);
-        modelFacade.setSettingResponseListener(this);
+        modelFacade.setHomeResponseListener(this);
+        modelFacade.setHomeSettingResponseListener(this);
     }
 
     @Override
@@ -37,5 +37,10 @@ public class HomePresenter extends FragmentPresenter implements SettingResponseL
     @Override
     public void notifySettingResponse() {
         homeView.updateMessage("Welcome " + modelFacade.getUser().getName());
+    }
+
+    @Override
+    public void notifyInvoiceResponse() {
+        homeView.updateScroller(modelFacade.getInvoices());
     }
 }

@@ -51,6 +51,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
     private Map<ViewType, Fragment> fragmentMap;
     private ViewType currentFragment;
+    private ViewType switchedOutFragment;
     private TabSwitchListener tabListener;
     private InvoiceBoxListener invoiceListener;
 
@@ -94,7 +95,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     @Override
     public void onBackPressed() {
         if(currentFragment == ViewType.INDIVIDUAL_INVOICE){
-            switchFragment(ViewType.INVOICES);
+            switchFragment(switchedOutFragment);
         } else{
             if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();
@@ -209,7 +210,6 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     }
 
     private void initializeTab() {
-
         TabLayout tab = findViewById(R.id.tab);
         tabListener = new TabSwitchListener();
         tab.addOnTabSelectedListener(tabListener);
@@ -233,7 +233,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         public void onTabReselected(TabLayout.Tab tab) {
             int tabNum = tab.getPosition();
             ViewType viewType = ViewType.valueOf(tabNum);
-            if (viewType == ViewType.INVOICES){
+            if (viewType == ViewType.INVOICES || viewType == ViewType.HOME){
                 switchFragment(viewType);
             }
         }
@@ -265,6 +265,10 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
                 .commit();
 
         currentFragment = fragmentType;
+
+        if (fragmentType == ViewType.HOME || fragmentType == ViewType.INVOICES){
+            switchedOutFragment = fragmentType;
+        }
 
         Toolbar bar = findViewById(R.id.toolBar);
         switch (fragmentType) {

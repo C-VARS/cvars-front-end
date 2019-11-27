@@ -46,25 +46,27 @@ public class InvoiceBox extends CardView{
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT
         );
-        params.setMargins(0, 0, 0, 3);
+        params.setMargins(0, 0, 0, 5);
         setLayoutParams(params);
     }
 
     public void setContent(){
-        TextView idText = boxView.findViewById(R.id.idText);
-        TextView statusText = boxView.findViewById(R.id.statusText);
-        TextView issuedDate = boxView.findViewById(R.id.issuedDate);
-        TextView completedDate = boxView.findViewById(R.id.completionDate);
-
-        idText.setText("Invoice ID: " + invoiceId);
+        TextView idText = (boxView.findViewById(R.id.idinfo)).findViewById(R.id.idText);
+        TextView statusText = boxView.findViewById(R.id.otherInfo).findViewById(R.id.statusText);
+        TextView issuedDate = boxView.findViewById(R.id.otherInfo).findViewById(R.id.issuedDate);
+        TextView completedDate = boxView.findViewById(R.id.otherInfo).findViewById(R.id.completionDate);
+        idText.setText(Integer.toString(invoiceId));
         // using the OrderStatus toString method
         statusText.setText("Status: " + orderStatus);
+        statusText.setTextSize(15);
 
         // set either completion or issued date
         if (this.completedDate != null && !this.completedDate.equals("")) {
             completedDate.setText("Finished: " + this.completedDate);
+            completedDate.setTextSize(13);
         } else {
             issuedDate.setText("Issued: " + this.issuedDate);
+            issuedDate.setTextSize(13);
         }
     }
 

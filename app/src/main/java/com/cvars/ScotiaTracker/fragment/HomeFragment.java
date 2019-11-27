@@ -10,17 +10,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.cvars.ScotiaTracker.R;
-import com.cvars.ScotiaTracker.UIComponents.InvoiceBox;
 import com.cvars.ScotiaTracker.UIComponents.InvoicesScroller;
-import com.cvars.ScotiaTracker.activity.UserActivity;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.presenter.FragmentPresenter;
 import com.cvars.ScotiaTracker.presenter.HomePresenter;
-import com.cvars.ScotiaTracker.presenter.SearchPresenter;
+import com.cvars.ScotiaTracker.presenter.InvoicePresenter;
 import com.cvars.ScotiaTracker.view.HomeView;
 
 import java.util.List;

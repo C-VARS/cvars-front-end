@@ -32,7 +32,7 @@ import com.cvars.ScotiaTracker.model.DataModelFacade;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.presenter.HomePresenter;
-import com.cvars.ScotiaTracker.presenter.SearchPresenter;
+import com.cvars.ScotiaTracker.presenter.InvoicePresenter;
 import com.cvars.ScotiaTracker.presenter.SettingPresenter;
 import com.cvars.ScotiaTracker.presenter.StatusPresenter;
 import com.cvars.ScotiaTracker.responseListeners.InvoiceBoxListener;
@@ -60,7 +60,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     private boolean loading;
     private boolean doubleBackToExitPressedOnce = false;
 
-    private SearchPresenter searchPresenter;
+    private InvoicePresenter invoicePresenter;
 
     private String CHANNEL_ID;
 
@@ -191,8 +191,8 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         // Create the search presenter
         InvoiceView searchView = (InvoiceView) fragmentMap.get(ViewType.INVOICES);
 //        SearchPresenter searchPresenter = new SearchPresenter(dataFacade, searchView);
-        this.searchPresenter = new SearchPresenter(dataFacade, searchView);
-        searchView.setPresenter(searchPresenter);
+        this.invoicePresenter = new InvoicePresenter(dataFacade, searchView);
+        searchView.setPresenter(invoicePresenter);
 
         // Create the status presenter
         IndividualInvoiceView individualInvoiceView = (IndividualInvoiceView) fragmentMap.get(ViewType.INDIVIDUAL_INVOICE);
@@ -271,7 +271,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     @Override
     public void executeSearch(String searchAttribute) {
         List<Invoice> invs = dataFacade.executeSearch(searchAttribute);
-        this.searchPresenter.updateSearch(invs);
+        this.invoicePresenter.updateSearch(invs);
     }
 
     // TODO: May change implmementation

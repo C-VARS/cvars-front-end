@@ -7,12 +7,12 @@ import com.cvars.ScotiaTracker.view.InvoiceView;
 
 import java.util.List;
 
-public class SearchPresenter extends FragmentPresenter implements SearchResponseListener {
+public class InvoicePresenter extends FragmentPresenter implements SearchResponseListener {
 
     private DataModelFacade modelFacade;
     private InvoiceView invoiceView;
 
-    public SearchPresenter(DataModelFacade modelFacade, InvoiceView invoiceView) {
+    public InvoicePresenter(DataModelFacade modelFacade, InvoiceView invoiceView) {
         this.modelFacade = modelFacade;
         this.invoiceView = invoiceView;
         modelFacade.setInvoiceResponseListener(this);

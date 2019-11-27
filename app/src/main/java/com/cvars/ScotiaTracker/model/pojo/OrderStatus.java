@@ -21,7 +21,7 @@ public class OrderStatus {
             return "On The Way";
         }
         else {
-            return "Your order is deadass missing";
+            return "Pending";
         }
     }
 }

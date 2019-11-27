@@ -28,6 +28,8 @@ public class InvoiceBox extends CardView{
         issuedDate = inv.getIssuedDate();
         completedDate = inv.getCompletionDate();
 
+        System.out.println(inv.getActualDate());
+
         this.listener = listener;
         initView();
         setContent();

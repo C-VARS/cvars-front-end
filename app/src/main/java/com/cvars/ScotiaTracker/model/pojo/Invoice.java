@@ -1,5 +1,9 @@
 package com.cvars.ScotiaTracker.model.pojo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -115,8 +119,21 @@ public class Invoice implements Comparable<Invoice> {
         return supplierContact;
     }
 
+    public Date getActualDate() {
+        String clippedDate = issuedDate.substring(0, issuedDate.length() - 4);
+        SimpleDateFormat formatter = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss");
+        // TODO: We should definetly make it so it just builds in the date when the invoice is built.
+        Date date = new Date();
+        try {
+           date = formatter.parse(clippedDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
     public String getIssuedDate() {
-        return issuedDate;
+        return this.issuedDate;
     }
 
     public String getCompletionDate() {

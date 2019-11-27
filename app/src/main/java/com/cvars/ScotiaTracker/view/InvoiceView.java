@@ -7,6 +7,4 @@ import java.util.Map;
 
 public interface InvoiceView extends FragmentView {
        void updateScroller(List<Invoice> invoices);
-       boolean searchable();
-       String getSearchAttribute();
 }

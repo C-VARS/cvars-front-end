@@ -17,6 +17,7 @@ import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.presenter.FragmentPresenter;
 import com.cvars.ScotiaTracker.presenter.InvoicePresenter;
 import com.cvars.ScotiaTracker.view.InvoiceView;
+import com.cvars.ScotiaTracker.view.UserActivityView;
 
 import java.util.List;
 
@@ -36,21 +37,51 @@ public class InvoiceFragment extends Fragment implements InvoiceView {
         // Set up rootView
         rootView = inflater.inflate(R.layout.fragment_search, container, false);
 
-        // set up search bar to the corresponding listener
-        this.searchBar = rootView.findViewById(R.id.searchBar);
-        this.searchBar.setOnQueryTextListener(searchListener);
-
         //set up scoll container to display in-process invoices
         FrameLayout scrollContainer = rootView.findViewById(R.id.scrollerContainer);
         invoicesScroller = new InvoicesScroller(scrollContainer.getContext(), invoiceListener);
         scrollContainer.addView(invoicesScroller);
 
+        initializeSearchListener();
+
         return rootView;
     }
 
-    public void setInvoiceListeners(View.OnClickListener invoiceListener, SearchView.OnQueryTextListener searchListener){
+    private void initializeSearchListener() {
+        searchListener = new SearchListener();
+
+        this.searchBar = rootView.findViewById(R.id.searchBar);
+        this.searchBar.setOnQueryTextListener(searchListener);
+    }
+
+    private class SearchListener implements SearchView.OnQueryTextListener {
+
+        private InvoiceView view;
+
+        @Override
+        public boolean onQueryTextSubmit(String newText) {
+            if (newText != null) {
+                invoicePresenter.executeSearch(newText);
+            }
+            return true;
+        }
+
+
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            if (newText != null) {
+                invoicePresenter.executeSearch(newText);
+            }
+            return true;
+        }
+
+        public void onDestroy() {
+            this.view = null;
+        }
+    }
+
+    public void setInvoiceListeners(View.OnClickListener invoiceListener) {
         this.invoiceListener = invoiceListener;
-        this.searchListener = searchListener;
     }
 
     @Override
@@ -64,18 +95,8 @@ public class InvoiceFragment extends Fragment implements InvoiceView {
         invoicesScroller.initializeWithInvoices(invoices);
     }
 
-
     @Override
-    public boolean searchable() {
-        SearchView searchView = rootView.findViewById(R.id.searchBar);
-        String search = searchView.toString();
-        return ((search != null) && !search.isEmpty());
-
-    }
-
-    @Override
-    public String getSearchAttribute() {
-        SearchView searchView = rootView.findViewById(R.id.searchBar);
-        return searchView.toString();
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

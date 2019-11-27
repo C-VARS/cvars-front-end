@@ -28,23 +28,14 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
     private UserModel userModel;
     private SearchModel searchModel;
 
+    FirebaseService firebaseService;
+
     private UserActivityView userActivityView;
 
     private SettingResponseListener settingResponseListener;
     private SettingResponseListener homeSettingResponseListener;
     private SearchResponseListener homeResponseListener;
     private SearchResponseListener invoiceResponseListener;
-
-    private FirebaseService firebaseService;
-
-    /**
-     * Construct a facade that stores components needed for the model and views held by this
-     * facade to interact with each other.
-     *
-     * @param username
-     * @param password
-     * @param userType
-     */
 
     public DataModelFacade(String username, String password, UserType userType) {
         this.username = username;
@@ -56,7 +47,6 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
         userModel = new UserModel();
         userModel.setListener(this);
         searchModel = new SearchModel();
-
 
         firebaseService = new FirebaseService();
     }
@@ -91,7 +81,7 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
         userModel.requestUser(username);
     }
 
-    public void subscribeToTopic(List<Integer> invoiceList) {
+    private void subscribeToTopic(List<Integer> invoiceList) {
         for (Integer i: invoiceList){
             FirebaseMessaging.getInstance().subscribeToTopic(i.toString())
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -102,6 +92,22 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
                                 msg = "failed!";
                             }
                             Log.d("Topic Subscription", msg);
+                        }
+                    });
+        }
+    }
+
+    private void unsubscribeToTopic(List<Integer> invoiceList){
+        for (Integer i: invoiceList){
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(i.toString())
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            String msg = "success!";
+                            if (!task.isSuccessful()) {
+                                msg = "failed!";
+                            }
+                            Log.d("Topic Unsubscribed", msg);
                         }
                     });
         }
@@ -167,6 +173,7 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
 
     public void onDestroy() {
         userActivityView = null;
+        unsubscribeToTopic(invoiceModel.getInvoiceID());
     }
 
     public User getUser() {

@@ -24,7 +24,12 @@ public class InvoicePresenter extends FragmentPresenter implements SearchRespons
         modelFacade = null;
     }
 
-    public void updateSearch(List<Invoice> invs){
+    public void executeSearch(String search){
+        List<Invoice> result = modelFacade.executeSearch(search);
+        updateSearch(result);
+    }
+
+    private void updateSearch(List<Invoice> invs){
         invoiceView.updateScroller(invs);
     }
 

@@ -36,7 +36,6 @@ import com.cvars.ScotiaTracker.presenter.InvoicePresenter;
 import com.cvars.ScotiaTracker.presenter.SettingPresenter;
 import com.cvars.ScotiaTracker.presenter.StatusPresenter;
 import com.cvars.ScotiaTracker.responseListeners.InvoiceBoxListener;
-import com.cvars.ScotiaTracker.responseListeners.SearchListener;
 import com.cvars.ScotiaTracker.view.IndividualInvoiceView;
 import com.cvars.ScotiaTracker.view.HomeView;
 import com.cvars.ScotiaTracker.view.InvoiceView;
@@ -46,7 +45,6 @@ import com.cvars.ScotiaTracker.view.ViewType;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class UserActivity extends AppCompatActivity implements UserActivityView {
@@ -55,12 +53,9 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     private ViewType currentFragment;
     private TabSwitchListener tabListener;
     private InvoiceBoxListener invoiceListener;
-    private SearchListener searchListener = new SearchListener(this);
 
     private boolean loading;
     private boolean doubleBackToExitPressedOnce = false;
-
-    private InvoicePresenter invoicePresenter;
 
     private String CHANNEL_ID;
 
@@ -132,6 +127,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         }
     }
 
+    @Override
     public void showPushNotification(String message) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_logo_scotiabank)
@@ -180,6 +176,11 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         //Have the activity observe data facade for top-level functions
         dataFacade.setUserActivityView(this);
 
+        invoiceListener = new InvoiceBoxListener(this);
+
+        ((InvoiceFragment) fragmentMap.get(ViewType.INVOICES)).setInvoiceListeners(invoiceListener);
+        ((HomeFragment) fragmentMap.get(ViewType.HOME)).setInvoiceListener(invoiceListener);
+
         dataFacade.requestAllInvoices();
         dataFacade.requestUserInfo();
 
@@ -191,7 +192,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         // Create the search presenter
         InvoiceView searchView = (InvoiceView) fragmentMap.get(ViewType.INVOICES);
 //        SearchPresenter searchPresenter = new SearchPresenter(dataFacade, searchView);
-        this.invoicePresenter = new InvoicePresenter(dataFacade, searchView);
+        InvoicePresenter invoicePresenter = new InvoicePresenter(dataFacade, searchView);
         searchView.setPresenter(invoicePresenter);
 
         // Create the status presenter
@@ -203,8 +204,6 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         HomeView homeView = (HomeView) fragmentMap.get(ViewType.HOME);
         HomePresenter homePresenter = new HomePresenter(dataFacade, homeView);
         homeView.setPresenter(homePresenter);
-
-
 
 
     }
@@ -248,8 +247,6 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         fragmentMap.put(ViewType.SETTING, new SettingFragment());
         fragmentMap.put(ViewType.INDIVIDUAL_INVOICE, new IndividualInvoiceFragment());
 
-        initializeInvoiceListeners();
-
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         for (ViewType type : fragmentMap.keySet()) {
             ft.add(R.id.fragmentContainer, fragmentMap.get(type), type.name());
@@ -259,22 +256,6 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         ft.commit();
         currentFragment = ViewType.HOME;
     }
-
-    private void initializeInvoiceListeners() {
-        invoiceListener = new InvoiceBoxListener(this);
-        searchListener = new SearchListener(this);
-
-        ((InvoiceFragment) fragmentMap.get(ViewType.INVOICES)).setInvoiceListeners(invoiceListener, searchListener);
-        ((HomeFragment) fragmentMap.get(ViewType.HOME)).setInvoiceListener(invoiceListener);
-    }
-
-    @Override
-    public void executeSearch(String searchAttribute) {
-        List<Invoice> invs = dataFacade.executeSearch(searchAttribute);
-        this.invoicePresenter.updateSearch(invs);
-    }
-
-    // TODO: May change implmementation
 
     public void switchFragment(ViewType fragmentType) {
 

@@ -108,8 +108,8 @@ public class MainActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    protected void onStop(){
-        super.onStop();
-        loginPresenter.onStop();
+    protected void onDestroy() {
+        loginPresenter.onDestroy();
+        super.onDestroy();
     }
 }

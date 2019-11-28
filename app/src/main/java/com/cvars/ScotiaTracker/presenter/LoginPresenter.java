@@ -55,7 +55,7 @@ public class LoginPresenter implements LoginResponseListener {
     /**
      * Life cycle handling methods to prevent data leak
      */
-    public void onStop(){
+    public void onDestroy(){
         view = null;
         loginModel = null;
     }

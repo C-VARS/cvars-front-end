@@ -23,7 +23,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
-                                        UserModel.UserResponseListener {
+        UserModel.UserResponseListener {
     private String username;
     private String password;
     private UserType userType;
@@ -32,17 +32,12 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
     private UserModel userModel;
     private SearchModel searchModel;
 
-    FirebaseService firebaseService;
+    private FirebaseService firebaseService;
 
     private UserActivityView userActivityView;
 
     private List<InvoiceResponseListener> invoiceResponseListeners;
     private List<SettingResponseListener> settingResponseListeners;
-
-    private SettingResponseListener settingResponseListener;
-    private SettingResponseListener homeSettingResponseListener;
-    private InvoiceResponseListener homeResponseListener;
-    private InvoiceResponseListener invoiceResponseListener;
 
     public DataModelFacade(String username, String password, UserType userType) {
         this.username = username;
@@ -92,7 +87,7 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
     }
 
     private void subscribeToTopic(List<Integer> invoiceList) {
-        for (Integer i: invoiceList){
+        for (Integer i : invoiceList) {
             FirebaseMessaging.getInstance().subscribeToTopic(i.toString())
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -107,8 +102,8 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
         }
     }
 
-    private void unsubscribeToTopic(List<Integer> invoiceList){
-        for (Integer i: invoiceList){
+    private void unsubscribeToTopic(List<Integer> invoiceList) {
+        for (Integer i : invoiceList) {
             FirebaseMessaging.getInstance().unsubscribeFromTopic(i.toString())
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -137,14 +132,14 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
                 if (!invoiceModel.getInvoices().get(0).getInfoRequestStatus()) {
                     userActivityView.displayMessage("Incorrect user information");
                 } else {
-                    for (InvoiceResponseListener listener: invoiceResponseListeners){
+                    for (InvoiceResponseListener listener : invoiceResponseListeners) {
                         listener.notifyInvoiceResponse();
                     }
                     subscribeToTopic(invoiceModel.getInvoiceID());
                 }
                 break;
             case UPDATE:
-                    userActivityView.displayMessage("Update Success!");
+                userActivityView.displayMessage("Update Success!");
                 break;
         }
     }
@@ -163,10 +158,8 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
                 if (!userModel.getUser().getInfoRequestStatus()) {
                     userActivityView.displayMessage("Incorrect user information");
                 } else {
-                    if (settingResponseListener != null) {
-                        for (SettingResponseListener listener : settingResponseListeners){
-                            listener.notifySettingResponse();
-                        }
+                    for (SettingResponseListener listener : settingResponseListeners) {
+                        listener.notifySettingResponse();
                     }
                 }
                 break;
@@ -174,13 +167,14 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
                 break;
         }
     }
+
     //TODO: Add in type of search as a parameter (dependency injection?)
     public List<Invoice> executeSearch(String searchAttribute) {
         return searchModel.executeSearch(this.getInvoices(), searchAttribute);
     }
 
-    public void setSortStrategy(SortType type){
-        switch(type){
+    public void setSortStrategy(SortType type) {
+        switch (type) {
             case NEWEST:
                 searchModel.setSortStrategy(new NewestSort());
                 break;
@@ -195,6 +189,8 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
 
     public void onDestroy() {
         userActivityView = null;
+        settingResponseListeners = null;
+        invoiceResponseListeners = null;
         unsubscribeToTopic(invoiceModel.getInvoiceID());
     }
 
@@ -214,11 +210,11 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
         return userType;
     }
 
-    public void addInvoiceResponseListener(InvoiceResponseListener listener){
+    public void addInvoiceResponseListener(InvoiceResponseListener listener) {
         invoiceResponseListeners.add(listener);
     }
 
-    public void addSettingResponseListener(SettingResponseListener listener){
+    public void addSettingResponseListener(SettingResponseListener listener) {
         settingResponseListeners.add(listener);
     }
 }

@@ -254,6 +254,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         ft.show(fragmentMap.get(ViewType.HOME));
         ft.commit();
         currentFragment = ViewType.HOME;
+        switchedOutFragment = ViewType.HOME;
     }
 
     public void switchFragment(ViewType fragmentType) {

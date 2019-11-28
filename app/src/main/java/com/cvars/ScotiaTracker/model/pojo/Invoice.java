@@ -138,11 +138,11 @@ public class Invoice implements Comparable<Invoice> {
     }
 
     public String getIssuedDate() {
-        return this.issuedDate;
+        return issuedDate != null? issuedDate.substring(0, issuedDate.length() - 4): "";
     }
 
     public String getCompletionDate() {
-        return completionDate;
+        return completionDate != null ? completionDate.substring(0, completionDate.length() - 4): "";
     }
 
     public List<Order> getOrders() {

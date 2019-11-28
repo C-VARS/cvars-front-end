@@ -31,10 +31,22 @@
                 android:textStyle="bold" />
 
             <RelativeLayout
+                android:id="@+id/invoiceNumLine"
                 android:layout_width="200dp"
                 android:layout_height="4dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/accent_line_black" />
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="On the Way"
+                android:textSize="20sp"
+                android:textColor="#000">
+
+            </TextView>
+
         </LinearLayout>
 
     </RelativeLayout>
@@ -75,15 +87,12 @@
             android:id="@+id/payNow"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/priceView"
+            android:layout_centerHorizontal="true"
             android:background="@drawable/accent_line_red"
             android:clickable="true"
-            android:onClick="updateStatus"
-            android:layout_centerHorizontal="true"
-            android:text="PAY NOW"
-            android:textColor="#FFF"
             android:paddingVertical="15dp"
-            android:layout_below="@+id/priceView">
-        </Button>
+            android:textColor="#FFF"></Button>
 
 
     </RelativeLayout>

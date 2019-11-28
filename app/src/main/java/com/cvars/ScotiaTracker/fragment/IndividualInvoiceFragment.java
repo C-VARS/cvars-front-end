@@ -19,6 +19,7 @@ import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.Order;
 import com.cvars.ScotiaTracker.model.pojo.OrderStatus;
+import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.presenter.FragmentPresenter;
 import com.cvars.ScotiaTracker.presenter.StatusPresenter;
 import com.cvars.ScotiaTracker.view.IndividualInvoiceView;
@@ -31,19 +32,28 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
     private View view;
     private Invoice invoice;
     private StatusPresenter statusPresenter;
+    private UserType userType;
+
+    private Button actionButton;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d("Invoice", "You created new invoice page");
         this.view = inflater.inflate(R.layout.single_invoice, container, false);
+        actionButton = view.findViewById(R.id.payNow);
 
         // Set up the button to change the status for the selected invoice
-        Button button = (Button) view.findViewById(R.id.payNow);
-        button.setOnClickListener(new View.OnClickListener(){
+        actionButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                updatePay();
+                if (actionButton.getText().toString().equals("Notify Delivery")){
+                    updateOnTheWay();
+                } else if (actionButton.getText().toString().equals("Confirm Arrival")){
+                    updateArrived();
+                } else if (actionButton.getText().toString().equals("Pay Now")){
+                    updatePay();
+                }
             }
         });
         return view;
@@ -52,6 +62,7 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
     @Override
     public void setPresenter(FragmentPresenter presenter){
         statusPresenter = (StatusPresenter) presenter;
+        userType = statusPresenter.getUserType();
     }
 
     @Override
@@ -113,6 +124,27 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         // Fill in invoiceID
         ((TextView) view.findViewById(R.id.invoiceNum)).setText(Integer.toString(invoice.getInvoiceId()));
         ((TextView) view.findViewById(R.id.totalPrice)).setText(Double.toString(invoice.getTotalCost()));
+        ((TextView) view.findViewById(R.id.status)).setText(invoice.getOrderStatus().toString());
+
+        updateActionButton();
+    }
+
+    private void updateActionButton(){
+        actionButton.setVisibility(View.VISIBLE);
+
+        if(userType == UserType.DRIVER && invoice.getOrderStatus().toString().equals("Pending")){
+            actionButton.setText("Notify Delivery");
+        }
+        else if (userType == UserType.DRIVER && invoice.getOrderStatus().toString().equals("On The Way")){
+            actionButton.setText("Confirm Arrival");
+        }
+
+        else if (userType == UserType.CUSTOMER && !invoice.getOrderStatus().paymentProcessed){
+            actionButton.setText("Pay Now");
+        }
+        else{
+            actionButton.setVisibility(View.GONE);
+        }
     }
 
     public int getCurrentInvoiceNum(){

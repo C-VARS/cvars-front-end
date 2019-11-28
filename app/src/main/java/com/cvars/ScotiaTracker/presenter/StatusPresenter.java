@@ -4,6 +4,7 @@ import com.cvars.ScotiaTracker.model.DataModelFacade;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.responseListeners.InvoiceResponseListener;
 import com.cvars.ScotiaTracker.view.IndividualInvoiceView;
+import com.cvars.ScotiaTracker.model.pojo.UserType;
 
 public class StatusPresenter extends FragmentPresenter implements InvoiceResponseListener {
 
@@ -34,4 +35,7 @@ public class StatusPresenter extends FragmentPresenter implements InvoiceRespons
             view.updateFields(inv);
         }
     }
+
+    public UserType getUserType(){return modelFacade.getUserType();}
 }
+

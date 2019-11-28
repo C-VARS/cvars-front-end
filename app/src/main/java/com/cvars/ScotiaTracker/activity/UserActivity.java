@@ -192,7 +192,6 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
         // Create the search presenter
         InvoiceView searchView = (InvoiceView) fragmentMap.get(ViewType.INVOICES);
-//        SearchPresenter searchPresenter = new SearchPresenter(dataFacade, searchView);
         InvoicePresenter invoicePresenter = new InvoicePresenter(dataFacade, searchView);
         searchView.setPresenter(invoicePresenter);
 

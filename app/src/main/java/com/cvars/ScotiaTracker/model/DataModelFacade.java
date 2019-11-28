@@ -11,6 +11,11 @@ import com.cvars.ScotiaTracker.networkAPI.FirebaseService;
 import com.cvars.ScotiaTracker.responseListeners.SearchResponseListener;
 import com.cvars.ScotiaTracker.responseListeners.SettingResponseListener;
 import com.cvars.ScotiaTracker.strategy.search.IdSearch;
+import com.cvars.ScotiaTracker.strategy.sort.NewestSort;
+import com.cvars.ScotiaTracker.strategy.sort.OldestSort;
+import com.cvars.ScotiaTracker.strategy.sort.SortStrategy;
+import com.cvars.ScotiaTracker.strategy.sort.SortType;
+import com.cvars.ScotiaTracker.strategy.sort.StatusSort;
 import com.cvars.ScotiaTracker.view.UserActivityView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -127,16 +132,13 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
                 if (!invoiceModel.getInvoices().get(0).getInfoRequestStatus()) {
                     userActivityView.displayMessage("Incorrect user information");
                 } else {
-                    // get returned invoices from invoiceModel
                     homeResponseListener.notifyInvoiceResponse();
                     invoiceResponseListener.notifyInvoiceResponse();
                     subscribeToTopic(invoiceModel.getInvoiceID());
                 }
                 break;
             case UPDATE:
-                if(invoiceModel.getActionSuccess()){
                     userActivityView.displayMessage("Update Success!");
-                }
                 break;
         }
     }
@@ -167,8 +169,21 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
     }
     //TODO: Add in type of search as a parameter (dependency injection?)
     public List<Invoice> executeSearch(String searchAttribute) {
-        searchModel.setSearch(new IdSearch());
         return searchModel.executeSearch(this.getInvoices(), searchAttribute);
+    }
+
+    public void setSortStrategy(SortType type){
+        switch(type){
+            case NEWEST:
+                searchModel.setSortStrategy(new NewestSort());
+                break;
+            case OLDEST:
+                searchModel.setSortStrategy(new OldestSort());
+                break;
+            case STATUS:
+                searchModel.setSortStrategy(new StatusSort());
+                break;
+        }
     }
 
     public void onDestroy() {

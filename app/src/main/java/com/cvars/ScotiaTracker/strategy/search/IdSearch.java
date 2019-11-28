@@ -8,6 +8,11 @@ import java.util.List;
 public class IdSearch implements SearchStrategy {
     @Override
     public List<Invoice> search(List<Invoice> invoices, String searchAttribute) {
+
+        if (searchAttribute.equals("")){
+            return invoices;
+        }
+
         List<Invoice> li = new ArrayList<>();
         for (Invoice i: invoices) {
             String sid = Integer.toString(i.getInvoiceId());

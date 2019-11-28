@@ -1,4 +1,4 @@
-package com.cvars.ScotiaTracker.strategy;
+package com.cvars.ScotiaTracker.strategy.search;
 
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 

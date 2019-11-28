@@ -60,6 +60,11 @@ public class Invoice implements Comparable<Invoice> {
     }
 
 
+    /**
+     * Used to sort the invoices by status
+     * @param o
+     * @return
+     */
     @Override
     public int compareTo(Invoice o)
     {

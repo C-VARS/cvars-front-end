@@ -20,6 +20,7 @@ import com.cvars.ScotiaTracker.presenter.HomePresenter;
 import com.cvars.ScotiaTracker.presenter.InvoicePresenter;
 import com.cvars.ScotiaTracker.view.HomeView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment implements HomeView {
@@ -63,7 +64,16 @@ public class HomeFragment extends Fragment implements HomeView {
     @Override
     public void updateScroller(List<Invoice> invoices) {
         invoicesScroller.clearInvoiceBoxes();
-        invoicesScroller.initializeWithInvoices(invoices);
+
+        List<Invoice> inProgressInvoice = new ArrayList<>();
+
+        for (Invoice invoice: invoices){
+            if (!invoice.getOrderStatus().paymentProcessed){
+                inProgressInvoice.add(invoice);
+            }
+        }
+
+        invoicesScroller.initializeWithInvoices(inProgressInvoice);
     }
 
     @Override

@@ -2,13 +2,13 @@ package com.cvars.ScotiaTracker.presenter;
 
 import com.cvars.ScotiaTracker.model.DataModelFacade;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
-import com.cvars.ScotiaTracker.responseListeners.SearchResponseListener;
+import com.cvars.ScotiaTracker.responseListeners.InvoiceResponseListener;
 import com.cvars.ScotiaTracker.strategy.sort.SortType;
 import com.cvars.ScotiaTracker.view.InvoiceView;
 
 import java.util.List;
 
-public class InvoicePresenter extends FragmentPresenter implements SearchResponseListener {
+public class InvoicePresenter extends FragmentPresenter implements InvoiceResponseListener {
 
     private DataModelFacade modelFacade;
     private InvoiceView invoiceView;
@@ -16,7 +16,7 @@ public class InvoicePresenter extends FragmentPresenter implements SearchRespons
     public InvoicePresenter(DataModelFacade modelFacade, InvoiceView invoiceView) {
         this.modelFacade = modelFacade;
         this.invoiceView = invoiceView;
-        modelFacade.setInvoiceResponseListener(this);
+        modelFacade.addInvoiceResponseListener(this);
     }
 
     @Override

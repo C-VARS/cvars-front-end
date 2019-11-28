@@ -8,12 +8,10 @@ import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.User;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.networkAPI.FirebaseService;
-import com.cvars.ScotiaTracker.responseListeners.SearchResponseListener;
+import com.cvars.ScotiaTracker.responseListeners.InvoiceResponseListener;
 import com.cvars.ScotiaTracker.responseListeners.SettingResponseListener;
-import com.cvars.ScotiaTracker.strategy.search.IdSearch;
 import com.cvars.ScotiaTracker.strategy.sort.NewestSort;
 import com.cvars.ScotiaTracker.strategy.sort.OldestSort;
-import com.cvars.ScotiaTracker.strategy.sort.SortStrategy;
 import com.cvars.ScotiaTracker.strategy.sort.SortType;
 import com.cvars.ScotiaTracker.strategy.sort.StatusSort;
 import com.cvars.ScotiaTracker.view.UserActivityView;
@@ -21,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
@@ -37,15 +36,21 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
 
     private UserActivityView userActivityView;
 
+    private List<InvoiceResponseListener> invoiceResponseListeners;
+    private List<SettingResponseListener> settingResponseListeners;
+
     private SettingResponseListener settingResponseListener;
     private SettingResponseListener homeSettingResponseListener;
-    private SearchResponseListener homeResponseListener;
-    private SearchResponseListener invoiceResponseListener;
+    private InvoiceResponseListener homeResponseListener;
+    private InvoiceResponseListener invoiceResponseListener;
 
     public DataModelFacade(String username, String password, UserType userType) {
         this.username = username;
         this.password = password;
         this.userType = userType;
+
+        invoiceResponseListeners = new LinkedList<>();
+        settingResponseListeners = new LinkedList<>();
 
         invoiceModel = new InvoiceModel();
         invoiceModel.setListener(this);
@@ -132,8 +137,9 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
                 if (!invoiceModel.getInvoices().get(0).getInfoRequestStatus()) {
                     userActivityView.displayMessage("Incorrect user information");
                 } else {
-                    homeResponseListener.notifyInvoiceResponse();
-                    invoiceResponseListener.notifyInvoiceResponse();
+                    for (InvoiceResponseListener listener: invoiceResponseListeners){
+                        listener.notifyInvoiceResponse();
+                    }
                     subscribeToTopic(invoiceModel.getInvoiceID());
                 }
                 break;
@@ -158,8 +164,9 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
                     userActivityView.displayMessage("Incorrect user information");
                 } else {
                     if (settingResponseListener != null) {
-                        settingResponseListener.notifySettingResponse();
-                        homeSettingResponseListener.notifySettingResponse();
+                        for (SettingResponseListener listener : settingResponseListeners){
+                            listener.notifySettingResponse();
+                        }
                     }
                 }
                 break;
@@ -207,19 +214,11 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
         return userType;
     }
 
-    public void setSettingResponseListener(SettingResponseListener settingResponseListener) {
-        this.settingResponseListener = settingResponseListener;
+    public void addInvoiceResponseListener(InvoiceResponseListener listener){
+        invoiceResponseListeners.add(listener);
     }
 
-    public void setHomeSettingResponseListener(SettingResponseListener settingResponseListener){
-        this.homeSettingResponseListener = settingResponseListener;
-    }
-
-    public void setHomeResponseListener(SearchResponseListener searchResponseListener) {
-        this.homeResponseListener = searchResponseListener;
-    }
-
-    public void setInvoiceResponseListener(SearchResponseListener searchResponseListener) {
-        this.invoiceResponseListener = searchResponseListener;
+    public void addSettingResponseListener(SettingResponseListener listener){
+        settingResponseListeners.add(listener);
     }
 }

@@ -1,5 +1,5 @@
 package com.cvars.ScotiaTracker.responseListeners;
 
-public interface SearchResponseListener {
+public interface InvoiceResponseListener {
     void notifyInvoiceResponse();
 }

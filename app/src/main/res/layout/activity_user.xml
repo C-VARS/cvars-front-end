@@ -43,7 +43,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_scrollFlags="scroll|enterAlways"
-        app:navigationIcon="@drawable/ic_menu"
         app:title="Home"
         app:titleMargin="4dp"
         app:titleTextAppearance="@style/TextAppearance.AppCompat.Large" />

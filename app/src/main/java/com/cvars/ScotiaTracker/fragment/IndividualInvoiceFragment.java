@@ -97,6 +97,7 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
 
         // Table to populate
         TableLayout table = view.findViewById(R.id.invoiceTable);
+        table.removeAllViews();
 
 
         // Populate table with rows of order information
@@ -104,7 +105,7 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         for (Order order: orders){
             TableRow row = new TableRow(view.getContext());
             row.setGravity(Gravity.CENTER);
-            row.setPadding(50, 50, 50, 50);
+            row.setPadding(0, 50, 0, 50);
 
             // Set up new cells
             TextView item = new TextView(view.getContext());
@@ -112,14 +113,14 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
             TextView price = new TextView(view.getContext());
             TextView subtotal = new TextView(view.getContext());
 
-            item.setPadding(0, 5, 30, 5);
-            item.setGravity(Gravity.CENTER);
+            item.setPadding(0, 0, 0, 5);
+            item.setGravity(Gravity.START);
             amount.setPadding(30, 5, 30, 5);
             amount.setGravity(Gravity.CENTER);
             price.setPadding(5, 5, 5, 5);
             price.setGravity(Gravity.CENTER);
             subtotal.setPadding(5, 5, 5, 5);
-            subtotal.setGravity(Gravity.CENTER);
+            subtotal.setGravity(Gravity.RIGHT);
 
             // Fill in the cells
             item.setText(order.getName());
@@ -140,6 +141,10 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         ((TextView) view.findViewById(R.id.invoiceNum)).setText(Integer.toString(invoice.getInvoiceId()));
         ((TextView) view.findViewById(R.id.totalPrice)).setText(Double.toString(invoice.getTotalCost()));
         ((TextView) view.findViewById(R.id.status)).setText(invoice.getOrderStatus().toString());
+    }
+
+    public int getCurrentInvoiceNum(){
+        return Integer.parseInt(((TextView) view.findViewById(R.id.invoiceNum)).getText().toString());
     }
 
     @Override

@@ -192,13 +192,12 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
         // Create the search presenter
         InvoiceView searchView = (InvoiceView) fragmentMap.get(ViewType.INVOICES);
-//        SearchPresenter searchPresenter = new SearchPresenter(dataFacade, searchView);
         InvoicePresenter invoicePresenter = new InvoicePresenter(dataFacade, searchView);
         searchView.setPresenter(invoicePresenter);
 
         // Create the status presenter
         IndividualInvoiceView individualInvoiceView = (IndividualInvoiceView) fragmentMap.get(ViewType.INDIVIDUAL_INVOICE);
-        StatusPresenter statusPresenter = new StatusPresenter(dataFacade);
+        StatusPresenter statusPresenter = new StatusPresenter(dataFacade, individualInvoiceView);
         individualInvoiceView.setPresenter(statusPresenter);
 
         // Create the home presenter
@@ -255,6 +254,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         ft.show(fragmentMap.get(ViewType.HOME));
         ft.commit();
         currentFragment = ViewType.HOME;
+        switchedOutFragment = ViewType.HOME;
     }
 
     public void switchFragment(ViewType fragmentType) {

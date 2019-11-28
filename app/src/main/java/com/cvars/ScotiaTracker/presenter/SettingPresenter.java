@@ -12,7 +12,7 @@ public class SettingPresenter extends FragmentPresenter implements SettingRespon
     public SettingPresenter(DataModelFacade modelFacade, SettingView settingview) {
         this.modelFacade = modelFacade;
         this.settingView = settingview;
-        modelFacade.setSettingResponseListener(this);
+        modelFacade.addSettingResponseListener(this);
     }
 
     @Override

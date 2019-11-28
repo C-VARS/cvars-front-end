@@ -15,7 +15,6 @@ public class OldestSort implements SortStrategy {
         quicksort(invoicesCopy, 0, invoices.size() - 1);
         return invoicesCopy;
     }
-    // Sorts by newest date
 
     public void quicksort(List<Invoice> invoices, int startIndex, int endIndex){
         int partition = partition(invoices, startIndex, endIndex);

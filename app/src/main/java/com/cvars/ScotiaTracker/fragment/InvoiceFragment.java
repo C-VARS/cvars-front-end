@@ -17,7 +17,8 @@ import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.presenter.FragmentPresenter;
 import com.cvars.ScotiaTracker.presenter.InvoicePresenter;
 import com.cvars.ScotiaTracker.view.InvoiceView;
-import com.cvars.ScotiaTracker.view.UserActivityView;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener;
 
 import java.util.List;
 
@@ -44,6 +45,10 @@ public class InvoiceFragment extends Fragment implements InvoiceView {
 
         initializeSearchListener();
 
+        TabLayout tab = rootView.findViewById(R.id.searchTabs);
+
+        tab.addOnTabSelectedListener(new SearchTabListener());
+
         return rootView;
     }
 
@@ -54,10 +59,24 @@ public class InvoiceFragment extends Fragment implements InvoiceView {
         this.searchBar.setOnQueryTextListener(searchListener);
     }
 
+    private class SearchTabListener implements OnTabSelectedListener{
+
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            invoicePresenter.setSortStrategy(tab.getPosition());
+            invoicePresenter.executeSearch(searchBar.getQuery().toString());
+        }
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+
+        }
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+
+        }
+    }
+
     private class SearchListener implements SearchView.OnQueryTextListener {
-
-        private InvoiceView view;
-
         @Override
         public boolean onQueryTextSubmit(String newText) {
             if (newText != null) {
@@ -73,10 +92,6 @@ public class InvoiceFragment extends Fragment implements InvoiceView {
                 invoicePresenter.executeSearch(newText);
             }
             return true;
-        }
-
-        public void onDestroy() {
-            this.view = null;
         }
     }
 

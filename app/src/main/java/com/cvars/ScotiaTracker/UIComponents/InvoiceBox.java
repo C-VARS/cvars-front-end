@@ -40,15 +40,14 @@ public class InvoiceBox extends CardView{
         this.addView(boxView);
 
         setCardBackgroundColor(Color.GRAY);
-        setRadius(65);
-        setElevation(15);
+        setRadius(30);
         setClickable(true);
         setOnClickListener(listener);
         LayoutParams params = new LayoutParams(
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT
         );
-        params.setMargins(0, 0, 0, 5);
+        params.setMargins(0, 0, 0, 7);
         setLayoutParams(params);
     }
 
@@ -59,16 +58,16 @@ public class InvoiceBox extends CardView{
         TextView completedDate = boxView.findViewById(R.id.otherInfo).findViewById(R.id.completionDate);
         idText.setText(Integer.toString(invoiceId));
         // using the OrderStatus toString method
-        statusText.setText("Status: " + orderStatus);
-        statusText.setTextSize(15);
+        statusText.setText(orderStatus);
+        statusText.setTextSize(20);
 
         // set either completion or issued date
         if (this.completedDate != null && !this.completedDate.equals("")) {
             completedDate.setText("Finished: " + this.completedDate);
-            completedDate.setTextSize(13);
+            completedDate.setTextSize(15);
         } else {
             issuedDate.setText("Issued: " + this.issuedDate);
-            issuedDate.setTextSize(13);
+            issuedDate.setTextSize(15);
         }
     }
 

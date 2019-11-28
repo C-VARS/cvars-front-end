@@ -28,8 +28,6 @@ public class InvoiceBox extends CardView{
         issuedDate = inv.getIssuedDate();
         completedDate = inv.getCompletionDate();
 
-        System.out.println(inv.getActualDate());
-
         this.listener = listener;
         initView();
         setContent();
@@ -63,9 +61,11 @@ public class InvoiceBox extends CardView{
 
         // set either completion or issued date
         if (this.completedDate != null && !this.completedDate.equals("")) {
-            completedDate.setText("Finished: " + this.completedDate);
+            completedDate.setText("Completed: " + this.completedDate);
             completedDate.setTextSize(15);
-        } else {
+        }
+
+        if (this.issuedDate != null && !this.issuedDate.equals("")){
             issuedDate.setText("Issued: " + this.issuedDate);
             issuedDate.setTextSize(15);
         }

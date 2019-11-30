@@ -111,8 +111,8 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         this.invoice = invoice;
 
         // Fill in invoiceID
-        ((TextView) view.findViewById(R.id.invoiceNum)).setText(Integer.toString(invoice.getInvoiceId()));
-        ((TextView) view.findViewById(R.id.totalPrice)).setText(Double.toString(invoice.getTotalCost()));
+        ((TextView) basicInfoView.findViewById(R.id.invoiceNum)).setText(Integer.toString(invoice.getInvoiceId()));
+        ((TextView) basicInfoView.findViewById(R.id.totalPrice)).setText(Double.toString(invoice.getTotalCost()));
 
         updateActionButton();
     }

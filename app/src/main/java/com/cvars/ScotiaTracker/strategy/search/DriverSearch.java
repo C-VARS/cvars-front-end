@@ -9,9 +9,10 @@ public class DriverSearch implements SearchStrategy {
     @Override
     public List<Invoice> search(List<Invoice> invoices, String searchAttribute) {
         List<Invoice> li = new ArrayList<>();
+        String lowerCase = searchAttribute.toLowerCase();
         for (Invoice i: invoices) {
-            String sid = i.getDriverName();
-            if (sid.contains(searchAttribute)){
+            String sid = i.getDriverName().toLowerCase();
+            if (sid.contains(lowerCase)){
                 li.add(i);
             }
         }

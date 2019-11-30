@@ -39,12 +39,11 @@
 
     <SearchView
         android:id="@+id/searchBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="298dp"
+        android:layout_height="48dp"
         android:baselineAligned="false"
         android:outlineProvider="paddedBounds"
         android:outlineSpotShadowColor="#E5E8EA"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchTabs" />
 
@@ -55,7 +54,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchBar" />
+        app:layout_constraintTop_toBottomOf="@id/searchBar" >
+
+    </FrameLayout>
+
+    <Spinner
+        android:id="@+id/searchType"
+        android:layout_width="113dp"
+        android:layout_height="51dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollerContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/searchBar"
+        app:layout_constraintTop_toBottomOf="@+id/searchTabs" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

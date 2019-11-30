@@ -4,6 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#EE3527</item>
         <item name="colorAccent">#EE3527</item>
+        <item name="android:fontFamily">@font/roboto_light</item>
     </style>
 
     <style name="WhiteText" parent="TextAppearance.AppCompat">

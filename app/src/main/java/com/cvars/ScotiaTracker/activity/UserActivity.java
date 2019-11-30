@@ -248,7 +248,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         for (ViewType type : fragmentMap.keySet()) {
-            ft.add(R.id.fragmentContainer, fragmentMap.get(type), type.name());
+            ft.add(R.id.registerContainer, fragmentMap.get(type), type.name());
             ft.hide(fragmentMap.get((type)));
         }
         ft.show(fragmentMap.get(ViewType.HOME));
@@ -329,7 +329,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
     @Override
     public void logOut() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

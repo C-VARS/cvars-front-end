@@ -27,14 +27,14 @@ public class InvoiceBox extends CardView {
     public InvoiceBox(Context context, Invoice inv, View.OnClickListener listener) {
         super(context);
 
-        initView();
 
+        this.listener = listener;
+
+        initView();
         this.invoiceNum = inv.getInvoiceId();
         this.statusText = inv.getOrderStatus().toString();
         this.orderTitle = "";
         this.progressBar = boxView.findViewById(R.id.simpleProgressBar);
-
-        this.listener = listener;
 
         setContent();
     }

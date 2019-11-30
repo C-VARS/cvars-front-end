@@ -59,10 +59,16 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         currentView = basicInfoView;
         invoiceContainer.addView(basicInfoView);
 
+        initializeTab();
         initializeActionButton();
         initializeMap();
 
         return view;
+    }
+
+    private void initializeTab(){
+        TabLayout tab = view.findViewById(R.id.invoiceTab);
+        tab.addOnTabSelectedListener(new InvoiceTabSwitchListener());
     }
 
     private void initializeActionButton(){

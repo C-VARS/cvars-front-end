@@ -22,7 +22,7 @@ import com.cvars.ScotiaTracker.view.FullInvoiceView;
 
 import java.util.List;
 
-public class FullInvoiceFragment extends Fragment implements FullInvoiceView {
+public class FullInvoiceFragment extends Fragment{
 
     private View view;
     private Invoice invoice;
@@ -39,10 +39,6 @@ public class FullInvoiceFragment extends Fragment implements FullInvoiceView {
     public void onDestroy() {
         view = null;
         super.onDestroy();
-    }
-
-    @Override
-    public void setPresenter(FragmentPresenter presenter)
     }
 
     /**

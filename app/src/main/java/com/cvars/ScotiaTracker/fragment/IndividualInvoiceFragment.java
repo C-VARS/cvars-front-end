@@ -17,7 +17,7 @@ import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.presenter.FragmentPresenter;
-import com.cvars.ScotiaTracker.presenter.StatusPresenter;
+import com.cvars.ScotiaTracker.presenter.IndividualInvoicePresenter;
 import com.cvars.ScotiaTracker.view.IndividualInvoiceView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,7 +39,7 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
     private View fullInvoiceView;
     private View currentView;
     private Invoice invoice;
-    private StatusPresenter statusPresenter;
+    private IndividualInvoicePresenter individualInvoicePresenter;
     private UserType userType;
 
     private Button actionButton;
@@ -59,10 +59,16 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         currentView = basicInfoView;
         invoiceContainer.addView(basicInfoView);
 
+        initializeTab();
         initializeActionButton();
         initializeMap();
 
         return view;
+    }
+
+    private void initializeTab(){
+        TabLayout tab = view.findViewById(R.id.invoiceTab);
+        tab.addOnTabSelectedListener(new InvoiceTabSwitchListener());
     }
 
     private void initializeActionButton(){
@@ -89,8 +95,8 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
 
     @Override
     public void setPresenter(FragmentPresenter presenter){
-        statusPresenter = (StatusPresenter) presenter;
-        userType = statusPresenter.getUserType();
+        individualInvoicePresenter = (IndividualInvoicePresenter) presenter;
+        userType = individualInvoicePresenter.getUserType();
     }
 
     @Override
@@ -105,8 +111,8 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         this.invoice = invoice;
 
         // Fill in invoiceID
-        ((TextView) view.findViewById(R.id.invoiceNum)).setText(Integer.toString(invoice.getInvoiceId()));
-        ((TextView) view.findViewById(R.id.totalPrice)).setText(Double.toString(invoice.getTotalCost()));
+        ((TextView) basicInfoView.findViewById(R.id.invoiceNum)).setText(Integer.toString(invoice.getInvoiceId()));
+        ((TextView) basicInfoView.findViewById(R.id.totalPrice)).setText(Double.toString(invoice.getTotalCost()));
 
         updateActionButton();
     }
@@ -142,20 +148,20 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
     @Override
     public void updateOnTheWay() {
         int invoiceID = this.invoice.getInvoiceId();
-        statusPresenter.updateStatus(invoiceID, "onTheWay");
+        individualInvoicePresenter.updateStatus(invoiceID, "onTheWay");
     }
 
     @Override
     public void updateArrived() {
         int invoiceID = this.invoice.getInvoiceId();
 
-        statusPresenter.updateStatus(invoiceID, "arrived");
+        individualInvoicePresenter.updateStatus(invoiceID, "arrived");
     }
 
     @Override
     public void updatePay() {
         int invoiceID = this.invoice.getInvoiceId();
-        statusPresenter.updateStatus(invoiceID, "payment");
+        individualInvoicePresenter.updateStatus(invoiceID, "payment");
     }
 
     /**
@@ -217,4 +223,5 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         super.onLowMemory();
         mapView.onLowMemory();
     }
+
 }

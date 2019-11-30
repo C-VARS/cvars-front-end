@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
+import com.cvars.ScotiaTracker.model.pojo.LocationTime;
 import com.cvars.ScotiaTracker.model.pojo.Order;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.presenter.FragmentPresenter;
@@ -28,6 +29,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.tabs.TabLayout;
 
@@ -41,6 +43,7 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
 
     private MapView mapView;
     private GoogleMap googleMap;
+    private Marker marker;
 
     private View fullInvoiceView;
     private View currentView;
@@ -112,6 +115,7 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         super.onDestroy();
     }
 
+    @Override
     public void updateFields(Invoice invoice){
         // Save this invoice
         this.invoice = invoice;
@@ -180,7 +184,6 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
             ((TextView) currentView.findViewById(R.id.totalText)).setText(Double.toString(subtotal * 1.13));
         }
     }
-
     private void updateActionButton(){
         actionButton.setVisibility(View.VISIBLE);
 
@@ -210,6 +213,18 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
     }
 
     @Override
+    public void updateMap(LocationTime lt) {
+
+        if (marker != null){
+            marker.remove();
+        }
+
+        LatLng loc = new LatLng(lt.getLatitude(), lt.getLongitude());
+        marker = googleMap.addMarker(new MarkerOptions().position(loc).title(lt.getTime()));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+    }
+
+    @Override
     public void updateOnTheWay() {
         int invoiceID = this.invoice.getInvoiceId();
         individualInvoicePresenter.updateStatus(invoiceID, "onTheWay");
@@ -234,7 +249,6 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
     private void switchComponent(){
         if (currentView == basicInfoView){
             currentView = fullInvoiceView;
-            updateFields(invoice);
             invoiceContainer.removeView(basicInfoView);
             invoiceContainer.addView(fullInvoiceView);
         } else{

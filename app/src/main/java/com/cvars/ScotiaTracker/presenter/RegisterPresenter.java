@@ -10,6 +10,7 @@ import com.cvars.ScotiaTracker.view.RegisterView;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RegisterPresenter extends FragmentPresenter implements RegisterResponseListener {
 
@@ -28,7 +29,7 @@ public class RegisterPresenter extends FragmentPresenter implements RegisterResp
         modelFacade = null;
     }
 
-    public void register(HashMap<String, String> registerData) {
+    public void register(Map<String, String> registerData) {
         modelFacade.register(registerData);
     }
 

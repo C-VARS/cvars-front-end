@@ -29,6 +29,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
         UserModel.UserResponseListener {
@@ -91,7 +92,7 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
         invoiceModel.updateStatus(invoiceID, status);
     }
 
-    public void register(HashMap<String, String> registerData) {
+    public void register(Map<String, String> registerData) {
         registerModel.register(registerData);
     }
 

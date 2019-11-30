@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,7 +19,7 @@ public class RegisterModel {
     private RegisterAPI registerAPI = RetrofitNetwork.retrofit.create(RegisterAPI.class);
     private RegisterModel.RegisterCallback registerCallback = new RegisterCallback();
 
-    public void register(HashMap<String, String> registerData) {
+    public void register(Map<String, String> registerData) {
         Call<JsonObject> call = registerAPI.register(registerData);
         call.enqueue(this.registerCallback);
     }

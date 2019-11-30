@@ -3,34 +3,61 @@ package com.cvars.ScotiaTracker.UIComponents;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
+import com.cvars.ScotiaTracker.model.pojo.UserType;
 
-public class InvoiceBox extends CardView{
+public class InvoiceBox extends CardView {
 
     private View boxView;
 
-    private int invoiceId;
-    private String orderStatus;
-    private String issuedDate;
-    private String completedDate;
+    private String statusText;
+    private int invoiceNum;
+    private String orderTitle;
+
+    private ProgressBar progressBar;
+    private UserType userType;
 
     private View.OnClickListener listener;
 
-    public InvoiceBox(Context context, Invoice inv, View.OnClickListener listener) {
+    public InvoiceBox(Context context, Invoice inv, UserType type, View.OnClickListener listener) {
         super(context);
-        invoiceId = inv.getInvoiceId();
-        orderStatus = inv.getOrderStatus().toString();
-        issuedDate = inv.getIssuedDate();
-        completedDate = inv.getCompletionDate();
 
-        this.listener = listener;
         initView();
+
+        this.invoiceNum = inv.getInvoiceId();
+        this.statusText = inv.getOrderStatus().toString();
+        this.orderTitle = generateTitle(inv);
+        this.progressBar = boxView.findViewById(R.id.simpleProgressBar);
+        this.userType = type;
+        this.listener = listener;
+
         setContent();
+    }
+
+    private String generateTitle(Invoice inv) {
+        // Generates a title String for the invoice
+        String driverBase = "Delivery for ";
+        String supplierBase = "Order for ";
+        String customerBase = "Order from ";
+
+        switch (userType){
+            case DRIVER:
+                return driverBase + inv.getCustomerName();
+
+            case CUSTOMER:
+                return customerBase + inv.getSupplierName();
+
+            case SUPPLIER:
+                return supplierBase + inv.getCustomerName();
+        }
+        return customerBase + inv.getSupplierName();
+
     }
 
     private void initView() {
@@ -50,29 +77,42 @@ public class InvoiceBox extends CardView{
     }
 
     public void setContent(){
-        TextView idText = (boxView.findViewById(R.id.idinfo)).findViewById(R.id.idText);
-        TextView statusText = boxView.findViewById(R.id.otherInfo).findViewById(R.id.statusText);
-        TextView issuedDate = boxView.findViewById(R.id.otherInfo).findViewById(R.id.issuedDate);
-        TextView completedDate = boxView.findViewById(R.id.otherInfo).findViewById(R.id.completionDate);
-        idText.setText(Integer.toString(invoiceId));
-        // using the OrderStatus toString method
-        statusText.setText(orderStatus);
-        statusText.setTextSize(20);
+        // Grab View objects from InvoiceBox
+        TextView titleView = boxView.findViewById(R.id.orderTitle);
+        TextView statusView = boxView.findViewById(R.id.statusText);
+        TextView invoiceNumView = boxView.findViewById(R.id.invoiceNum);
 
-        // set either completion or issued date
-        if (this.completedDate != null && !this.completedDate.equals("")) {
-            completedDate.setText("Completed: " + this.completedDate);
-            completedDate.setTextSize(15);
+        // set content of invoice box
+        invoiceNumView.setText(Integer.toString(invoiceNum));
+        statusView.setText(statusText);
+        progressBar.setProgress(getProgress());
+        titleView.setText(orderTitle);
+
+    }
+
+    private int getProgress() {
+        // returns 1-4 representing stage of delivery. 1 = pending, 2 = on the way, 3 = arrived,
+        // 4 = payment processed
+        if (statusText.equals("Pending")) {
+            return 1;
         }
-
-        if (this.issuedDate != null && !this.issuedDate.equals("")){
-            issuedDate.setText("Issued: " + this.issuedDate);
-            issuedDate.setTextSize(15);
+        else if (statusText.equals("On The Way")) {
+            return 2;
+        }
+        else if (statusText.equals("Arrived")) {
+            return 3;
+        }
+        else if (statusText.equals("Payment Processed")) {
+            return 4;
+        }
+        else {
+            System.out.println("Incorrect statusText");
+            return 0;
         }
     }
 
     public int getInvoiceId(){
-        return this.invoiceId;
+        return this.invoiceNum;
     }
 
 }

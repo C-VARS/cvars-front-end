@@ -74,12 +74,19 @@ public class RegisterActivity extends AppCompatActivity {
 
     // TODO: Add show/finish loading?
 
-    public void  chooseType(View view) {
+    public void chooseType(View view) {
         getSupportFragmentManager().beginTransaction()
                 .hide(fragmentMap.get("Type"))
                 .show(fragmentMap.get("Register"))
                 .commit();
     }
+
+    public void changeToLoginActivity(View view){
+        Intent myIntent = new Intent(this, LoginActivity.class);
+        startActivity(myIntent);
+        finish();
+    }
+
 
     @Override
     protected void onDestroy() {

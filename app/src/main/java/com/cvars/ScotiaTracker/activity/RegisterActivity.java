@@ -22,6 +22,7 @@ import com.cvars.ScotiaTracker.presenter.RegisterPresenter;
 import com.cvars.ScotiaTracker.view.LoginView;
 import com.cvars.ScotiaTracker.view.ViewType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,10 +73,28 @@ public class RegisterActivity extends AppCompatActivity {
         //
         HashMap<String, String> registerData = new HashMap<>();
 
-        EditText usernameField = findViewById(R.id.username);
-        EditText passwordField = findViewById(R.id.password);
-        String username = usernameField.getText().toString();
-        String password = passwordField.getText().toString();
+        ArrayList<View> fields = new  ArrayList<>();
+
+//        EditText usernameField = findViewById(R.id.username);
+//        EditText nameField = findViewById(R.id.name);
+//        EditText contactField = findViewById(R.id.contact);
+//        EditText addressField = findViewById(R.id.address);
+//        EditText bankInformationField = findViewById(R.id.bankInformation);
+//        EditText passwordField = findViewById(R.id.password);
+
+         fields.add(findViewById(R.id.username));
+         fields.add(findViewById(R.id.name));
+         fields.add(findViewById(R.id.contact));
+         fields.add(findViewById(R.id.address));
+         fields.add(findViewById(R.id.bankInformation));
+         fields.add(findViewById(R.id.password));
+
+         for (View v: fields) {
+             if (v.isShown()) {
+//                 registerData.put(v., v.toString());
+             }
+         }
+
         changeToLoginActivity();
 
 
@@ -92,6 +111,18 @@ public class RegisterActivity extends AppCompatActivity {
                 .hide(fragmentMap.get("Type"))
                 .show(fragmentMap.get("Register"))
                 .commit();
+    }
+
+    public void driverVisibilitySetter(View view) {
+        getSupportFragmentManager().beginTransaction()
+                .hide(fragmentMap.get("Type"))
+                .show(fragmentMap.get("Register"))
+                .commit();
+
+
+        findViewById(R.id.address).setVisibility(view.INVISIBLE);
+        findViewById(R.id.bankInformation).setVisibility(view.INVISIBLE);
+
     }
 
     public void changeToLoginActivity(){

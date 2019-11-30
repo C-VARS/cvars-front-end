@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class FirebaseLocationSender {
@@ -47,26 +48,25 @@ public class FirebaseLocationSender {
                         return;
                     }
 
-                    Location location = null;
+                    List<String> providers = locationManager.getProviders(true);
+                    Location bestLocation = null;
+                    for (String provider : providers) {
+                        Location l = locationManager.getLastKnownLocation(provider);
 
-                    if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    }
-
-                    if (location == null) {
-                        location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                    }
-
-
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z", Locale.ENGLISH);
-                    DatabaseReference locationRef = mDataRef.child("Location").child(driverUsername);
-                    LocationTime lt = new LocationTime(location.getLongitude(), location.getLatitude(), sdf.format(new Date()));
-                    locationRef.setValue(lt).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            System.out.println(1);
+                        if (l == null) {
+                            continue;
                         }
-                    });
+                        if (bestLocation == null
+                                || l.getAccuracy() < bestLocation.getAccuracy()) {
+                            bestLocation = l;
+                        }
+                    }
+                    if (bestLocation != null) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z", Locale.ENGLISH);
+                        DatabaseReference locationRef = mDataRef.child("Location").child(driverUsername);
+                        LocationTime lt = new LocationTime(bestLocation.getLongitude(), bestLocation.getLatitude(), sdf.format(new Date()));
+                        locationRef.setValue(lt);
+                    }
 
                     try {
                         Thread.sleep(60000);

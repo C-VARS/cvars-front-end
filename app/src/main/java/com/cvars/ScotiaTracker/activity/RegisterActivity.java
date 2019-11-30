@@ -18,6 +18,7 @@ import com.cvars.ScotiaTracker.fragment.RegisterFragment;
 import com.cvars.ScotiaTracker.fragment.RegisterTypeFragment;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.presenter.LoginPresenter;
+import com.cvars.ScotiaTracker.presenter.RegisterPresenter;
 import com.cvars.ScotiaTracker.view.LoginView;
 import com.cvars.ScotiaTracker.view.ViewType;
 
@@ -30,6 +31,7 @@ import java.util.Map;
  */
 public class RegisterActivity extends AppCompatActivity {
 
+    private RegisterPresenter registerPresenter;
 
     private Map<String, Fragment> fragmentMap;
 
@@ -69,6 +71,9 @@ public class RegisterActivity extends AppCompatActivity {
         EditText passwordField = findViewById(R.id.password);
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
+
+        registerPresenter.register()
+
 
     }
 

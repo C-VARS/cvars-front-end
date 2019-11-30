@@ -1,5 +1,7 @@
 package com.cvars.ScotiaTracker.fragment;
 
+import android.app.Service;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,6 +67,7 @@ public class InvoiceFragment extends Fragment implements InvoiceView, AdapterVie
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         this.searchType.setAdapter(adapter);
+
 
         tab.addOnTabSelectedListener(new SearchTabListener());
 

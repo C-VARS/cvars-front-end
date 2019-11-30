@@ -20,7 +20,7 @@ import com.cvars.ScotiaTracker.view.LoginView;
  * Main activity of the android app that is a Login screen. Implements LoginView for UI manipulation
  * related to login.
  */
-public class MainActivity extends AppCompatActivity implements LoginView {
+public class LoginActivity extends AppCompatActivity implements LoginView {
 
     /**
      * A reference to the LoginPresenter that corresponds with the Login functionality
@@ -102,6 +102,14 @@ public class MainActivity extends AppCompatActivity implements LoginView {
         myIntent.putExtra("username", username);
         myIntent.putExtra("password", password);
         myIntent.putExtra("userType", type.name());
+        startActivity(myIntent);
+        finishLoading();
+        finish();
+    }
+
+    @Override
+    public void changeToRegisterActivity(View view) {
+        Intent myIntent = new Intent(this, RegisterActivity.class);
         startActivity(myIntent);
         finishLoading();
         finish();

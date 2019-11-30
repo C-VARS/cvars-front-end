@@ -18,7 +18,7 @@
                 android:id="@+id/invoiceID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="30sp"
                 android:text="INVOICE ID"
                 android:textStyle="bold">
             </TextView>
@@ -27,6 +27,7 @@
                 android:id="@+id/issuedDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="15sp"
                 android:text="March 17, 2019">
             </TextView>
 
@@ -46,7 +47,7 @@
             android:id="@+id/billInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10dp"
+            android:textSize="15sp"
             android:text="BILL TO">
         </TextView>
 
@@ -63,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Customer"
-                android:textSize="15dp"
+                android:textSize="20sp"
                 android:textStyle="bold">
             </TextView>
 
@@ -71,6 +72,7 @@
                 android:id="@+id/customerAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="15sp"
                 android:text="123 College Street">
             </TextView>
 
@@ -78,6 +80,7 @@
                 android:id="@+id/customerContact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="15sp"
                 android:text="123-456-7890">
             </TextView>
 
@@ -105,7 +108,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
+                android:textSize="15sp"
                 android:textStyle="bold">
             </TextView>
 
@@ -114,7 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Supplier"
-                android:textSize="15dp"
+                android:textSize="20sp"
                 android:textStyle="bold">
             </TextView>
 
@@ -122,13 +125,14 @@
                 android:id="@+id/supplierContact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="15sp"
                 android:text="098-765-4321">
             </TextView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
+                android:textSize="15sp"
                 android:textStyle="bold">
             </TextView>
 
@@ -208,7 +212,7 @@
                 android:gravity="center"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingVertical="10dp">
+                android:layout_marginVertical="15dp">
             </LinearLayout>
 
             <LinearLayout
@@ -217,7 +221,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingVertical="10dp">
+                android:layout_marginVertical="15dp">
             </LinearLayout>
 
             <LinearLayout
@@ -226,7 +230,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingVertical="10dp">
+                android:layout_marginVertical="15dp">
             </LinearLayout>
 
             <LinearLayout
@@ -235,7 +239,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingVertical="10dp">
+                android:layout_marginVertical="15dp">
             </LinearLayout>
         </LinearLayout>
 

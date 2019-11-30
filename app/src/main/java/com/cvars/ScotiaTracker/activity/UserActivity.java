@@ -67,8 +67,10 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     private Map<ViewType, Fragment> fragmentMap;
     private ViewType currentFragment;
     private ViewType switchedOutFragment;
+
     private TabSwitchListener tabListener;
     private InvoiceBoxListener invoiceListener;
+    private IndividualInvoicePresenter individualInvoicePresenter;
 
     private boolean loading;
     private boolean doubleBackToExitPressedOnce = false;
@@ -226,7 +228,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
         // Create the status presenter
         IndividualInvoiceView individualInvoiceView = (IndividualInvoiceView) fragmentMap.get(ViewType.INDIVIDUAL_INVOICE);
-        IndividualInvoicePresenter individualInvoicePresenter = new IndividualInvoicePresenter(dataFacade, individualInvoiceView);
+        individualInvoicePresenter = new IndividualInvoicePresenter(dataFacade, individualInvoiceView);
         individualInvoiceView.setPresenter(individualInvoicePresenter);
 
         // Create the home presenter
@@ -397,9 +399,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     @Override
     public void displayInvoice(int invoiceID) {
         switchFragment(ViewType.INDIVIDUAL_INVOICE);
-        Invoice inv = dataFacade.getInvoice(invoiceID);
-
-        ((IndividualInvoiceFragment) fragmentMap.get(ViewType.INDIVIDUAL_INVOICE)).updateFields(inv);
+        individualInvoicePresenter.updateInvoice(invoiceID);
     }
 
     @Override

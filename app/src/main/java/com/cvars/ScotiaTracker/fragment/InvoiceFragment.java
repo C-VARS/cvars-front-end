@@ -87,6 +87,7 @@ public class InvoiceFragment extends Fragment implements InvoiceView{
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             invoicePresenter.setSearchStrategy(position);
+            invoicePresenter.executeSearch(searchBar.getQuery().toString());
         }
 
         @Override

@@ -195,14 +195,52 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/order_columns">
-        <TableLayout
+
+        <LinearLayout
             android:id="@+id/invoiceTable"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/itemRow"
+                android:layout_width="126dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="10dp">
+            </LinearLayout>
 
-        </TableLayout>
+            <LinearLayout
+                android:id="@+id/amountRow"
+                android:layout_width="39dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingVertical="10dp">
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/priceRow"
+                android:layout_width="126dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingVertical="10dp">
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/subtotalRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingVertical="10dp">
+            </LinearLayout>
+        </LinearLayout>
 
     </ScrollView>
+    
 
     <RelativeLayout
         android:id="@+id/subtotalLine"

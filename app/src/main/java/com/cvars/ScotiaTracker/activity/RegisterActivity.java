@@ -69,6 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
         EditText passwordField = findViewById(R.id.password);
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
+        changeToLoginActivity();
 
     }
 
@@ -81,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void changeToLoginActivity(View view){
+    public void changeToLoginActivity(){
         Intent myIntent = new Intent(this, LoginActivity.class);
         startActivity(myIntent);
         finish();

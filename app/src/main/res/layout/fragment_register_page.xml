@@ -113,7 +113,7 @@
         android:layout_marginEnd="162dp"
         android:layout_marginBottom="102dp"
         android:background="@drawable/accent_line"
-        android:onClick="changeToLoginActivity"
+        android:onClick="register"
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

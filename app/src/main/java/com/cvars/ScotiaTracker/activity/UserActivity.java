@@ -43,7 +43,7 @@ import com.cvars.ScotiaTracker.networkAPI.FirebaseLocationSender;
 import com.cvars.ScotiaTracker.presenter.HomePresenter;
 import com.cvars.ScotiaTracker.presenter.InvoicePresenter;
 import com.cvars.ScotiaTracker.presenter.SettingPresenter;
-import com.cvars.ScotiaTracker.presenter.StatusPresenter;
+import com.cvars.ScotiaTracker.presenter.IndividualInvoicePresenter;
 import com.cvars.ScotiaTracker.responseListeners.InvoiceBoxListener;
 import com.cvars.ScotiaTracker.view.IndividualInvoiceView;
 import com.cvars.ScotiaTracker.view.HomeView;
@@ -67,8 +67,10 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     private Map<ViewType, Fragment> fragmentMap;
     private ViewType currentFragment;
     private ViewType switchedOutFragment;
+
     private TabSwitchListener tabListener;
     private InvoiceBoxListener invoiceListener;
+    private IndividualInvoicePresenter individualInvoicePresenter;
 
     private boolean loading;
     private boolean doubleBackToExitPressedOnce = false;
@@ -226,8 +228,8 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
         // Create the status presenter
         IndividualInvoiceView individualInvoiceView = (IndividualInvoiceView) fragmentMap.get(ViewType.INDIVIDUAL_INVOICE);
-        StatusPresenter statusPresenter = new StatusPresenter(dataFacade, individualInvoiceView);
-        individualInvoiceView.setPresenter(statusPresenter);
+        individualInvoicePresenter = new IndividualInvoicePresenter(dataFacade, individualInvoiceView);
+        individualInvoiceView.setPresenter(individualInvoicePresenter);
 
         // Create the home presenter
         HomeView homeView = (HomeView) fragmentMap.get(ViewType.HOME);
@@ -397,9 +399,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
     @Override
     public void displayInvoice(int invoiceID) {
         switchFragment(ViewType.INDIVIDUAL_INVOICE);
-        Invoice inv = dataFacade.getInvoice(invoiceID);
-
-        ((IndividualInvoiceFragment) fragmentMap.get(ViewType.INDIVIDUAL_INVOICE)).updateFields(inv);
+        individualInvoicePresenter.updateInvoice(invoiceID);
     }
 
     @Override

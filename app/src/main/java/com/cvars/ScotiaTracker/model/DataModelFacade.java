@@ -10,7 +10,12 @@ import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.networkAPI.FirebaseService;
 import com.cvars.ScotiaTracker.responseListeners.InvoiceResponseListener;
 import com.cvars.ScotiaTracker.responseListeners.SettingResponseListener;
+import com.cvars.ScotiaTracker.strategy.search.CustomerSearch;
+import com.cvars.ScotiaTracker.strategy.search.DriverSearch;
+import com.cvars.ScotiaTracker.strategy.search.IdSearch;
+import com.cvars.ScotiaTracker.strategy.search.IssueDateSearch;
 import com.cvars.ScotiaTracker.strategy.search.SearchType;
+import com.cvars.ScotiaTracker.strategy.search.SupplierSearch;
 import com.cvars.ScotiaTracker.strategy.sort.NewestSort;
 import com.cvars.ScotiaTracker.strategy.sort.OldestSort;
 import com.cvars.ScotiaTracker.strategy.sort.SortType;
@@ -191,19 +196,19 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
     public void setSearchStrategy(SearchType type) {
         switch (type) {
             case DRIVER:
-                searchModel.setSortStrategy(new NewestSort());
+                searchModel.setSearchStrategy(new DriverSearch());
                 break;
             case CUSTOMER:
-                searchModel.setSortStrategy(new OldestSort());
+                searchModel.setSearchStrategy(new CustomerSearch());
                 break;
             case SUPPLIER:
-                searchModel.setSortStrategy(new StatusSort());
+                searchModel.setSearchStrategy(new SupplierSearch());
                 break;
             case ID:
-                searchModel.setSortStrategy(new StatusSort());
+                searchModel.setSearchStrategy(new IdSearch());
                 break;
             case ISSUE_DATE:
-                searchModel.setSortStrategy(new StatusSort());
+                searchModel.setSearchStrategy(new IssueDateSearch());
                 break;
         }
     }

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/invoiceView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="200dp"
@@ -46,15 +48,18 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/invoiceView"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        app:layout_constraintTop_toBottomOf="@id/invoiceView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <RelativeLayout
         android:id="@+id/basic_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/progressBar"
-        android:paddingVertical="15dp">
+        android:paddingVertical="0dp"
+        app:layout_constraintTop_toBottomOf="@id/progressBar">
 
         <RelativeLayout
             android:id="@+id/priceView"
@@ -65,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toStartOf="@+id/totalPrice"
-                android:paddingVertical="15dp"
+                android:paddingVertical="5dp"
                 android:text="$"
                 android:textSize="40sp"
                 android:textStyle="bold"></TextView>
@@ -75,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:paddingVertical="15dp"
+                android:paddingVertical="5dp"
                 android:text="123.45"
                 android:textSize="40sp"
                 android:textStyle="bold"></TextView>
@@ -89,13 +94,17 @@
             android:layout_centerHorizontal="true"
             android:background="@drawable/accent_line_red"
             android:clickable="true"
-            android:paddingVertical="15dp"
+            android:paddingVertical="5dp"
             android:textColor="#FFF"></Button>
     </RelativeLayout>
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/basic_info"/>
-</RelativeLayout>
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/basic_info" />
+</androidx.constraintlayout.widget.ConstraintLayout>

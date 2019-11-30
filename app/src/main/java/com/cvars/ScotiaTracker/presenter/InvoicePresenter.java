@@ -2,6 +2,7 @@ package com.cvars.ScotiaTracker.presenter;
 
 import com.cvars.ScotiaTracker.model.DataModelFacade;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
+import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.responseListeners.InvoiceResponseListener;
 import com.cvars.ScotiaTracker.strategy.search.SearchType;
 import com.cvars.ScotiaTracker.strategy.sort.SortType;
@@ -48,10 +49,10 @@ public class InvoicePresenter extends FragmentPresenter implements InvoiceRespon
     public void setSearchStrategy(int index){
         switch(index){
             case 0:
-                modelFacade.setSearchStrategy(SearchType.DRIVER);
+                modelFacade.setSearchStrategy(SearchType.ID);
                 break;
             case 1:
-                modelFacade.setSearchStrategy(SearchType.ID);
+                modelFacade.setSearchStrategy(SearchType.DRIVER);
                 break;
             case 2:
                 modelFacade.setSearchStrategy(SearchType.CUSTOMER);
@@ -67,6 +68,10 @@ public class InvoicePresenter extends FragmentPresenter implements InvoiceRespon
 
     private void updateSearch(List<Invoice> invs){
         invoiceView.updateScroller(invs);
+    }
+
+    public UserType getUserType() {
+        return modelFacade.getUserType();
     }
 
     @Override

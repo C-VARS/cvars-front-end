@@ -9,9 +9,10 @@ public class IssueDateSearch implements SearchStrategy {
     @Override
     public List<Invoice> search(List<Invoice> invoices, String searchAttribute) {
         List<Invoice> li = new ArrayList<>();
+        String lowerCase = searchAttribute.toLowerCase();
         for (Invoice i: invoices) {
-            String sid = i.getIssuedDate();
-            if (sid.contains(searchAttribute)){
+            String sid = i.getIssuedDate().toLowerCase();
+            if (sid.contains(lowerCase)){
                 li.add(i);
             }
         }

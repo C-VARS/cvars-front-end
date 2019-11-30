@@ -24,13 +24,17 @@ public class InvoicesScroller extends ScrollView implements ScrollerView {
     private final Context context;
     private LinearLayout linearLayout;
     private List<InvoiceBox> invoices;
-
     private View.OnClickListener invoiceListener;
 
-    public InvoicesScroller(Context context, View.OnClickListener invoiceListener) {
+    private UserType userType;
+    private InvoiceBoxFactory boxFactory;
+
+    public InvoicesScroller(Context context, View.OnClickListener invoiceListener, UserType type) {
         super(context);
         this.context = context;
         this.invoiceListener = invoiceListener;
+        this.userType = type;
+        this.boxFactory = new InvoiceBoxFactory();
         initView();
     }
 
@@ -65,7 +69,7 @@ public class InvoicesScroller extends ScrollView implements ScrollerView {
     public void initializeWithInvoices(List<Invoice> invs) {
         //  initializes with list of invoices - POJO
         for (Invoice invoice: invs) {
-            addInvoiceBox(new InvoiceBox(context, invoice, this.invoiceListener));
+            addInvoiceBox(boxFactory.createInvoiceBox(context, invoice, userType, invoiceListener));
         }
 
     }

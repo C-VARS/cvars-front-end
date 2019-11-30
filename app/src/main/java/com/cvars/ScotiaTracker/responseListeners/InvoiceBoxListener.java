@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.cvars.ScotiaTracker.UIComponents.InvoiceBox;
+import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.view.UserActivityView;
 
 public class InvoiceBoxListener implements View.OnClickListener {

@@ -21,6 +21,9 @@ public class Invoice implements Comparable<Invoice> {
     @SerializedName("supplierName")
     private String supplierName;
 
+    @SerializedName("driverUsername")
+    private String driverUsername;
+
     @SerializedName("customerAddress")
     private String customerAddress;
 
@@ -123,6 +126,8 @@ public class Invoice implements Comparable<Invoice> {
     public String getSupplierContact() {
         return supplierContact;
     }
+
+    public String getDriverUsername(){return driverUsername;}
 
     public Date getActualDate() {
         String clippedDate = issuedDate.substring(0, issuedDate.length() - 4);

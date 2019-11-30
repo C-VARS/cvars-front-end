@@ -21,32 +21,31 @@ public class InvoiceBox extends CardView {
     private String orderTitle;
 
     private ProgressBar progressBar;
-    private UserType userType;
 
     private View.OnClickListener listener;
 
-    public InvoiceBox(Context context, Invoice inv, UserType type, View.OnClickListener listener) {
+    public InvoiceBox(Context context, Invoice inv, View.OnClickListener listener) {
         super(context);
 
         initView();
 
         this.invoiceNum = inv.getInvoiceId();
         this.statusText = inv.getOrderStatus().toString();
-        this.orderTitle = generateTitle(inv);
+        this.orderTitle = "";
         this.progressBar = boxView.findViewById(R.id.simpleProgressBar);
-        this.userType = type;
+
         this.listener = listener;
 
         setContent();
     }
 
-    private String generateTitle(Invoice inv) {
+    public String setTitle(UserType type, Invoice inv) {
         // Generates a title String for the invoice
         String driverBase = "Delivery for ";
         String supplierBase = "Order for ";
         String customerBase = "Order from ";
 
-        switch (userType){
+        switch (type){
             case DRIVER:
                 return driverBase + inv.getCustomerName();
 

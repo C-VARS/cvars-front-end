@@ -2,6 +2,7 @@ package com.cvars.ScotiaTracker.presenter;
 
 import com.cvars.ScotiaTracker.model.DataModelFacade;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
+import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.responseListeners.InvoiceResponseListener;
 import com.cvars.ScotiaTracker.strategy.search.SearchType;
 import com.cvars.ScotiaTracker.strategy.sort.SortType;
@@ -67,6 +68,10 @@ public class InvoicePresenter extends FragmentPresenter implements InvoiceRespon
 
     private void updateSearch(List<Invoice> invs){
         invoiceView.updateScroller(invs);
+    }
+
+    public UserType getUserType() {
+        return modelFacade.getUserType();
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,8 @@ import com.cvars.ScotiaTracker.view.IndividualInvoiceView;
 public class IndividualInvoiceFragment extends Fragment implements IndividualInvoiceView {
 
     private View view;
+    private FrameLayout invoiceContainer;
+    private View basicInfoView;
     private Invoice invoice;
     private StatusPresenter statusPresenter;
     private UserType userType;
@@ -33,7 +36,11 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d("Invoice", "You created new invoice page");
         this.view = inflater.inflate(R.layout.single_invoice, container, false);
-        actionButton = view.findViewById(R.id.payNow);
+        invoiceContainer = view.findViewById(R.id.invoiceContainer);
+        basicInfoView = inflater.inflate(R.layout.component_basic_invoice_info, invoiceContainer, false);
+        invoiceContainer.addView(basicInfoView);
+
+        actionButton = basicInfoView.findViewById(R.id.payNow);
 
         // Set up the button to change the status for the selected invoice
         actionButton.setOnClickListener(new View.OnClickListener(){

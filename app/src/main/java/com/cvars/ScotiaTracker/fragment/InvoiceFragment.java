@@ -27,7 +27,7 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener;
 
 import java.util.List;
 
-public class InvoiceFragment extends Fragment implements InvoiceView, AdapterView.OnItemClickListener {
+public class InvoiceFragment extends Fragment implements InvoiceView{
 
     private InvoicePresenter invoicePresenter;
 
@@ -44,7 +44,7 @@ public class InvoiceFragment extends Fragment implements InvoiceView, AdapterVie
     public final static String SUPPLIER = "Supplier";
     public final static String ISSUE_DATE = "Issue Date";
 
-    private final String[] searchOptions = {DRIVER, ID, CUSTOMER, SUPPLIER, ISSUE_DATE};
+    private final String[] searchOptions = {ID, DRIVER, CUSTOMER, SUPPLIER, ISSUE_DATE};
 
 
     @Nullable
@@ -67,6 +67,7 @@ public class InvoiceFragment extends Fragment implements InvoiceView, AdapterVie
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         this.searchType.setAdapter(adapter);
+        this.searchType.setOnItemSelectedListener(new OnItemSelectedListener());
 
 
         tab.addOnTabSelectedListener(new SearchTabListener());
@@ -81,10 +82,16 @@ public class InvoiceFragment extends Fragment implements InvoiceView, AdapterVie
         this.searchBar.setOnQueryTextListener(searchListener);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        invoicePresenter.setSearchStrategy(position);
+    private class OnItemSelectedListener implements AdapterView.OnItemSelectedListener{
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            invoicePresenter.setSearchStrategy(position);
+        }
 
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+            invoicePresenter.setSearchStrategy(0);
+        }
     }
 
     private class SearchTabListener implements OnTabSelectedListener{

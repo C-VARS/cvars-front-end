@@ -48,10 +48,10 @@ public class InvoicePresenter extends FragmentPresenter implements InvoiceRespon
     public void setSearchStrategy(int index){
         switch(index){
             case 0:
-                modelFacade.setSearchStrategy(SearchType.DRIVER);
+                modelFacade.setSearchStrategy(SearchType.ID);
                 break;
             case 1:
-                modelFacade.setSearchStrategy(SearchType.ID);
+                modelFacade.setSearchStrategy(SearchType.DRIVER);
                 break;
             case 2:
                 modelFacade.setSearchStrategy(SearchType.CUSTOMER);

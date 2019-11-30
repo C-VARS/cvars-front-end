@@ -67,13 +67,20 @@ public class RegisterActivity extends AppCompatActivity {
      */
     public void register(View view) {
 
+
+        // TODO: Make a dictionary of each view mapping to it's content
+        //
+        HashMap<String, String> registerData = new HashMap<>();
+
         EditText usernameField = findViewById(R.id.username);
         EditText passwordField = findViewById(R.id.password);
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
         changeToLoginActivity();
 
-        registerPresenter.register()
+
+
+        registerPresenter.register(registerData);
 
 
     }

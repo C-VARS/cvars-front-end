@@ -8,6 +8,7 @@ import com.cvars.ScotiaTracker.strategy.sort.SortType;
 import com.cvars.ScotiaTracker.view.InvoiceView;
 import com.cvars.ScotiaTracker.view.RegisterView;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class RegisterPresenter extends FragmentPresenter implements RegisterResponseListener {
@@ -18,7 +19,7 @@ public class RegisterPresenter extends FragmentPresenter implements RegisterResp
     public RegisterPresenter(DataModelFacade modelFacade, RegisterView registerView) {
         this.modelFacade = modelFacade;
         this.registerView = registerView;
-        modelFacade.addInvoiceResponseListener(this);
+        modelFacade.addRegisterResponseListener(this);
     }
 
     @Override
@@ -27,13 +28,10 @@ public class RegisterPresenter extends FragmentPresenter implements RegisterResp
         modelFacade = null;
     }
 
-    public void register() {
-
+    public void register(HashMap<String, String> registerData) {
+        modelFacade.register(registerData);
     }
 
 
-    @Override
-    public void notifyInvoiceResponse() {
-        executeSearch("");
-    }
+
 }

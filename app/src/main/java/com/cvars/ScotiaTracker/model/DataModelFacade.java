@@ -9,6 +9,7 @@ import com.cvars.ScotiaTracker.model.pojo.User;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.networkAPI.FirebaseService;
 import com.cvars.ScotiaTracker.responseListeners.InvoiceResponseListener;
+import com.cvars.ScotiaTracker.responseListeners.RegisterResponseListener;
 import com.cvars.ScotiaTracker.responseListeners.SettingResponseListener;
 import com.cvars.ScotiaTracker.strategy.search.CustomerSearch;
 import com.cvars.ScotiaTracker.strategy.search.DriverSearch;
@@ -25,6 +26,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,6 +37,7 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
     private UserType userType;
 
     private InvoiceModel invoiceModel;
+    private RegisterModel registerModel;
     private UserModel userModel;
     private SearchModel searchModel;
 
@@ -44,6 +47,7 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
 
     private List<InvoiceResponseListener> invoiceResponseListeners;
     private List<SettingResponseListener> settingResponseListeners;
+    private RegisterResponseListener registerResponseListener;
 
     public DataModelFacade(String username, String password, UserType userType) {
         this.username = username;
@@ -85,6 +89,10 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
 
     public void updateStatus(int invoiceID, String status) {
         invoiceModel.updateStatus(invoiceID, status);
+    }
+
+    public void register(HashMap<String, String> registerData) {
+        registerModel.register(registerData);
     }
 
     public void requestUserInfo() {
@@ -238,6 +246,10 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
 
     public void addInvoiceResponseListener(InvoiceResponseListener listener) {
         invoiceResponseListeners.add(listener);
+    }
+
+    public void addRegisterResponseListener(RegisterResponseListener listener) {
+        this.registerResponseListener = listener;
     }
 
     public void addSettingResponseListener(SettingResponseListener listener) {

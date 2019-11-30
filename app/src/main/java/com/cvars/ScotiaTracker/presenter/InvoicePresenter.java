@@ -3,6 +3,7 @@ package com.cvars.ScotiaTracker.presenter;
 import com.cvars.ScotiaTracker.model.DataModelFacade;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.responseListeners.InvoiceResponseListener;
+import com.cvars.ScotiaTracker.strategy.search.SearchType;
 import com.cvars.ScotiaTracker.strategy.sort.SortType;
 import com.cvars.ScotiaTracker.view.InvoiceView;
 
@@ -40,6 +41,26 @@ public class InvoicePresenter extends FragmentPresenter implements InvoiceRespon
                 break;
             case 2:
                 modelFacade.setSortStrategy(SortType.OLDEST);
+                break;
+        }
+    }
+
+    public void setSearchStrategy(int index){
+        switch(index){
+            case 0:
+                modelFacade.setSearchStrategy(SearchType.DRIVER);
+                break;
+            case 1:
+                modelFacade.setSearchStrategy(SearchType.ID);
+                break;
+            case 2:
+                modelFacade.setSearchStrategy(SearchType.CUSTOMER);
+                break;
+            case 3:
+                modelFacade.setSearchStrategy(SearchType.SUPPLIER);
+                break;
+            case 4:
+                modelFacade.setSearchStrategy(SearchType.ISSUE_DATE);
                 break;
         }
     }

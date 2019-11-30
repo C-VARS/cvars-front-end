@@ -10,6 +10,7 @@ import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.networkAPI.FirebaseService;
 import com.cvars.ScotiaTracker.responseListeners.InvoiceResponseListener;
 import com.cvars.ScotiaTracker.responseListeners.SettingResponseListener;
+import com.cvars.ScotiaTracker.strategy.search.SearchType;
 import com.cvars.ScotiaTracker.strategy.sort.NewestSort;
 import com.cvars.ScotiaTracker.strategy.sort.OldestSort;
 import com.cvars.ScotiaTracker.strategy.sort.SortType;
@@ -182,6 +183,26 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
                 searchModel.setSortStrategy(new OldestSort());
                 break;
             case STATUS:
+                searchModel.setSortStrategy(new StatusSort());
+                break;
+        }
+    }
+
+    public void setSearchStrategy(SearchType type) {
+        switch (type) {
+            case DRIVER:
+                searchModel.setSortStrategy(new NewestSort());
+                break;
+            case CUSTOMER:
+                searchModel.setSortStrategy(new OldestSort());
+                break;
+            case SUPPLIER:
+                searchModel.setSortStrategy(new StatusSort());
+                break;
+            case ID:
+                searchModel.setSortStrategy(new StatusSort());
+                break;
+            case ISSUE_DATE:
                 searchModel.setSortStrategy(new StatusSort());
                 break;
         }

@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.SearchView;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,7 +27,7 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener;
 
 import java.util.List;
 
-public class InvoiceFragment extends Fragment implements InvoiceView {
+public class InvoiceFragment extends Fragment implements InvoiceView, AdapterView.OnItemClickListener {
 
     private InvoicePresenter invoicePresenter;
 
@@ -33,6 +36,16 @@ public class InvoiceFragment extends Fragment implements InvoiceView {
     private InvoicesScroller invoicesScroller;
     private View.OnClickListener invoiceListener;
     private SearchView.OnQueryTextListener searchListener;
+    private Spinner searchType;
+
+    public final static String DRIVER = "Driver";
+    public final static String ID = "ID";
+    public final static String CUSTOMER = "Customer";
+    public final static String SUPPLIER = "Supplier";
+    public final static String ISSUE_DATE = "Issue Date";
+
+    private final String[] searchOptions = {DRIVER, ID, CUSTOMER, SUPPLIER, ISSUE_DATE};
+
 
     @Nullable
     @Override
@@ -48,6 +61,14 @@ public class InvoiceFragment extends Fragment implements InvoiceView {
         initializeSearchListener();
 
         TabLayout tab = rootView.findViewById(R.id.searchTabs);
+
+        this.searchType = rootView.findViewById(R.id.searchType);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, searchOptions);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        this.searchType.setAdapter(adapter);
+
+
         tab.addOnTabSelectedListener(new SearchTabListener());
 
         return rootView;
@@ -58,6 +79,12 @@ public class InvoiceFragment extends Fragment implements InvoiceView {
 
         this.searchBar = rootView.findViewById(R.id.searchBar);
         this.searchBar.setOnQueryTextListener(searchListener);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        invoicePresenter.setSearchStrategy(position);
+
     }
 
     private class SearchTabListener implements OnTabSelectedListener{

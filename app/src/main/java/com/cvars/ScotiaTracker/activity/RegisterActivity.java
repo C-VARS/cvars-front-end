@@ -24,6 +24,7 @@ import com.cvars.ScotiaTracker.view.ViewType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -71,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         // TODO: Make a dictionary of each view mapping to it's content
         //
-        Map<String, String> registerData = new HashMap<>();
+        Map<String, String> registerData = new LinkedHashMap<>();
 
         ArrayList<EditText> fields = new  ArrayList<>();
 
@@ -88,6 +89,8 @@ public class RegisterActivity extends AppCompatActivity {
          fields.add((EditText) findViewById(R.id.address));
          fields.add((EditText) findViewById(R.id.bankInformation));
          fields.add((EditText) findViewById(R.id.password));
+         
+        registerData.put("userType", ((RegisterFragment) fragmentMap.get("Register")).getUserType());
 
          for (EditText et: fields) {
              if (et.isShown()) {
@@ -102,18 +105,28 @@ public class RegisterActivity extends AppCompatActivity {
 
     // TODO: Add show/finish loading?
 
-    public void chooseType(View view) {
+    public void supplierChooseType(View view) {
         getSupportFragmentManager().beginTransaction()
                 .hide(fragmentMap.get("Type"))
                 .show(fragmentMap.get("Register"))
                 .commit();
+        ((RegisterFragment) fragmentMap.get("Register")).setUserType("Supplier");
     }
 
-    public void driverVisibilitySetter(View view) {
+    public void customerChooseType(View view) {
         getSupportFragmentManager().beginTransaction()
                 .hide(fragmentMap.get("Type"))
                 .show(fragmentMap.get("Register"))
                 .commit();
+        ((RegisterFragment) fragmentMap.get("Register")).setUserType("Customer");
+    }
+
+    public void driverChooseType(View view) {
+        getSupportFragmentManager().beginTransaction()
+                .hide(fragmentMap.get("Type"))
+                .show(fragmentMap.get("Register"))
+                .commit();
+        ((RegisterFragment) fragmentMap.get("Register")).setUserType("Driver");
 
 
         findViewById(R.id.address).setVisibility(view.INVISIBLE);

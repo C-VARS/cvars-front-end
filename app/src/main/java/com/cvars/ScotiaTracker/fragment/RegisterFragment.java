@@ -15,6 +15,7 @@ import com.cvars.ScotiaTracker.R;
 public class RegisterFragment extends Fragment {
 
     private View rootView;
+    private String userType;
 
     @Nullable
     @Override
@@ -24,4 +25,13 @@ public class RegisterFragment extends Fragment {
 
         return rootView;
     }
+
+    public String getUserType(){
+        return userType;
+    }
+
+    public void setUserType(String userType){
+        this.userType = userType;
+    }
+
 }

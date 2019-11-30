@@ -16,7 +16,7 @@
         android:layout_marginTop="156dp"
         android:layout_marginEnd="162dp"
         android:background="@drawable/accent_line"
-        android:onClick="driverVisibilitySetter"
+        android:onClick="driverChooseType"
         android:text="Driver"
         android:textSize="17sp"
         android:textStyle="bold"
@@ -31,14 +31,14 @@
         android:layout_height="76dp"
         android:layout_marginTop="118dp"
         android:background="@drawable/accent_line"
-        android:onClick="chooseType"
+        android:onClick="customerChooseType"
         android:text="Small Business Owner"
+        android:textSize="17sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.543"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/driverButton"
-        android:textSize="17sp"
-        android:textStyle="bold"/>
+        app:layout_constraintTop_toBottomOf="@+id/driverButton" />
 
     <Button
         android:id="@+id/supplierButton"
@@ -47,12 +47,12 @@
         android:layout_marginTop="136dp"
         android:layout_marginBottom="156dp"
         android:background="@drawable/accent_line"
-        android:onClick="chooseType"
+        android:onClick="supplierChooseType"
         android:text="Supplier"
+        android:textSize="17sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customerButton"
-        android:textSize="17sp"
-        android:textStyle="bold"/>
+        app:layout_constraintTop_toBottomOf="@+id/customerButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

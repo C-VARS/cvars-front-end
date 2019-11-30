@@ -1,5 +1,7 @@
 package com.cvars.ScotiaTracker.view;
 
+import android.location.LocationManager;
+
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 
 import java.util.List;

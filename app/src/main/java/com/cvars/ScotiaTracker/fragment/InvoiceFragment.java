@@ -1,5 +1,7 @@
 package com.cvars.ScotiaTracker.fragment;
 
+import android.app.Service;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +48,6 @@ public class InvoiceFragment extends Fragment implements InvoiceView {
         initializeSearchListener();
 
         TabLayout tab = rootView.findViewById(R.id.searchTabs);
-
         tab.addOnTabSelectedListener(new SearchTabListener());
 
         return rootView;

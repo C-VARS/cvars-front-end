@@ -148,12 +148,19 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
             // Fill in the cells
             item.setText(order.getName());
             item.setGravity(Gravity.CENTER);
+            item.setPadding(0, 20, 0, 20);
+
             amount.setText(Integer.toString(order.getQuantity()));
             amount.setGravity(Gravity.CENTER);
+            amount.setPadding(0, 20, 0, 20);
+
             price.setText(Double.toString(order.singleItemPrice()));
             price.setGravity(Gravity.CENTER);
+            price.setPadding(0, 20, 0, 20);
+
             subtotal.setText(Double.toString(order.getTotalPrice()));
             subtotal.setGravity(Gravity.CENTER);
+            subtotal.setPadding(0, 20, 0, 20);
 
             // add the cells on to the row
             itemRow.addView(item);

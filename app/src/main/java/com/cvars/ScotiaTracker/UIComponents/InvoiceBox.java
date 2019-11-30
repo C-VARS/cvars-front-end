@@ -46,18 +46,22 @@ public class InvoiceBox extends CardView {
         String customerBase = "Order from ";
 
         TextView titleView = boxView.findViewById(R.id.orderTitle);
-        titleView.setText(orderTitle);
 
         switch (type){
             case DRIVER:
-                titleView.setText(driverBase + inv.getCustomerName());
+                orderTitle = driverBase + inv.getCustomerName();
+                break;
 
             case CUSTOMER:
-                titleView.setText(customerBase + inv.getSupplierName());
+                orderTitle = customerBase + inv.getSupplierName();
+                break;
 
             case SUPPLIER:
-                titleView.setText(supplierBase + inv.getCustomerName());
+                orderTitle = supplierBase + inv.getCustomerName();
+                break;
         }
+
+        titleView.setText(orderTitle);
     }
 
     private void initView() {

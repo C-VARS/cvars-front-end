@@ -19,12 +19,15 @@ import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.presenter.FragmentPresenter;
 import com.cvars.ScotiaTracker.presenter.StatusPresenter;
 import com.cvars.ScotiaTracker.view.IndividualInvoiceView;
+import com.google.android.material.tabs.TabLayout;
 
 public class IndividualInvoiceFragment extends Fragment implements IndividualInvoiceView {
 
     private View view;
     private FrameLayout invoiceContainer;
     private View basicInfoView;
+    private View fullInvoiceView;
+    private View currentView;
     private Invoice invoice;
     private StatusPresenter statusPresenter;
     private UserType userType;
@@ -37,12 +40,17 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         Log.d("Invoice", "You created new invoice page");
         this.view = inflater.inflate(R.layout.single_invoice, container, false);
         invoiceContainer = view.findViewById(R.id.invoiceContainer);
+
+        // Set up individual layouts for each tab
         basicInfoView = inflater.inflate(R.layout.component_basic_invoice_info, invoiceContainer, false);
+        fullInvoiceView = inflater.inflate(R.layout.full_invoice, invoiceContainer,false);
+
+        // Set up initial tab
+        currentView = basicInfoView;
         invoiceContainer.addView(basicInfoView);
 
-        actionButton = basicInfoView.findViewById(R.id.payNow);
-
         // Set up the button to change the status for the selected invoice
+        actionButton = basicInfoView.findViewById(R.id.payNow);
         actionButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -130,5 +138,38 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
     public void updatePay() {
         int invoiceID = this.invoice.getInvoiceId();
         statusPresenter.updateStatus(invoiceID, "payment");
+    }
+
+    /**
+     * Allow to switch between tabs
+     */
+    private void switchComponent(){
+        if (view == basicInfoView){
+            currentView = fullInvoiceView;
+            invoiceContainer.removeView(basicInfoView);
+            invoiceContainer.addView(fullInvoiceView);
+        } else{
+            currentView = basicInfoView;
+            invoiceContainer.removeView(fullInvoiceView);
+            invoiceContainer.addView((basicInfoView));
+        }
+    }
+    private class InvoiceTabSwitchListener implements TabLayout.OnTabSelectedListener {
+
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            switchComponent();
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+            //unimplemented
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+            //unimplemented
+        }
+
     }
 }

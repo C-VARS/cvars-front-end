@@ -12,7 +12,7 @@
 
         <LinearLayout
             android:layout_width="200dp"
-            android:layout_height="80dp"
+            android:layout_height="70dp"
             android:layout_centerHorizontal="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
@@ -41,19 +41,11 @@
 
     </RelativeLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/invoiceView"
-        android:layout_centerHorizontal="true"/>
-
     <RelativeLayout
         android:id="@+id/basic_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/progressBar"
+        android:layout_below="@+id/invoiceView"
         android:paddingVertical="15dp">
 
         <RelativeLayout
@@ -65,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toStartOf="@+id/totalPrice"
-                android:paddingVertical="15dp"
+                android:paddingVertical="10dp"
                 android:text="$"
                 android:textSize="40sp"
                 android:textStyle="bold"></TextView>
@@ -75,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:paddingVertical="15dp"
+                android:paddingVertical="10dp"
                 android:text="123.45"
                 android:textSize="40sp"
                 android:textStyle="bold"></TextView>

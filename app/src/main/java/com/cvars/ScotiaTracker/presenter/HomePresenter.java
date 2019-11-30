@@ -1,6 +1,7 @@
 package com.cvars.ScotiaTracker.presenter;
 
 import com.cvars.ScotiaTracker.model.DataModelFacade;
+import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.responseListeners.InvoiceResponseListener;
 import com.cvars.ScotiaTracker.responseListeners.SettingResponseListener;
 import com.cvars.ScotiaTracker.view.HomeView;
@@ -35,5 +36,9 @@ public class HomePresenter extends FragmentPresenter implements SettingResponseL
     @Override
     public void notifyInvoiceResponse() {
         homeView.updateScroller(modelFacade.getInvoices());
+    }
+
+    public UserType getUserType() {
+        return modelFacade.getUserType();
     }
 }

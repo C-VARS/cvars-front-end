@@ -39,24 +39,25 @@ public class InvoiceBox extends CardView {
         setContent();
     }
 
-    public String setTitle(UserType type, Invoice inv) {
+    public void setTitle(UserType type, Invoice inv) {
         // Generates a title String for the invoice
         String driverBase = "Delivery for ";
         String supplierBase = "Order for ";
         String customerBase = "Order from ";
 
+        TextView titleView = boxView.findViewById(R.id.orderTitle);
+        titleView.setText(orderTitle);
+
         switch (type){
             case DRIVER:
-                return driverBase + inv.getCustomerName();
+                titleView.setText(driverBase + inv.getCustomerName());
 
             case CUSTOMER:
-                return customerBase + inv.getSupplierName();
+                titleView.setText(customerBase + inv.getSupplierName());
 
             case SUPPLIER:
-                return supplierBase + inv.getCustomerName();
+                titleView.setText(supplierBase + inv.getCustomerName());
         }
-        return customerBase + inv.getSupplierName();
-
     }
 
     private void initView() {
@@ -77,7 +78,6 @@ public class InvoiceBox extends CardView {
 
     public void setContent(){
         // Grab View objects from InvoiceBox
-        TextView titleView = boxView.findViewById(R.id.orderTitle);
         TextView statusView = boxView.findViewById(R.id.statusText);
         TextView invoiceNumView = boxView.findViewById(R.id.invoiceNum);
 
@@ -85,8 +85,6 @@ public class InvoiceBox extends CardView {
         invoiceNumView.setText(Integer.toString(invoiceNum));
         statusView.setText(statusText);
         progressBar.setProgress(getProgress());
-        titleView.setText(orderTitle);
-
     }
 
     private int getProgress() {

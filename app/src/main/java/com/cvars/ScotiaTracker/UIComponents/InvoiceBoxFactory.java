@@ -11,6 +11,7 @@ public class InvoiceBoxFactory {
     public InvoiceBox createInvoiceBox(Context context, Invoice inv, UserType userType, OnClickListener listener) {
         InvoiceBox box = new InvoiceBox(context, inv, listener);
         box.setTitle(userType, inv);
+
         return box;
     }
 }

@@ -41,7 +41,7 @@ public class HomeFragment extends Fragment implements HomeView {
         // setup in-progress invoices invoicescroller
         FrameLayout scrollContainer = view.findViewById(R.id.inProgressScroller);
         // TODO UPDATE THIS TOO
-        invoicesScroller = new InvoicesScroller(scrollContainer.getContext(), invoiceListener, UserType.CUSTOMER);
+        invoicesScroller = new InvoicesScroller(scrollContainer.getContext(), invoiceListener, homePresenter.getUserType());
 
         scrollContainer.addView(invoicesScroller);
 

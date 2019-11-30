@@ -2,11 +2,14 @@ package com.cvars.ScotiaTracker.fragment;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
+import com.cvars.ScotiaTracker.model.pojo.Order;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.presenter.FragmentPresenter;
 import com.cvars.ScotiaTracker.presenter.IndividualInvoicePresenter;
@@ -26,6 +30,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.List;
 
 public class IndividualInvoiceFragment extends Fragment implements IndividualInvoiceView, OnMapReadyCallback {
 
@@ -110,11 +116,69 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         // Save this invoice
         this.invoice = invoice;
 
-        // Fill in invoiceID
-        ((TextView) basicInfoView.findViewById(R.id.invoiceNum)).setText(Integer.toString(invoice.getInvoiceId()));
-        ((TextView) basicInfoView.findViewById(R.id.totalPrice)).setText(Double.toString(invoice.getTotalCost()));
+        if (currentView == basicInfoView) {
+            // Fill in invoiceID
+            ((TextView) basicInfoView.findViewById(R.id.invoiceNum)).setText(Integer.toString(invoice.getInvoiceId()));
+            ((TextView) basicInfoView.findViewById(R.id.totalPrice)).setText(Double.toString(invoice.getTotalCost()));
 
-        updateActionButton();
+            updateActionButton();
+        }
+
+        else{
+            TableLayout table = currentView.findViewById(R.id.invoiceTable);
+            table.removeAllViews();
+
+            // Populate table with rows of order information
+            List<Order> orders = invoice.getOrders();
+            for (Order order: orders){
+                TableRow row = new TableRow(view.getContext());
+                row.setGravity(Gravity.CENTER);
+                row.setPadding(0, 50, 0, 50);
+
+                // Set up new cells
+                TextView item = new TextView(view.getContext());
+                TextView amount = new TextView(view.getContext());
+                TextView price = new TextView(view.getContext());
+                TextView subtotal = new TextView(view.getContext());
+
+                item.setPadding(0, 0, 0, 5);
+                item.setGravity(Gravity.START);
+                amount.setPadding(30, 5, 30, 5);
+                amount.setGravity(Gravity.CENTER);
+                price.setPadding(5, 5, 5, 5);
+                price.setGravity(Gravity.CENTER);
+                subtotal.setPadding(5, 5, 5, 5);
+                subtotal.setGravity(Gravity.RIGHT);
+
+                // Fill in the cells
+                item.setText(order.getName());
+                amount.setText(Integer.toString(order.getQuantity()));
+                price.setText(Double.toString(order.singleItemPrice()));
+                subtotal.setText(Double.toString(order.getTotalPrice()));
+
+                // add the cells on to the row
+                row.addView(item);
+                row.addView(amount);
+                row.addView(price);
+                row.addView(subtotal);
+
+                table.addView(row);
+            }
+
+            // Fill in invoiceID
+            ((TextView) currentView.findViewById(R.id.invoiceID)).setText(Integer.toString(invoice.getInvoiceId()));
+            ((TextView) currentView.findViewById(R.id.issuedDate)).setText(invoice.getIssuedDate());
+            ((TextView) currentView.findViewById(R.id.customerName)).setText(invoice.getCustomerName());
+            ((TextView) currentView.findViewById(R.id.customerAddress)).setText(invoice.getCustomerAddress());
+            ((TextView) currentView.findViewById(R.id.customerContact)).setText(invoice.getCustomerContact());
+            ((TextView) currentView.findViewById(R.id.supplierName)).setText(invoice.getSupplierName());
+            ((TextView) currentView.findViewById(R.id.supplierContact)).setText(invoice.getSupplierContact());
+
+            // Calculate Total
+            double subtotal = invoice.getTotalCost();
+            ((TextView) currentView.findViewById(R.id.subtotalText)).setText(Double.toString(subtotal));
+            ((TextView) currentView.findViewById(R.id.totalText)).setText(Double.toString(subtotal * 1.13));
+        }
     }
 
     private void updateActionButton(){
@@ -170,6 +234,7 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
     private void switchComponent(){
         if (currentView == basicInfoView){
             currentView = fullInvoiceView;
+            updateFields(invoice);
             invoiceContainer.removeView(basicInfoView);
             invoiceContainer.addView(fullInvoiceView);
         } else{

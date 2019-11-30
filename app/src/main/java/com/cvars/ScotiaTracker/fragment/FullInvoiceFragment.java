@@ -6,7 +6,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -18,12 +17,6 @@ import androidx.fragment.app.Fragment;
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.Order;
-import com.cvars.ScotiaTracker.model.pojo.OrderStatus;
-import com.cvars.ScotiaTracker.model.pojo.UserType;
-import com.cvars.ScotiaTracker.presenter.FragmentPresenter;
-import com.cvars.ScotiaTracker.presenter.StatusPresenter;
-import com.cvars.ScotiaTracker.view.IndividualInvoiceView;
-import com.google.firebase.firestore.core.OrderBy;
 
 import java.util.List;
 

@@ -6,12 +6,12 @@ import com.cvars.ScotiaTracker.responseListeners.InvoiceResponseListener;
 import com.cvars.ScotiaTracker.view.IndividualInvoiceView;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
 
-public class StatusPresenter extends FragmentPresenter implements InvoiceResponseListener {
+public class IndividualInvoicePresenter extends FragmentPresenter implements InvoiceResponseListener {
 
     private DataModelFacade modelFacade;
     private IndividualInvoiceView view;
 
-    public StatusPresenter(DataModelFacade modelFacade, IndividualInvoiceView view) {
+    public IndividualInvoicePresenter(DataModelFacade modelFacade, IndividualInvoiceView view) {
         this.modelFacade = modelFacade;
         this.view = view;
         modelFacade.addInvoiceResponseListener(this);

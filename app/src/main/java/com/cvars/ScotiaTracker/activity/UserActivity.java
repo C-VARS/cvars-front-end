@@ -43,7 +43,7 @@ import com.cvars.ScotiaTracker.networkAPI.FirebaseLocationSender;
 import com.cvars.ScotiaTracker.presenter.HomePresenter;
 import com.cvars.ScotiaTracker.presenter.InvoicePresenter;
 import com.cvars.ScotiaTracker.presenter.SettingPresenter;
-import com.cvars.ScotiaTracker.presenter.StatusPresenter;
+import com.cvars.ScotiaTracker.presenter.IndividualInvoicePresenter;
 import com.cvars.ScotiaTracker.responseListeners.InvoiceBoxListener;
 import com.cvars.ScotiaTracker.view.IndividualInvoiceView;
 import com.cvars.ScotiaTracker.view.HomeView;
@@ -226,8 +226,8 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
         // Create the status presenter
         IndividualInvoiceView individualInvoiceView = (IndividualInvoiceView) fragmentMap.get(ViewType.INDIVIDUAL_INVOICE);
-        StatusPresenter statusPresenter = new StatusPresenter(dataFacade, individualInvoiceView);
-        individualInvoiceView.setPresenter(statusPresenter);
+        IndividualInvoicePresenter individualInvoicePresenter = new IndividualInvoicePresenter(dataFacade, individualInvoiceView);
+        individualInvoiceView.setPresenter(individualInvoicePresenter);
 
         // Create the home presenter
         HomeView homeView = (HomeView) fragmentMap.get(ViewType.HOME);

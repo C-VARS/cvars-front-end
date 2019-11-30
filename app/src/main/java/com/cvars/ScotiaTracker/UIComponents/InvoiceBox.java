@@ -1,6 +1,7 @@
 package com.cvars.ScotiaTracker.UIComponents;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -88,7 +89,22 @@ public class InvoiceBox extends CardView {
         // set content of invoice box
         invoiceNumView.setText(Integer.toString(invoiceNum));
         statusView.setText(statusText);
+        updateProgressBar();
+
+
+    }
+
+    private void updateProgressBar() {
         progressBar.setProgress(getProgress());
+
+        // change color depending on order status
+        if (getProgress() == 4) {
+            progressBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+        }
+        else {
+            progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+        }
+
     }
 
     private int getProgress() {

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -116,69 +117,62 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         // Save this invoice
         this.invoice = invoice;
 
-        if (currentView == basicInfoView) {
-            // Fill in invoiceID
-            ((TextView) basicInfoView.findViewById(R.id.invoiceNum)).setText(Integer.toString(invoice.getInvoiceId()));
-            ((TextView) basicInfoView.findViewById(R.id.totalPrice)).setText(Double.toString(invoice.getTotalCost()));
+        // Fill in invoiceID
+        ((TextView) basicInfoView.findViewById(R.id.invoiceNum)).setText(Integer.toString(invoice.getInvoiceId()));
+        ((TextView) basicInfoView.findViewById(R.id.totalPrice)).setText(Double.toString(invoice.getTotalCost()));
 
-            updateActionButton();
+        updateActionButton();
+
+        LinearLayout itemRow = fullInvoiceView.findViewById(R.id.itemRow);
+        itemRow.removeAllViews();
+        LinearLayout amountRow = fullInvoiceView.findViewById(R.id.amountRow);
+        amountRow.removeAllViews();
+        LinearLayout priceRow = fullInvoiceView.findViewById(R.id.priceRow);
+        priceRow.removeAllViews();
+        LinearLayout subtotalRow = fullInvoiceView.findViewById(R.id.subtotalRow);
+        subtotalRow.removeAllViews();
+
+        // Populate table with rows of order information
+        List<Order> orders = invoice.getOrders();
+        for (Order order: orders) {
+            // Set up new cells
+            TextView item = new TextView(view.getContext());
+            TextView amount = new TextView(view.getContext());
+            TextView price = new TextView(view.getContext());
+            TextView subtotal = new TextView(view.getContext());
+
+            // Fill in the cells
+            item.setText(order.getName());
+            item.setGravity(Gravity.CENTER);
+            amount.setText(Integer.toString(order.getQuantity()));
+            amount.setGravity(Gravity.CENTER);
+            price.setText(Double.toString(order.singleItemPrice()));
+            price.setGravity(Gravity.CENTER);
+            subtotal.setText(Double.toString(order.getTotalPrice()));
+            subtotal.setGravity(Gravity.CENTER);
+
+            // add the cells on to the row
+            itemRow.addView(item);
+            amountRow.addView(amount);
+            priceRow.addView(price);
+            subtotalRow.addView(subtotal);
         }
 
-        else{
-            TableLayout table = currentView.findViewById(R.id.invoiceTable);
-            table.removeAllViews();
+        // Fill in invoiceID
+        ((TextView) fullInvoiceView.findViewById(R.id.invoiceID)).setText(Integer.toString(invoice.getInvoiceId()));
+        ((TextView) fullInvoiceView.findViewById(R.id.issuedDate)).setText(invoice.getIssuedDate());
+        ((TextView) fullInvoiceView.findViewById(R.id.customerName)).setText(invoice.getCustomerName());
+        ((TextView) fullInvoiceView.findViewById(R.id.customerAddress)).setText(invoice.getCustomerAddress());
+        ((TextView) fullInvoiceView.findViewById(R.id.customerContact)).setText(invoice.getCustomerContact());
+        ((TextView) fullInvoiceView.findViewById(R.id.supplierName)).setText(invoice.getSupplierName());
+        ((TextView) fullInvoiceView.findViewById(R.id.supplierContact)).setText(invoice.getSupplierContact());
 
-            // Populate table with rows of order information
-            List<Order> orders = invoice.getOrders();
-            for (Order order: orders){
-                TableRow row = new TableRow(view.getContext());
-                row.setGravity(Gravity.CENTER);
-                row.setPadding(0, 50, 0, 50);
+        // Calculate Total
+        double subtotal = invoice.getTotalCost();
+        ((TextView) fullInvoiceView.findViewById(R.id.subtotalText)).setText(Double.toString(subtotal));
+        double total = subtotal * 1.13;
+        ((TextView) fullInvoiceView.findViewById(R.id.totalText)).setText(Double.toString(Math.round(total)));
 
-                // Set up new cells
-                TextView item = new TextView(view.getContext());
-                TextView amount = new TextView(view.getContext());
-                TextView price = new TextView(view.getContext());
-                TextView subtotal = new TextView(view.getContext());
-
-                item.setPadding(0, 0, 0, 5);
-                item.setGravity(Gravity.START);
-                amount.setPadding(30, 5, 30, 5);
-                amount.setGravity(Gravity.CENTER);
-                price.setPadding(5, 5, 5, 5);
-                price.setGravity(Gravity.CENTER);
-                subtotal.setPadding(5, 5, 5, 5);
-                subtotal.setGravity(Gravity.RIGHT);
-
-                // Fill in the cells
-                item.setText(order.getName());
-                amount.setText(Integer.toString(order.getQuantity()));
-                price.setText(Double.toString(order.singleItemPrice()));
-                subtotal.setText(Double.toString(order.getTotalPrice()));
-
-                // add the cells on to the row
-                row.addView(item);
-                row.addView(amount);
-                row.addView(price);
-                row.addView(subtotal);
-
-                table.addView(row);
-            }
-
-            // Fill in invoiceID
-            ((TextView) currentView.findViewById(R.id.invoiceID)).setText(Integer.toString(invoice.getInvoiceId()));
-            ((TextView) currentView.findViewById(R.id.issuedDate)).setText(invoice.getIssuedDate());
-            ((TextView) currentView.findViewById(R.id.customerName)).setText(invoice.getCustomerName());
-            ((TextView) currentView.findViewById(R.id.customerAddress)).setText(invoice.getCustomerAddress());
-            ((TextView) currentView.findViewById(R.id.customerContact)).setText(invoice.getCustomerContact());
-            ((TextView) currentView.findViewById(R.id.supplierName)).setText(invoice.getSupplierName());
-            ((TextView) currentView.findViewById(R.id.supplierContact)).setText(invoice.getSupplierContact());
-
-            // Calculate Total
-            double subtotal = invoice.getTotalCost();
-            ((TextView) currentView.findViewById(R.id.subtotalText)).setText(Double.toString(subtotal));
-            ((TextView) currentView.findViewById(R.id.totalText)).setText(Double.toString(subtotal * 1.13));
-        }
     }
 
     private void updateActionButton(){

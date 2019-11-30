@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.UIComponents.InvoicesScroller;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
+import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.presenter.FragmentPresenter;
 import com.cvars.ScotiaTracker.presenter.HomePresenter;
 import com.cvars.ScotiaTracker.presenter.InvoicePresenter;
@@ -39,7 +40,8 @@ public class HomeFragment extends Fragment implements HomeView {
 
         // setup in-progress invoices invoicescroller
         FrameLayout scrollContainer = view.findViewById(R.id.inProgressScroller);
-        invoicesScroller = new InvoicesScroller(scrollContainer.getContext(), invoiceListener);
+        // TODO UPDATE THIS TOO
+        invoicesScroller = new InvoicesScroller(scrollContainer.getContext(), invoiceListener, UserType.CUSTOMER);
 
         scrollContainer.addView(invoicesScroller);
 

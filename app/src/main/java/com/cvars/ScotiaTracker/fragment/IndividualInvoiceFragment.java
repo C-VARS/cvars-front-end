@@ -25,6 +25,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.tabs.TabLayout;
 
 public class IndividualInvoiceFragment extends Fragment implements IndividualInvoiceView, OnMapReadyCallback {
 
@@ -35,6 +36,8 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
     private MapView mapView;
     private GoogleMap googleMap;
 
+    private View fullInvoiceView;
+    private View currentView;
     private Invoice invoice;
     private StatusPresenter statusPresenter;
     private UserType userType;
@@ -47,9 +50,22 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         Log.d("Invoice", "You created new invoice page");
         this.view = inflater.inflate(R.layout.single_invoice, container, false);
         invoiceContainer = view.findViewById(R.id.invoiceContainer);
+
+        // Set up individual layouts for each tab
         basicInfoView = inflater.inflate(R.layout.component_basic_invoice_info, invoiceContainer, false);
+        fullInvoiceView = inflater.inflate(R.layout.full_invoice, invoiceContainer,false);
+
+        // Set up initial tab
+        currentView = basicInfoView;
         invoiceContainer.addView(basicInfoView);
 
+        initializeActionButton();
+        initializeMap();
+
+        return view;
+    }
+
+    private void initializeActionButton(){
         actionButton = basicInfoView.findViewById(R.id.payNow);
         actionButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -63,13 +79,12 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
                 }
             }
         });
+    }
 
-
+    private void initializeMap(){
         mapView = basicInfoView.findViewById(R.id.mapView);
         mapView.onCreate(null);
         mapView.getMapAsync(this);
-
-        return view;
     }
 
     @Override
@@ -141,6 +156,40 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
     public void updatePay() {
         int invoiceID = this.invoice.getInvoiceId();
         statusPresenter.updateStatus(invoiceID, "payment");
+    }
+
+    /**
+     * Allow to switch between tabs
+     */
+    private void switchComponent(){
+        if (currentView == basicInfoView){
+            currentView = fullInvoiceView;
+            invoiceContainer.removeView(basicInfoView);
+            invoiceContainer.addView(fullInvoiceView);
+        } else{
+            currentView = basicInfoView;
+            invoiceContainer.removeView(fullInvoiceView);
+            invoiceContainer.addView((basicInfoView));
+        }
+    }
+
+    private class InvoiceTabSwitchListener implements TabLayout.OnTabSelectedListener {
+
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            switchComponent();
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+            //unimplemented
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+            //unimplemented
+        }
+
     }
 
     @Override

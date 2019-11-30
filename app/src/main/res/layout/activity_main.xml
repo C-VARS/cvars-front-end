@@ -30,35 +30,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
-    <Button
-        android:id="@+id/login"
+    <LinearLayout
+        android:id="@+id/buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/accent_line_red"
-        android:onClick="login"
-        android:text="Sign In"
-        android:textColor="#FFF"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="227dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/password">
 
-    <Button
-        android:id="@+id/login2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="162dp"
-        android:background="@drawable/accent_line_red"
-        android:onClick="changeToRegisterActivity"
-        android:text="Register"
-        android:textColor="#FFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login" />
+        <Button
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/accent_line_red"
+            android:onClick="login"
+            android:text="Sign In"
+            android:textColor="#FFF" />
+
+        <Button
+            android:id="@+id/login2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/accent_line_red"
+            android:onClick="changeToRegisterActivity"
+            android:text="Register"
+            android:textColor="#FFF" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/imageView2"
@@ -80,6 +82,6 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login" />
+        app:layout_constraintTop_toBottomOf="@+id/buttons" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,13 +19,23 @@ import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.presenter.FragmentPresenter;
 import com.cvars.ScotiaTracker.presenter.StatusPresenter;
 import com.cvars.ScotiaTracker.view.IndividualInvoiceView;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.tabs.TabLayout;
 
-public class IndividualInvoiceFragment extends Fragment implements IndividualInvoiceView {
+public class IndividualInvoiceFragment extends Fragment implements IndividualInvoiceView, OnMapReadyCallback {
 
     private View view;
     private FrameLayout invoiceContainer;
     private View basicInfoView;
+
+    private MapView mapView;
+    private GoogleMap googleMap;
+
     private View fullInvoiceView;
     private View currentView;
     private Invoice invoice;
@@ -49,7 +59,13 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         currentView = basicInfoView;
         invoiceContainer.addView(basicInfoView);
 
-        // Set up the button to change the status for the selected invoice
+        initializeActionButton();
+        initializeMap();
+
+        return view;
+    }
+
+    private void initializeActionButton(){
         actionButton = basicInfoView.findViewById(R.id.payNow);
         actionButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -63,7 +79,12 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
                 }
             }
         });
-        return view;
+    }
+
+    private void initializeMap(){
+        mapView = basicInfoView.findViewById(R.id.mapView);
+        mapView.onCreate(null);
+        mapView.getMapAsync(this);
     }
 
     @Override
@@ -75,13 +96,10 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
     @Override
     public void onDestroy() {
         view = null;
+        mapView.onDestroy();
         super.onDestroy();
     }
 
-    /**
-     * Populate the screen with the necessary information, given by <invoice>
-     * @param invoice
-     */
     public void updateFields(Invoice invoice){
         // Save this invoice
         this.invoice = invoice;
@@ -144,7 +162,7 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
      * Allow to switch between tabs
      */
     private void switchComponent(){
-        if (view == basicInfoView){
+        if (currentView == basicInfoView){
             currentView = fullInvoiceView;
             invoiceContainer.removeView(basicInfoView);
             invoiceContainer.addView(fullInvoiceView);
@@ -154,6 +172,7 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
             invoiceContainer.addView((basicInfoView));
         }
     }
+
     private class InvoiceTabSwitchListener implements TabLayout.OnTabSelectedListener {
 
         @Override
@@ -171,5 +190,31 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
             //unimplemented
         }
 
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
+        LatLng loc = new LatLng(50, 50);
+        googleMap.addMarker(new MarkerOptions().position(loc).title("haha"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
     }
 }

@@ -178,6 +178,8 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         ((TextView) fullInvoiceView.findViewById(R.id.totalText)).setText(Double.toString(Math.round(total)));
 
     }
+
+
     private void updateActionButton(){
         actionButton.setVisibility(View.VISIBLE);
 

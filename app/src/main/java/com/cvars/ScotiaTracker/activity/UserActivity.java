@@ -323,7 +323,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
     private void initializeLocationSending() {
         this.locationSender = new FirebaseLocationSender(
-                (LocationManager) getSystemService(Service.LOCATION_SERVICE),
+                this,
                 dataFacade.getUsername());
     }
 

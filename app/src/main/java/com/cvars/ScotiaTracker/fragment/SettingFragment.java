@@ -37,11 +37,16 @@ public class SettingFragment extends Fragment implements SettingView {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
+
+        // Set up tab display and containers for individual layouts
         rootView = view;
         settingFrame = view.findViewById(R.id.settingFrameContainer);
+
+        // Set up the layouts to view for each tab
         account = inflater.inflate(R.layout.component_account, settingFrame, false);
         setting = inflater.inflate(R.layout.component_setting, settingFrame, false);
 
+        // Set up initial tab to display when you enter SettingFragment
         settingFrame.addView(account);
         currentView = account;
 
@@ -51,6 +56,9 @@ public class SettingFragment extends Fragment implements SettingView {
         return view;
     }
 
+    /**
+     * Initialize a listener for log out button
+     */
     private void initializeLogOutListener() {
         Button logOutButton = account.findViewById(R.id.logOut);
         logOutButton.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +68,9 @@ public class SettingFragment extends Fragment implements SettingView {
         });
     }
 
+    /**
+     * Initialize a listener for tab buttons
+     */
     private void initializeTabListener(){
         TabLayout tab = rootView.findViewById(R.id.settingTabs);
         tab.addOnTabSelectedListener(listener);
@@ -74,6 +85,9 @@ public class SettingFragment extends Fragment implements SettingView {
         tab.removeOnTabSelectedListener(listener);
     }
 
+    /**
+     * Allow to switch between tabs
+     */
     private void switchComponent(){
         if (currentView == account){
             currentView = setting;
@@ -86,6 +100,12 @@ public class SettingFragment extends Fragment implements SettingView {
         }
     }
 
+    /**
+     * Populate account page with information about <user> with <username> and <userType>
+     * @param user
+     * @param username
+     * @param userType
+     */
     @Override
     public void updateUserInformation(User user, String username, UserType userType) {
         TextView usernameView = account.findViewById(R.id.username);

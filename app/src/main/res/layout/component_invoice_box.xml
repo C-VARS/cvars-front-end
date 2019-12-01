@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="Order from Coca-Cola"
             android:textColor="#333333"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
 
@@ -53,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="20dp"
         android:gravity="top"
         android:orientation="vertical">
@@ -65,7 +65,7 @@
 
             android:gravity="end"
             android:text="3"
-            android:textSize="40sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/idText"

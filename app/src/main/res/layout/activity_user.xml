@@ -38,7 +38,7 @@
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorAccent"
+        android:background="#DF2D21"
         android:elevation="6dp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"

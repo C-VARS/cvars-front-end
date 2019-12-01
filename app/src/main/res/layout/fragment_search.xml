@@ -6,66 +6,72 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/searchTabs"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:forceDarkAllowed="false"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:tabMode="fixed">
-
-        <com.google.android.material.tabs.TabItem
-            style="@style/WhiteText"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Most Recent" />
+            android:elevation="8dp"
+            android:orientation="horizontal">
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
+            <SearchView
+                android:id="@+id/searchBar"
+                android:layout_width="298dp"
+                android:layout_height="48dp"
+                android:baselineAligned="false"
+                android:outlineProvider="paddedBounds"
+                android:outlineSpotShadowColor="#E5E8EA" />
+
+            <Spinner
+                android:id="@+id/searchType"
+                android:layout_width="113dp"
+                android:layout_height="51dp" />
+        </LinearLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/searchTabs"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Status"
-            android:theme="@style/WhiteText" />
+            android:elevation="4dp"
 
-        <com.google.android.material.tabs.TabItem
-            style="@style/WhiteText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Oldest" />
-    </com.google.android.material.tabs.TabLayout>
+            android:forceDarkAllowed="false"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:tabMode="fixed">
 
-    <SearchView
-        android:id="@+id/searchBar"
-        android:layout_width="298dp"
-        android:layout_height="48dp"
-        android:baselineAligned="false"
-        android:outlineProvider="paddedBounds"
-        android:outlineSpotShadowColor="#E5E8EA"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchTabs" />
+            <com.google.android.material.tabs.TabItem
+                style="@style/WhiteText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Most Recent" />
 
-    <FrameLayout
-        android:id="@+id/scrollerContainer"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchBar" >
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status"
+                android:theme="@style/WhiteText" />
 
-    </FrameLayout>
+            <com.google.android.material.tabs.TabItem
+                style="@style/WhiteText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Oldest" />
+        </com.google.android.material.tabs.TabLayout>
 
-    <Spinner
-        android:id="@+id/searchType"
-        android:layout_width="113dp"
-        android:layout_height="51dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollerContainer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/searchBar"
-        app:layout_constraintTop_toBottomOf="@+id/searchTabs" />
+        <FrameLayout
+            android:id="@+id/scrollerContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/rounded_organic_brick"
+            android:elevation="4dp">
+
+        </FrameLayout>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,10 +11,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.cvars.ScotiaTracker.R;
+import com.cvars.ScotiaTracker.view.RegisterView;
 
 public class RegisterFragment extends Fragment {
 
     private View rootView;
+    private String userType;
 
     @Nullable
     @Override
@@ -24,4 +26,13 @@ public class RegisterFragment extends Fragment {
 
         return rootView;
     }
+
+    public String getUserType(){
+        return userType;
+    }
+
+    public void setUserType(String userType){
+        this.userType = userType;
+    }
+
 }

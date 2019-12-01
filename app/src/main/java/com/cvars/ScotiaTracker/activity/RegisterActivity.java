@@ -16,23 +16,30 @@ import android.widget.Toast;
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.fragment.RegisterFragment;
 import com.cvars.ScotiaTracker.fragment.RegisterTypeFragment;
+import com.cvars.ScotiaTracker.model.RegisterModel;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
+import com.cvars.ScotiaTracker.presenter.InvoicePresenter;
 import com.cvars.ScotiaTracker.presenter.LoginPresenter;
 import com.cvars.ScotiaTracker.presenter.RegisterPresenter;
+import com.cvars.ScotiaTracker.view.InvoiceView;
 import com.cvars.ScotiaTracker.view.LoginView;
+import com.cvars.ScotiaTracker.view.RegisterView;
 import com.cvars.ScotiaTracker.view.ViewType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
  * Register Page of the android app. Implements LoginView for UI manipulation
  * related to register.
  */
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements RegisterView {
 
     private RegisterPresenter registerPresenter;
+
+    private RegisterModel registerModel  = new RegisterModel();
 
     private Map<String, Fragment> fragmentMap;
 
@@ -41,6 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         initializeFragmentMap();
+
+        registerPresenter = new RegisterPresenter(registerModel);
 
     }
 
@@ -71,9 +80,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         // TODO: Make a dictionary of each view mapping to it's content
         //
-        HashMap<String, String> registerData = new HashMap<>();
+        Map<String, String> registerData = new LinkedHashMap<>();
 
-        ArrayList<View> fields = new  ArrayList<>();
+        ArrayList<EditText> fields = new  ArrayList<>();
 
 //        EditText usernameField = findViewById(R.id.username);
 //        EditText nameField = findViewById(R.id.name);
@@ -82,42 +91,51 @@ public class RegisterActivity extends AppCompatActivity {
 //        EditText bankInformationField = findViewById(R.id.bankInformation);
 //        EditText passwordField = findViewById(R.id.password);
 
-         fields.add(findViewById(R.id.username));
-         fields.add(findViewById(R.id.name));
-         fields.add(findViewById(R.id.contact));
-         fields.add(findViewById(R.id.address));
-         fields.add(findViewById(R.id.bankInformation));
-         fields.add(findViewById(R.id.password));
+        registerData.put("userType", ((RegisterFragment) fragmentMap.get("Register")).getUserType());
 
-         for (View v: fields) {
-             if (v.isShown()) {
-//                 registerData.put(v., v.toString());
+        fields.add((EditText) findViewById(R.id.username));
+        fields.add((EditText) findViewById(R.id.password));
+        fields.add((EditText) findViewById(R.id.contact));
+        fields.add((EditText) findViewById(R.id.name));
+        fields.add((EditText) findViewById(R.id.bankInformation));
+        fields.add((EditText) findViewById(R.id.address));
+
+
+         for (EditText et: fields) {
+             if (et.isShown()) {
+                  registerData.put(et.getHint().toString().toLowerCase().replaceAll("\\s+",""), et.getText().toString());
              }
          }
 
-        changeToLoginActivity();
-
-
-
         registerPresenter.register(registerData);
-
+        changeToLoginActivity();
 
     }
 
     // TODO: Add show/finish loading?
 
-    public void chooseType(View view) {
+    public void supplierChooseType(View view) {
         getSupportFragmentManager().beginTransaction()
                 .hide(fragmentMap.get("Type"))
                 .show(fragmentMap.get("Register"))
                 .commit();
+        ((RegisterFragment) fragmentMap.get("Register")).setUserType("Supplier");
     }
 
-    public void driverVisibilitySetter(View view) {
+    public void customerChooseType(View view) {
         getSupportFragmentManager().beginTransaction()
                 .hide(fragmentMap.get("Type"))
                 .show(fragmentMap.get("Register"))
                 .commit();
+        ((RegisterFragment) fragmentMap.get("Register")).setUserType("Customer");
+    }
+
+    public void driverChooseType(View view) {
+        getSupportFragmentManager().beginTransaction()
+                .hide(fragmentMap.get("Type"))
+                .show(fragmentMap.get("Register"))
+                .commit();
+        ((RegisterFragment) fragmentMap.get("Register")).setUserType("Driver");
 
 
         findViewById(R.id.address).setVisibility(view.INVISIBLE);

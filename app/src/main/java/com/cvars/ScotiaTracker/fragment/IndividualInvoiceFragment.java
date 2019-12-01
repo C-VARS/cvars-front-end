@@ -206,7 +206,7 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
     }
 
     public int getCurrentInvoiceNum(){
-        String invoiceID = ((TextView) view.findViewById(R.id.invoiceNum)).getText().toString();
+        String invoiceID = ((TextView) basicInfoView.findViewById(R.id.invoiceNum)).getText().toString();
 
         if (invoiceID.equals("Invoice ID")){
             return -1;

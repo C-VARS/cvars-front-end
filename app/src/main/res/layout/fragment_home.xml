@@ -52,8 +52,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="-5dp"
         android:background="@drawable/rounded_organic_brick"
-        android:elevation="4dp">
-
+        android:elevation="10dp">
     </FrameLayout>
 
 </RelativeLayout>

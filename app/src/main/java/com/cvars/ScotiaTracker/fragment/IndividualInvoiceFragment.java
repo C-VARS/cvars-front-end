@@ -123,7 +123,7 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
 
         // Fill in invoiceID
         ((TextView) basicInfoView.findViewById(R.id.invoiceNum)).setText(Integer.toString(invoice.getInvoiceId()));
-        ((TextView) basicInfoView.findViewById(R.id.totalPrice)).setText(Double.toString(invoice.getTotalCost()));
+        ((TextView) basicInfoView.findViewById(R.id.totalPrice)).setText(Double.toString(Math.round(invoice.getTotalCost())));
 
         updateActionButton();
 
@@ -180,7 +180,7 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
 
         // Calculate Total
         double subtotal = invoice.getTotalCost();
-        ((TextView) fullInvoiceView.findViewById(R.id.subtotalText)).setText(Double.toString(subtotal));
+        ((TextView) fullInvoiceView.findViewById(R.id.subtotalText)).setText(Double.toString(Math.round(subtotal)));
         double total = subtotal * 1.13;
         ((TextView) fullInvoiceView.findViewById(R.id.totalText)).setText(Double.toString(Math.round(total)));
 

@@ -30,7 +30,9 @@ public class HomePresenter extends FragmentPresenter implements SettingResponseL
 
     @Override
     public void notifySettingResponse() {
-        homeView.updateMessage("Welcome " + modelFacade.getUser().getName());
+        String fullName = modelFacade.getUser().getName();
+        String firstName = fullName.split(" ")[0];
+        homeView.updateMessage("Welcome " + firstName + ",");
     }
 
     @Override

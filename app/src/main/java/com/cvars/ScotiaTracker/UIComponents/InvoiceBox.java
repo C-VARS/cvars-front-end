@@ -69,8 +69,6 @@ public class InvoiceBox extends CardView {
         boxView = View.inflate(getContext(), R.layout.component_invoice_box, null);
         this.addView(boxView);
 
-        setCardBackgroundColor(Color.GRAY);
-        setRadius(30);
         setClickable(true);
         setOnClickListener(listener);
         LayoutParams params = new LayoutParams(

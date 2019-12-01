@@ -9,60 +9,51 @@
     >
 
 
-
     <LinearLayout
+        android:id="@+id/ourMessages"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/colorAccent"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/welcomeMsg"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@drawable/red_gradient" >
-
-            <TextView
-                android:id="@+id/welcomeMsg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-
-                android:layout_marginLeft="20dp"
-                android:fontFamily="@font/frutiger"
-                android:text="Welcome"
-                android:textColor="#00F5F5F5"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/header1"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="20dp">
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/frutiger"
+            android:text="Welcome"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="10dp"
-                android:text="IN-PROGRESS ORDERS"
-                android:textColor="#656565"
-                android:textSize="20dp"
-                android:textStyle="bold"
-
-                />
-
-        </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/inProgressScroller"
-            android:layout_width="408dp"
-            android:layout_height="277dp">
-
-        </FrameLayout>
+        <TextView
+            android:id="@+id/info-message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/frutiger"
+            android:text="Please view your in-progress orders below."
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp" />
 
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/inProgressScroller"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="95dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="-5dp"
+        android:background="@drawable/rounded_organic_brick"
+        android:elevation="4dp">
+
+    </FrameLayout>
+
 </RelativeLayout>

@@ -38,14 +38,16 @@
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#E5E8EA"
+        android:background="@color/colorAccent"
+        android:elevation="6dp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_scrollFlags="scroll|enterAlways"
         app:title="Home"
-        app:titleMargin="4dp"
-        app:titleTextAppearance="@style/TextAppearance.AppCompat.Large" />
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
+        app:titleTextColor="@color/colorPrimary" />
 
     <RelativeLayout
         android:id="@+id/registerContainer"

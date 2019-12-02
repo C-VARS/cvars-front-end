@@ -24,33 +24,16 @@ import com.google.android.material.tabs.TabLayout;
 public class SettingFragment extends Fragment implements SettingView {
 
     private SettingPresenter settingPresenter;
-
     private View rootView;
-    private ViewGroup settingFrame;
-    private View account;
-    private View setting;
-    private View currentView;
-
-    private SettingTabSwitchListener listener = new SettingTabSwitchListener();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_setting, container, false);
+        View view = inflater.inflate(R.layout.component_account, container, false);
 
         // Set up tab display and containers for individual layouts
         rootView = view;
-        settingFrame = view.findViewById(R.id.settingFrameContainer);
 
-        // Set up the layouts to view for each tab
-        account = inflater.inflate(R.layout.component_account, settingFrame, false);
-        setting = inflater.inflate(R.layout.component_setting, settingFrame, false);
-
-        // Set up initial tab to display when you enter SettingFragment
-        settingFrame.addView(account);
-        currentView = account;
-
-        initializeTabListener();
         initializeLogOutListener();
 
         return view;
@@ -60,7 +43,7 @@ public class SettingFragment extends Fragment implements SettingView {
      * Initialize a listener for log out button
      */
     private void initializeLogOutListener() {
-        Button logOutButton = account.findViewById(R.id.logOut);
+        Button logOutButton = rootView.findViewById(R.id.logOut);
         logOutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((UserActivity)getActivity()).logOut();
@@ -68,36 +51,10 @@ public class SettingFragment extends Fragment implements SettingView {
         });
     }
 
-    /**
-     * Initialize a listener for tab buttons
-     */
-    private void initializeTabListener(){
-        TabLayout tab = rootView.findViewById(R.id.settingTabs);
-        tab.addOnTabSelectedListener(listener);
-    }
-
     @Override
     public void onDestroy() {
         settingPresenter.onDestroy();
         super.onDestroy();
-
-        TabLayout tab = rootView.findViewById(R.id.settingTabs);
-        tab.removeOnTabSelectedListener(listener);
-    }
-
-    /**
-     * Allow to switch between tabs
-     */
-    private void switchComponent(){
-        if (currentView == account){
-            currentView = setting;
-            settingFrame.removeView(account);
-            settingFrame.addView(setting);
-        } else{
-            currentView = account;
-            settingFrame.removeView(setting);
-            settingFrame.addView((account));
-        }
     }
 
     /**
@@ -108,12 +65,12 @@ public class SettingFragment extends Fragment implements SettingView {
      */
     @Override
     public void updateUserInformation(User user, String username, UserType userType) {
-        TextView usernameView = account.findViewById(R.id.username);
-        TextView userTypeView = account.findViewById(R.id.userType);
-        TextView name = account.findViewById(R.id.name);
-        TextView address = account.findViewById(R.id.address);
-        TextView bankInformation = account.findViewById(R.id.bankInformation);
-        TextView contact = account.findViewById(R.id.contact);
+        TextView usernameView = rootView.findViewById(R.id.username);
+        TextView userTypeView = rootView.findViewById(R.id.userType);
+        TextView name = rootView.findViewById(R.id.name);
+        TextView address = rootView.findViewById(R.id.address);
+        TextView bankInformation = rootView.findViewById(R.id.bankInformation);
+        TextView contact = rootView.findViewById(R.id.contact);
 
         usernameView.setText(username);
         userTypeView.setText(userType.name());
@@ -126,23 +83,5 @@ public class SettingFragment extends Fragment implements SettingView {
     @Override
     public void setPresenter(FragmentPresenter presenter) {
         settingPresenter = (SettingPresenter) presenter;
-    }
-
-    private class SettingTabSwitchListener implements TabLayout.OnTabSelectedListener {
-
-        @Override
-        public void onTabSelected(TabLayout.Tab tab) {
-            switchComponent();
-        }
-
-        @Override
-        public void onTabUnselected(TabLayout.Tab tab) {
-            //unimplemented
-        }
-
-        @Override
-        public void onTabReselected(TabLayout.Tab tab) {
-            //unimplemented
-        }
     }
 }

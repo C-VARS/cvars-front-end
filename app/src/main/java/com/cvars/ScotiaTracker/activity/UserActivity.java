@@ -361,7 +361,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
                 bar.setTitle("Invoices");
                 break;
             case SETTING:
-                bar.setTitle("Setting");
+                bar.setTitle("Account");
                 break;
             case INDIVIDUAL_INVOICE:
                 bar.setTitle("Invoice");

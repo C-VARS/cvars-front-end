@@ -2,9 +2,23 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">#EE3527</item>
+        <item name="colorPrimary">#FFFFFF</item>
         <item name="colorAccent">#EE3527</item>
         <item name="android:fontFamily">@font/frutiger</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="ToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#FFFFFF</item>
+        <item name="colorAccent">#EE3527</item>
+        <item name="android:fontFamily">@font/frutiger_bold</item>
+    </style>
+
+    <!-- This configures the styles for the title within the Toolbar  -->
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item>
     </style>
 
     <style name="WhiteText" parent="TextAppearance.AppCompat">

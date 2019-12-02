@@ -45,9 +45,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_scrollFlags="scroll|enterAlways"
-        app:title="Home"
-        app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
-        app:titleTextColor="@color/colorPrimary"
+        app:title="ScotiaTracker"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        android:theme="@style/ToolbarTheme"
+
         />
 
     <RelativeLayout

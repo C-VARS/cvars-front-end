@@ -10,7 +10,7 @@ import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.networkAPI.FirebaseService;
 import com.cvars.ScotiaTracker.responseListeners.InvoiceResponseListener;
 import com.cvars.ScotiaTracker.responseListeners.RegisterResponseListener;
-import com.cvars.ScotiaTracker.responseListeners.SettingResponseListener;
+import com.cvars.ScotiaTracker.responseListeners.AccountResponseListener;
 import com.cvars.ScotiaTracker.strategy.search.CustomerSearch;
 import com.cvars.ScotiaTracker.strategy.search.DriverSearch;
 import com.cvars.ScotiaTracker.strategy.search.IdSearch;
@@ -27,7 +27,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +38,6 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
     private UserType userType;
 
     private InvoiceModel invoiceModel;
-    private RegisterModel registerModel;
     private UserModel userModel;
     private SearchModel searchModel;
 
@@ -48,8 +46,7 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
     private UserActivityView userActivityView;
 
     private List<InvoiceResponseListener> invoiceResponseListeners;
-    private List<SettingResponseListener> settingResponseListeners;
-    private RegisterResponseListener registerResponseListener;
+    private List<AccountResponseListener> accountResponseListeners;
 
     public DataModelFacade(String username, String password, UserType userType) {
         this.username = username;
@@ -57,7 +54,7 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
         this.userType = userType;
 
         invoiceResponseListeners = new LinkedList<>();
-        settingResponseListeners = new LinkedList<>();
+        accountResponseListeners = new LinkedList<>();
 
         invoiceModel = new InvoiceModel();
         invoiceModel.setListener(this);
@@ -91,10 +88,6 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
 
     public void updateStatus(int invoiceID, String status) {
         invoiceModel.updateStatus(invoiceID, status);
-    }
-
-    public void register(Map<String, String> registerData) {
-        registerModel.register(registerData);
     }
 
     public void requestUserInfo() {
@@ -174,7 +167,7 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
                 if (!userModel.getUser().getInfoRequestStatus()) {
                     userActivityView.displayMessage("Incorrect user information");
                 } else {
-                    for (SettingResponseListener listener : settingResponseListeners) {
+                    for (AccountResponseListener listener : accountResponseListeners) {
                         listener.notifySettingResponse();
                     }
                 }
@@ -228,7 +221,7 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
 
     public void onDestroy() {
         userActivityView = null;
-        settingResponseListeners = null;
+        accountResponseListeners = null;
         invoiceResponseListeners = null;
         unsubscribeToTopic(invoiceModel.getInvoiceID());
     }
@@ -253,11 +246,7 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
         invoiceResponseListeners.add(listener);
     }
 
-    public void addRegisterResponseListener(RegisterResponseListener listener) {
-        this.registerResponseListener = listener;
-    }
-
-    public void addSettingResponseListener(SettingResponseListener listener) {
-        settingResponseListeners.add(listener);
+    public void addSettingResponseListener(AccountResponseListener listener) {
+        accountResponseListeners.add(listener);
     }
 }

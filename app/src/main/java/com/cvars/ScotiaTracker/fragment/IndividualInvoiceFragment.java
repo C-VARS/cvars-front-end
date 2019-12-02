@@ -1,5 +1,7 @@
 package com.cvars.ScotiaTracker.fragment;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -54,6 +57,8 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
 
     private Button actionButton;
 
+    private ProgressBar progressBar;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,6 +77,8 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         initializeTab();
         initializeActionButton();
         initializeMap();
+
+        this.progressBar = basicInfoView.findViewById(R.id.progressBar);
 
         return view;
     }
@@ -95,6 +102,40 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
                 }
             }
         });
+    }
+
+    private void updateProgressBar() {
+        progressBar.setProgress(getProgress());
+
+        // change color depending on order status
+        if (getProgress() == 4) {
+            progressBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+        }
+        else {
+            progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+        }
+
+    }
+
+    private int getProgress() {
+        // returns 1-4 representing stage of delivery. 1 = pending, 2 = on the way, 3 = arrived,
+        // 4 = payment processed
+        if (invoice.getOrderStatus().toString().equals("Pending")) {
+            return 1;
+        }
+        else if (invoice.getOrderStatus().toString().equals("On The Way")) {
+            return 2;
+        }
+        else if (invoice.getOrderStatus().toString().equals("Arrived")) {
+            return 3;
+        }
+        else if (invoice.getOrderStatus().toString().equals("Payment Processed")) {
+            return 4;
+        }
+        else {
+            System.out.println("Incorrect statusText");
+            return 0;
+        }
     }
 
     private void initializeMap(){
@@ -126,7 +167,7 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         ((TextView) basicInfoView.findViewById(R.id.totalPrice)).setText(Double.toString(Math.round(invoice.getTotalCost())));
 
         updateActionButton();
-
+        updateProgressBar();
         LinearLayout itemRow = fullInvoiceView.findViewById(R.id.itemRow);
         itemRow.removeAllViews();
         LinearLayout amountRow = fullInvoiceView.findViewById(R.id.amountRow);

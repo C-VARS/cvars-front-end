@@ -63,6 +63,9 @@ public class InvoicePresenter extends FragmentPresenter implements InvoiceRespon
             case 4:
                 modelFacade.setSearchStrategy(SearchType.ISSUE_DATE);
                 break;
+            case 5:
+                modelFacade.setSearchStrategy(SearchType.STATUS);
+                break;
         }
     }
 

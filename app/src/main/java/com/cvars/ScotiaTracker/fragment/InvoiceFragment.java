@@ -44,8 +44,9 @@ public class InvoiceFragment extends Fragment implements InvoiceView{
     public final static String CUSTOMER = "Customer";
     public final static String SUPPLIER = "Supplier";
     public final static String ISSUE_DATE = "Issue Date";
+    public final static String STATUS = "Status";
 
-    private final String[] searchOptions = {ID, DRIVER, CUSTOMER, SUPPLIER, ISSUE_DATE};
+    private final String[] searchOptions = {ID, DRIVER, CUSTOMER, SUPPLIER, ISSUE_DATE, STATUS};
 
 
     @Nullable

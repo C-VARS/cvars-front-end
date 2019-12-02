@@ -16,6 +16,7 @@ import com.cvars.ScotiaTracker.strategy.search.DriverSearch;
 import com.cvars.ScotiaTracker.strategy.search.IdSearch;
 import com.cvars.ScotiaTracker.strategy.search.IssueDateSearch;
 import com.cvars.ScotiaTracker.strategy.search.SearchType;
+import com.cvars.ScotiaTracker.strategy.search.StatusSearch;
 import com.cvars.ScotiaTracker.strategy.search.SupplierSearch;
 import com.cvars.ScotiaTracker.strategy.sort.NewestSort;
 import com.cvars.ScotiaTracker.strategy.sort.OldestSort;
@@ -218,6 +219,9 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
                 break;
             case ISSUE_DATE:
                 searchModel.setSearchStrategy(new IssueDateSearch());
+                break;
+            case STATUS:
+                searchModel.setSearchStrategy(new StatusSearch());
                 break;
         }
     }

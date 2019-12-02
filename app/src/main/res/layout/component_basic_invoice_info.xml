@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
 
                     android:gravity="end"
-                    android:text="3"
+                    android:text="InvoiceID"
                     android:textSize="18sp" />
 
                 <TextView

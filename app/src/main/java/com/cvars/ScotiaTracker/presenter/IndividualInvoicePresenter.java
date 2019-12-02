@@ -32,7 +32,7 @@ public class IndividualInvoicePresenter extends FragmentPresenter implements Inv
         mBaseRef = FirebaseDatabase.getInstance().getReference().child("Location");
     }
 
-    public void updateStatus(int invoiceID, String status){
+    public void updateStatus(int invoiceID, String status) {
         modelFacade.updateStatus(invoiceID, status);
     }
 
@@ -45,27 +45,31 @@ public class IndividualInvoicePresenter extends FragmentPresenter implements Inv
     public void notifyInvoiceResponse() {
         int id = view.getCurrentInvoiceNum();
 
-        if (id != -1){
+        if (id != -1) {
             Invoice inv = modelFacade.getInvoice(id);
-            view.updateFields(inv);
+
+            if (inv != null)
+                view.updateFields(inv);
         }
     }
 
-    public void updateInvoice(int invoiceID){
+    public void updateInvoice(int invoiceID) {
         Invoice inv = modelFacade.getInvoice(invoiceID);
         view.updateFields(inv);
 
-        if (mCurrRef != null){
+        if (mCurrRef != null) {
             mCurrRef.removeEventListener(this);
         }
 
-        if (!inv.getDriverUsername().equals("N/A")){
+        if (!inv.getDriverUsername().equals("N/A")) {
             mCurrRef = mBaseRef.child(inv.getDriverUsername());
             mCurrRef.addValueEventListener(this);
         }
     }
 
-    public UserType getUserType(){return modelFacade.getUserType();}
+    public UserType getUserType() {
+        return modelFacade.getUserType();
+    }
 
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

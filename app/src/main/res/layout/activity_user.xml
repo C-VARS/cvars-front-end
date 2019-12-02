@@ -39,15 +39,15 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#DF2D21"
-        android:elevation="6dp"
+        android:elevation="10dp"
         android:textAlignment="center"
+        android:theme="@style/ToolbarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_scrollFlags="scroll|enterAlways"
         app:title="ScotiaTracker"
         app:titleTextAppearance="@style/Toolbar.TitleText"
-        android:theme="@style/ToolbarTheme"
 
         />
 

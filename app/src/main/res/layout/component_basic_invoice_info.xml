@@ -1,110 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:background="@drawable/gray_gradient"
+    android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/invoiceView"
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:background="@drawable/red_gradient"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/rounded_organic_brick"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="200dp"
-            android:layout_height="80dp"
-            android:layout_centerHorizontal="true"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/invoiceNum"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Invoice ID"
-                android:textColor="#000"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/invoiceNumLine"
-                android:layout_width="200dp"
-                android:layout_height="4dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/accent_line_black">
+                <TextView
+                    android:id="@+id/orderTitle6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Order from Coca-Cola"
+                    android:textColor="#333333"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
 
-            </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/invoiceNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="end"
+                    android:text="3"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/idText3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="Invoice ID"
+                    android:textSize="10dp" />
+            </LinearLayout>
 
         </LinearLayout>
 
-    </RelativeLayout>
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        app:layout_constraintTop_toBottomOf="@id/invoiceView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <RelativeLayout
-        android:id="@+id/basic_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/progressBar"
-        android:paddingVertical="0dp"
-        app:layout_constraintTop_toBottomOf="@id/progressBar">
-
-        <RelativeLayout
-            android:id="@+id/priceView"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="progress status"
+            android:textAlignment="textStart"
+            android:textSize="18sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toStartOf="@+id/totalPrice"
-                android:paddingVertical="5dp"
-                android:text="$"
-                android:textSize="40sp"
-                android:textStyle="bold"></TextView>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp" />
 
-            <TextView
-                android:id="@+id/totalPrice"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/frutiger"
+            android:text="Order Location"
+            android:textAlignment="textStart"
+            android:textColor="#333333"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="15dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:paddingVertical="5dp"
-                android:text="123.45"
-                android:textSize="40sp"
-                android:textStyle="bold"></TextView>
-        </RelativeLayout>
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto"
+                    android:text="Total Price"
+                    android:textColor="#424242"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto"
+                    android:text="$"
+                    android:textColor="#222222"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/totalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto"
+                    android:text="100.00"
+                    android:textColor="#202020"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/payNow"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/priceView"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/accent_line_red"
-            android:clickable="true"
-            android:paddingVertical="5dp"
-            android:textColor="#FFF"></Button>
-    </RelativeLayout>
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="20dp"
+            android:background="#66BB6A"
+            android:fontFamily="@font/roboto"
+            android:text="Pay Now"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/basic_info" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

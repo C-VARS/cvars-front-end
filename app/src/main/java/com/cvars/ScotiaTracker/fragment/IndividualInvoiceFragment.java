@@ -166,8 +166,8 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         ((TextView) basicInfoView.findViewById(R.id.invoiceNum)).setText(Integer.toString(invoice.getInvoiceId()));
         ((TextView) basicInfoView.findViewById(R.id.totalPrice)).setText(Double.toString(Math.round(invoice.getTotalCost())));
 
+
         updateActionButton();
-        updateProgressBar();
         LinearLayout itemRow = fullInvoiceView.findViewById(R.id.itemRow);
         itemRow.removeAllViews();
         LinearLayout amountRow = fullInvoiceView.findViewById(R.id.amountRow);
@@ -225,6 +225,10 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         double total = subtotal * 1.13;
         ((TextView) fullInvoiceView.findViewById(R.id.totalText)).setText(Double.toString(Math.round(total)));
 
+
+        // Fill in progress status
+        ((TextView) basicInfoView.findViewById(R.id.status)).setText(invoice.getOrderStatus().toString());
+        updateProgressBar();
     }
 
 

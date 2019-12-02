@@ -20,12 +20,12 @@
             style="@style/WhiteText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Account" />
+            android:text="My Info" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Settings"
+            android:text="Edit"
             android:theme="@style/WhiteText" />
 
     </com.google.android.material.tabs.TabLayout>

@@ -47,7 +47,8 @@
         app:layout_scrollFlags="scroll|enterAlways"
         app:title="Home"
         app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
-        app:titleTextColor="@color/colorPrimary" />
+        app:titleTextColor="@color/colorPrimary"
+        />
 
     <RelativeLayout
         android:id="@+id/registerContainer"

@@ -16,20 +16,18 @@ import com.cvars.ScotiaTracker.activity.UserActivity;
 import com.cvars.ScotiaTracker.model.pojo.User;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.presenter.FragmentPresenter;
-import com.cvars.ScotiaTracker.presenter.SettingPresenter;
+import com.cvars.ScotiaTracker.presenter.AccountPresenter;
 import com.cvars.ScotiaTracker.view.SettingView;
-import com.cvars.ScotiaTracker.view.ViewType;
-import com.google.android.material.tabs.TabLayout;
 
-public class SettingFragment extends Fragment implements SettingView {
+public class AccountFragment extends Fragment implements SettingView {
 
-    private SettingPresenter settingPresenter;
+    private AccountPresenter accountPresenter;
     private View rootView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.component_account, container, false);
+        View view = inflater.inflate(R.layout.fragment_account, container, false);
 
         // Set up tab display and containers for individual layouts
         rootView = view;
@@ -53,7 +51,7 @@ public class SettingFragment extends Fragment implements SettingView {
 
     @Override
     public void onDestroy() {
-        settingPresenter.onDestroy();
+        accountPresenter.onDestroy();
         super.onDestroy();
     }
 
@@ -82,6 +80,6 @@ public class SettingFragment extends Fragment implements SettingView {
 
     @Override
     public void setPresenter(FragmentPresenter presenter) {
-        settingPresenter = (SettingPresenter) presenter;
+        accountPresenter = (AccountPresenter) presenter;
     }
 }

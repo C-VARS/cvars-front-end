@@ -3,13 +3,11 @@ package com.cvars.ScotiaTracker.activity;
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,14 +33,13 @@ import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.fragment.HomeFragment;
 import com.cvars.ScotiaTracker.fragment.IndividualInvoiceFragment;
 import com.cvars.ScotiaTracker.fragment.InvoiceFragment;
-import com.cvars.ScotiaTracker.fragment.SettingFragment;
+import com.cvars.ScotiaTracker.fragment.AccountFragment;
 import com.cvars.ScotiaTracker.model.DataModelFacade;
-import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.networkAPI.FirebaseLocationSender;
 import com.cvars.ScotiaTracker.presenter.HomePresenter;
 import com.cvars.ScotiaTracker.presenter.InvoicePresenter;
-import com.cvars.ScotiaTracker.presenter.SettingPresenter;
+import com.cvars.ScotiaTracker.presenter.AccountPresenter;
 import com.cvars.ScotiaTracker.presenter.IndividualInvoicePresenter;
 import com.cvars.ScotiaTracker.responseListeners.InvoiceBoxListener;
 import com.cvars.ScotiaTracker.view.IndividualInvoiceView;
@@ -218,8 +215,8 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
         //Create the setting presenter and inject dependencies
         SettingView settingView = (SettingView) fragmentMap.get(ViewType.SETTING);
-        SettingPresenter settingPresenter = new SettingPresenter(dataFacade, settingView);
-        settingView.setPresenter(settingPresenter);
+        AccountPresenter accountPresenter = new AccountPresenter(dataFacade, settingView);
+        settingView.setPresenter(accountPresenter);
 
         // Create the search presenter
         InvoiceView searchView = (InvoiceView) fragmentMap.get(ViewType.INVOICES);
@@ -274,7 +271,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         // TODO: Construct the Fragments passing in their own presenters
         fragmentMap.put(ViewType.HOME, new HomeFragment());
         fragmentMap.put(ViewType.INVOICES, new InvoiceFragment());
-        fragmentMap.put(ViewType.SETTING, new SettingFragment());
+        fragmentMap.put(ViewType.SETTING, new AccountFragment());
         fragmentMap.put(ViewType.INDIVIDUAL_INVOICE, new IndividualInvoiceFragment());
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

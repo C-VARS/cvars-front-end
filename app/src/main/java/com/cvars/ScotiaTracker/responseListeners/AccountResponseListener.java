@@ -1,5 +1,5 @@
 package com.cvars.ScotiaTracker.responseListeners;
 
-public interface SettingResponseListener {
+public interface AccountResponseListener {
     void notifySettingResponse();
 }

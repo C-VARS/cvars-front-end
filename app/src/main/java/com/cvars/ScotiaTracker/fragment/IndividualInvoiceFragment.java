@@ -331,6 +331,8 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         LatLng loc = new LatLng(50, 50);
         googleMap.addMarker(new MarkerOptions().position(loc).title("haha"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+
+        googleMap.setMinZoomPreference(12f);
     }
 
     @Override

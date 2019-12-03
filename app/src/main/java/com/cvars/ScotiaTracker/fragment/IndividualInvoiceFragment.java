@@ -37,6 +37,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.tabs.TabLayout;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class IndividualInvoiceFragment extends Fragment implements IndividualInvoiceView, OnMapReadyCallback {
@@ -164,7 +165,8 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
 
         // Fill in invoiceID
         ((TextView) basicInfoView.findViewById(R.id.invoiceNum)).setText(Integer.toString(invoice.getInvoiceId()));
-        ((TextView) basicInfoView.findViewById(R.id.totalPrice)).setText(Double.toString(Math.round(invoice.getTotalCost())));
+        DecimalFormat df2 = new DecimalFormat("#.##");
+        ((TextView) basicInfoView.findViewById(R.id.totalPrice)).setText(df2.format(invoice.getTotalCost()));
 
 
         updateActionButton();
@@ -246,7 +248,7 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
             actionButton.setText("Pay Now");
         }
         else{
-            actionButton.setVisibility(View.GONE);
+            actionButton.setVisibility(View.INVISIBLE);
         }
     }
 

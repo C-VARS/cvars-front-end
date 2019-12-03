@@ -14,8 +14,12 @@
         android:src="@drawable/login_background" />
 
     <ProgressBar
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="150dp"
         android:id="@+id/loginProgressBar"
-        style="?android:attr/progressBarStyle"
+        android:indeterminateTint="#FFFFFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone" />
@@ -93,7 +97,7 @@
                     android:inputType="textPersonName" />
 
                 <EditText
-                    android:id="@+id/Password"
+                    android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
@@ -104,7 +108,7 @@
                     android:inputType="textPassword" />
 
                 <Button
-                    android:id="@+id/login"
+                    android:id="@+id/loginButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
@@ -112,17 +116,19 @@
                     android:layout_marginEnd="30dp"
                     android:background="#EF5350"
                     android:fontFamily="@font/roboto"
+                    android:onClick="login"
                     android:text="Enter account"
                     android:textColor="#FFFFFF"
                     android:textSize="14sp" />
 
                 <Button
-                    android:id="@+id/login2"
+                    android:id="@+id/registerButton"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
                     android:background="#00FFFFFF"
+                    android:onClick="changeToRegisterActivity"
                     android:text="Don't have an account? Register"
                     android:textSize="12sp" />
 

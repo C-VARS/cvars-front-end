@@ -1,7 +1,5 @@
 package com.cvars.ScotiaTracker.fragment;
 
-import android.app.Service;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +17,6 @@ import androidx.fragment.app.Fragment;
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.UIComponents.InvoicesScroller;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
-import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.presenter.FragmentPresenter;
 import com.cvars.ScotiaTracker.presenter.InvoicePresenter;
 import com.cvars.ScotiaTracker.view.InvoiceView;
@@ -53,7 +50,7 @@ public class InvoiceFragment extends Fragment implements InvoiceView{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Set up rootView
-        rootView = inflater.inflate(R.layout.fragment_search, container, false);
+        rootView = inflater.inflate(R.layout.fragment_invoice, container, false);
 
         //set up scoll container to display in-process invoices
         FrameLayout scrollContainer = rootView.findViewById(R.id.scrollerContainer);

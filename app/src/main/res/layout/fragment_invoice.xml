@@ -19,15 +19,16 @@
 
             <SearchView
                 android:id="@+id/searchBar"
-                android:layout_width="298dp"
+                android:layout_width="288dp"
                 android:layout_height="48dp"
                 android:baselineAligned="false"
                 android:outlineProvider="paddedBounds"
-                android:outlineSpotShadowColor="#E5E8EA" />
+                android:outlineSpotShadowColor="#E5E8EA"
+                android:queryHint="Search Invoice" />
 
             <Spinner
                 android:id="@+id/searchType"
-                android:layout_width="113dp"
+                android:layout_width="123dp"
                 android:layout_height="51dp" />
         </LinearLayout>
 

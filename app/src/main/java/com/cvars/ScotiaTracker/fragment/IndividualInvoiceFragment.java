@@ -157,19 +157,7 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         mapView.onDestroy();
         super.onDestroy();
     }
-
-    @Override
-    public void updateFields(Invoice invoice){
-        // Save this invoice
-        this.invoice = invoice;
-
-        // Fill in invoiceID
-        ((TextView) basicInfoView.findViewById(R.id.invoiceNum)).setText(Integer.toString(invoice.getInvoiceId()));
-        DecimalFormat df2 = new DecimalFormat("#.##");
-        ((TextView) basicInfoView.findViewById(R.id.totalPrice)).setText(df2.format(invoice.getTotalCost()));
-
-
-        updateActionButton();
+    public void updateFullInvoice() {
         LinearLayout itemRow = fullInvoiceView.findViewById(R.id.itemRow);
         itemRow.removeAllViews();
         LinearLayout amountRow = fullInvoiceView.findViewById(R.id.amountRow);
@@ -181,7 +169,7 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
 
         // Populate table with rows of order information
         List<Order> orders = invoice.getOrders();
-        for (Order order: orders) {
+        for (Order order : orders) {
             // Set up new cells
             TextView item = new TextView(view.getContext());
             TextView amount = new TextView(view.getContext());
@@ -226,6 +214,23 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
         ((TextView) fullInvoiceView.findViewById(R.id.subtotalText)).setText(Double.toString(Math.round(subtotal)));
         double total = subtotal * 1.13;
         ((TextView) fullInvoiceView.findViewById(R.id.totalText)).setText(Double.toString(Math.round(total)));
+
+    }
+
+    @Override
+    public void updateFields(Invoice invoice){
+        this.invoice = invoice;
+        updateFullInvoice();
+        updateBasicInvoice();
+
+    }
+
+    private void updateBasicInvoice() {
+        // Fill in invoiceID
+        ((TextView) basicInfoView.findViewById(R.id.invoiceNum)).setText(Integer.toString(invoice.getInvoiceId()));
+        DecimalFormat df2 = new DecimalFormat("#.##");
+        ((TextView) basicInfoView.findViewById(R.id.totalPrice)).setText(df2.format(invoice.getTotalCost()));
+        updateActionButton();
 
 
         // Fill in progress status

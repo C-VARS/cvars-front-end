@@ -53,9 +53,18 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
         EditText usernameField = findViewById(R.id.username);
         EditText passwordField = findViewById(R.id.password);
-        String username = usernameField.getText().toString();
+        String usernameFirst = usernameField.getText().toString();
+        String username;
+        if (usernameFirst.length() > 1){
+            username = String.valueOf(usernameFirst.charAt(0)).toUpperCase() + usernameFirst.substring(1);
+        }
+        else if (usernameFirst.length() == 1){
+            username = String.valueOf(usernameFirst.charAt(0)).toUpperCase();
+        }
+        else{
+            username = "";
+        }
         String password = passwordField.getText().toString();
-
         showLoading();
         loginPresenter.attemptLogin(username, password);
     }

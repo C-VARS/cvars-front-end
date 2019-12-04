@@ -4,6 +4,7 @@ import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.networkAPI.InvoiceAPI;
 import com.cvars.ScotiaTracker.networkAPI.RetrofitNetwork;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
@@ -84,7 +85,12 @@ class InvoiceModel {
     private class UpdateStatusCallback implements Callback<JsonObject> {
         @Override
         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-            actionSuccess = response.body().get("updateStatus").getAsBoolean();
+            JsonObject jsonResponse = response.body();
+            if (jsonResponse != null && jsonResponse.has("updateStatus")){
+                actionSuccess = response.body().get("updateStatus").getAsBoolean();
+            } else{
+                actionSuccess = false;
+            }
             listener.notifyInvoiceAction(InvoiceAction.UPDATE);
         }
 

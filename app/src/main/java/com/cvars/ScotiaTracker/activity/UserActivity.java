@@ -80,6 +80,10 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
     private BroadcastReceiver mMessageReceiver = new NotificationBroadcastReceiver();
 
+    /**
+     * Set up the basic templates that every screen will use within the app using the savedInstanceState.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,12 +96,12 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         initializeToolBar();
         initializeFirebaseConnection();
 
-        System.out.println(1);
-
+        // Initiate GPS tracking service
         if (dataFacade.getUserType() == UserType.DRIVER) {
             requestLocationPermission();
         }
 
+        // Set up notifications
         LocalBroadcastManager.getInstance(this).registerReceiver((mMessageReceiver),
                 new IntentFilter("Message")
         );
@@ -120,6 +124,9 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         super.onDestroy();
     }
 
+    /**
+     * Set up actions for when the back button is pressed
+     */
     @Override
     public void onBackPressed() {
         if (currentFragment == ViewType.INDIVIDUAL_INVOICE) {
@@ -142,6 +149,9 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         }
     }
 
+    /**
+     * Initialize notification channel to notify all relevant users about the changes in invoices
+     */
     private void initializeNotificationChannel() {
         CHANNEL_ID = getResources().getString(R.string.channel_name);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -156,6 +166,10 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         }
     }
 
+    /**
+     * Display the notification <message> when it is received
+     * @param message
+     */
     @Override
     public void showPushNotification(String message) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -178,12 +192,18 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         }
     }
 
+    /**
+     * Initialize the tool bar that is shown on every screen of the app
+     */
     private void initializeToolBar() {
         Toolbar bar = findViewById(R.id.toolBar);
         bar.inflateMenu(R.menu.tool_bar_menu);
         bar.setOnMenuItemClickListener(new ToolBarListener());
     }
 
+    /**
+     * Set up a listener that refreshes invoices when the refresh button on the toolbar is clicked
+     */
     private class ToolBarListener implements Toolbar.OnMenuItemClickListener {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
@@ -195,6 +215,9 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         }
     }
 
+    /**
+     * Set up the model, view, presenters bundles to interact with for any activities
+     */
     private void initializeModelPresenter() {
         //Initialize data facade
         String username = getIntent().getStringExtra("username");
@@ -236,12 +259,18 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
 
     }
 
+    /**
+     * Initialize the tabs that display the fragment options
+     */
     private void initializeTab() {
         TabLayout tab = findViewById(R.id.tab);
         tabListener = new TabSwitchListener();
         tab.addOnTabSelectedListener(tabListener);
     }
 
+    /**
+     * A class that allows you to switch between fragments by clicking on the tab buttons
+     */
     private class TabSwitchListener implements TabLayout.OnTabSelectedListener {
 
         @Override
@@ -266,9 +295,11 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         }
     }
 
+    /**
+     * Set up each fragment with their corresponding presenters
+     */
     private void initializeFragmentMap() {
         fragmentMap = new HashMap<>();
-        // TODO: Construct the Fragments passing in their own presenters
         fragmentMap.put(ViewType.HOME, new HomeFragment());
         fragmentMap.put(ViewType.INVOICES, new InvoiceFragment());
         fragmentMap.put(ViewType.SETTING, new AccountFragment());
@@ -285,6 +316,9 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         switchedOutFragment = ViewType.HOME;
     }
 
+    /**
+     * Initialize the firebase connection needed for push notifications
+     */
     private void initializeFirebaseConnection() {
         FirebaseAuth.getInstance().signInAnonymously().addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -298,6 +332,9 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         });
     }
 
+    /**
+     * Request location permission for the orders being delivered
+     */
     private void requestLocationPermission() {
         List<String> requestList = new ArrayList<>();
 
@@ -318,6 +355,9 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         }
     }
 
+    /**
+     * Initialize the GPS tracking so that the other users involved in the order can view the order's location
+     */
     private void initializeLocationSending() {
         this.locationSender = new FirebaseLocationSender(
                 this,
@@ -336,6 +376,10 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         }
     }
 
+    /**
+     * Switch to the <fragmentType> that the user clicked.
+     * @param fragmentType
+     */
     public void switchFragment(ViewType fragmentType) {
 
         getSupportFragmentManager().beginTransaction()
@@ -366,6 +410,10 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         }
     }
 
+    /**
+     * Create a toast to display certain <message>s
+     * @param message
+     */
     public void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
@@ -393,17 +441,28 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
+    /**
+     * Populate the individual invoice page with information of the invoice with <invoiceID>
+     * @param invoiceID
+     */
     @Override
     public void displayInvoice(int invoiceID) {
         switchFragment(ViewType.INDIVIDUAL_INVOICE);
         individualInvoicePresenter.updateInvoice(invoiceID);
     }
 
+    /**
+     * Display <message>
+     * @param message
+     */
     @Override
     public void displayMessage(String message) {
         showToast(message);
     }
 
+    /**
+     * Log out the user
+     */
     @Override
     public void logOut() {
         Intent intent = new Intent(this, LoginActivity.class);

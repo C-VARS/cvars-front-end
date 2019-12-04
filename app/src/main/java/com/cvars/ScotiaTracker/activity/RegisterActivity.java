@@ -6,25 +6,15 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.cvars.ScotiaTracker.R;
 import com.cvars.ScotiaTracker.fragment.RegisterFragment;
 import com.cvars.ScotiaTracker.fragment.RegisterTypeFragment;
 import com.cvars.ScotiaTracker.model.RegisterModel;
-import com.cvars.ScotiaTracker.model.pojo.UserType;
-import com.cvars.ScotiaTracker.presenter.InvoicePresenter;
-import com.cvars.ScotiaTracker.presenter.LoginPresenter;
 import com.cvars.ScotiaTracker.presenter.RegisterPresenter;
-import com.cvars.ScotiaTracker.view.InvoiceView;
-import com.cvars.ScotiaTracker.view.LoginView;
 import com.cvars.ScotiaTracker.view.RegisterView;
-import com.cvars.ScotiaTracker.view.ViewType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,18 +68,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     public void register(View view) {
 
 
-        // TODO: Make a dictionary of each view mapping to it's content
-        //
+        // Make a dictionary of each view mapping to it's content
         Map<String, String> registerData = new LinkedHashMap<>();
 
         ArrayList<EditText> fields = new  ArrayList<>();
-
-//        EditText usernameField = findViewById(R.id.username);
-//        EditText nameField = findViewById(R.id.name);
-//        EditText contactField = findViewById(R.id.contact);
-//        EditText addressField = findViewById(R.id.address);
-//        EditText bankInformationField = findViewById(R.id.bankInformation);
-//        EditText passwordField = findViewById(R.id.password);
 
         registerData.put("userType", ((RegisterFragment) fragmentMap.get("Register")).getUserType());
 
@@ -152,7 +134,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
     @Override
     protected void onDestroy() {
-//        loginPresenter.onDestroy();
         super.onDestroy();
     }
 }

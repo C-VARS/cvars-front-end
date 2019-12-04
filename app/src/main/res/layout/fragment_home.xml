@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/frutiger"
             android:text="Welcome"
             android:textAllCaps="false"
@@ -50,9 +50,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="95dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="-5dp"
         android:background="@drawable/rounded_organic_brick"
-        android:elevation="10dp">
-    </FrameLayout>
+        android:elevation="10dp"></FrameLayout>
 
 </RelativeLayout>

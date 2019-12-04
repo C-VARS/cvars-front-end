@@ -14,7 +14,7 @@ public interface InvoiceAPI {
 
 
     @GET("invoices")
-    Call<List<Invoice>> getInvoices(@Query("username") String username);
+    Call<JsonObject> getInvoices(@Query("username") String username);
 
     @POST("invoices/update")
     Call<JsonObject> updateStatus(@Query("invoiceID") int invoiceID, @Query("status") String newStatus);

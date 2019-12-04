@@ -17,7 +17,7 @@ import retrofit2.Response;
  * A Model object for the use case and information storage related to a User. Implements the Retrofit
  * Callback interface to handle asynchronous HTTP response.
  */
-public class UserModel {
+class UserModel {
 
     enum UserAction {
         REQUEST, UPDATE
@@ -78,15 +78,15 @@ public class UserModel {
      *
      * @return username
      */
-    public String getUsername() {
+    String getUsername() {
         return this.user.getName();
     }
 
-    public User getUser() {
+    User getUser() {
         return this.user;
     }
 
-    public boolean getActionSuccess() {
+    boolean getActionSuccess() {
         return actionSuccess;
     }
 

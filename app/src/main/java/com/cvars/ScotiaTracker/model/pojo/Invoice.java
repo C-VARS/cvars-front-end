@@ -45,9 +45,6 @@ public class Invoice implements Comparable<Invoice> {
     @SerializedName("orderStatus")
     private OrderStatus orderStatus;
 
-    @SerializedName("infoRequestStatus")
-    private boolean infoRequestStatus;
-
     /**
      * Iterates through the list of orders contained in the order and
      * adds their cost to sum.
@@ -156,10 +153,6 @@ public class Invoice implements Comparable<Invoice> {
 
     public OrderStatus getOrderStatus() {
         return orderStatus;
-    }
-
-    public boolean getInfoRequestStatus(){
-        return infoRequestStatus;
     }
 }
 

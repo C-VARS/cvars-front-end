@@ -20,7 +20,7 @@ import retrofit2.Response;
  * A Model object for the use case and information storage related to Invoices. Implements the Retrofit
  * Callback interface to handle asynchronous HTTP response.
  */
-public class InvoiceModel {
+class InvoiceModel {
 
     public enum InvoiceAction {
         REQUEST, UPDATE

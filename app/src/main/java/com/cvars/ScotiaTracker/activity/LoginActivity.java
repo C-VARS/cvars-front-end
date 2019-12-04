@@ -119,7 +119,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         Intent myIntent = new Intent(this, RegisterActivity.class);
         startActivity(myIntent);
         finishLoading();
-        finish();
     }
 
     @Override

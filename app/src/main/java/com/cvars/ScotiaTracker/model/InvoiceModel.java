@@ -3,7 +3,9 @@ package com.cvars.ScotiaTracker.model;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.networkAPI.InvoiceAPI;
 import com.cvars.ScotiaTracker.networkAPI.RetrofitNetwork;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +20,7 @@ import retrofit2.Response;
  * A Model object for the use case and information storage related to Invoices. Implements the Retrofit
  * Callback interface to handle asynchronous HTTP response.
  */
-public class InvoiceModel {
+class InvoiceModel {
 
     public enum InvoiceAction {
         REQUEST, UPDATE
@@ -35,30 +37,34 @@ public class InvoiceModel {
     private RequestInvoiceCallback requestCallback = new RequestInvoiceCallback();
     private UpdateStatusCallback updateStatusCallback = new UpdateStatusCallback();
     private boolean actionSuccess;
+    private boolean infoRequestStatus;
 
     /**
      * Starts an Asynchronous Call using Retrofit to get Invoices
      *
      * @param username username of the user
      */
-    public void requestAllInvoices(String username) {
-        Call<List<Invoice>> call = invoiceAPI.getInvoices(username);
+    void requestAllInvoices(String username) {
+        Call<JsonObject> call = invoiceAPI.getInvoices(username);
         call.enqueue(this.requestCallback);
     }
 
-    public void updateStatus(int invoiceID, String status) {
+    void updateStatus(int invoiceID, String status) {
         Call<JsonObject> call = invoiceAPI.updateStatus(invoiceID, status);
         call.enqueue(this.updateStatusCallback);
     }
 
-    private class RequestInvoiceCallback implements Callback<List<Invoice>> {
+    private class RequestInvoiceCallback implements Callback<JsonObject> {
         /**
          * Populate the invoiceMap with invoiceIDs and map it to the corresponding invoice instance
          */
         @Override
-        public void onResponse(Call<List<Invoice>> call, Response<List<Invoice>> response) {
+        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            Gson gson = new Gson();
             actionSuccess = true;
-            List<Invoice> invoices = response.body();
+            JsonObject body = response.body();
+            infoRequestStatus = body.get("infoRequestStatus").getAsBoolean();
+            List<Invoice> invoices = gson.fromJson(body.get("invoices"), new TypeToken<List<Invoice>>() {}.getType());
             for (Invoice inv: invoices){
                 invoiceMap.put(inv.getInvoiceId(), inv);
             }
@@ -69,7 +75,7 @@ public class InvoiceModel {
          * Fail silently.
          */
         @Override
-        public void onFailure(Call<List<Invoice>> call, Throwable t) {
+        public void onFailure(Call<JsonObject> call, Throwable t) {
             actionSuccess = false;
             listener.notifyInvoiceAction(InvoiceAction.REQUEST);
         }
@@ -111,4 +117,6 @@ public class InvoiceModel {
     boolean getActionSuccess() {
         return actionSuccess;
     }
+
+    boolean getInfoRequestStatus(){return infoRequestStatus;}
 }

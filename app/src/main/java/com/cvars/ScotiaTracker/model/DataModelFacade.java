@@ -138,7 +138,7 @@ public class DataModelFacade implements InvoiceModel.InvoiceActionListener,
 
         switch (action) {
             case REQUEST:
-                if (!invoiceModel.getInvoices().get(0).getInfoRequestStatus()) {
+                if (!invoiceModel.getInfoRequestStatus()) {
                     userActivityView.displayMessage("Incorrect user information");
                 } else {
                     for (InvoiceResponseListener listener : invoiceResponseListeners) {

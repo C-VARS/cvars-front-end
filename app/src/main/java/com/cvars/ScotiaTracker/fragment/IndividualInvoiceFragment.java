@@ -12,8 +12,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -64,12 +62,12 @@ public class IndividualInvoiceFragment extends Fragment implements IndividualInv
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d("Invoice", "You created new invoice page");
-        this.view = inflater.inflate(R.layout.single_invoice, container, false);
+        this.view = inflater.inflate(R.layout.fragment_single_invoice, container, false);
         invoiceContainer = view.findViewById(R.id.invoiceContainer);
 
         // Set up individual layouts for each tab
         basicInfoView = inflater.inflate(R.layout.component_basic_invoice_info, invoiceContainer, false);
-        fullInvoiceView = inflater.inflate(R.layout.full_invoice, invoiceContainer,false);
+        fullInvoiceView = inflater.inflate(R.layout.component_full_invoice, invoiceContainer,false);
 
         // Set up initial tab
         currentView = basicInfoView;

@@ -67,6 +67,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         loginPresenter.attemptLogin(username, password);
     }
 
+    /**
+     * Show that the login is in process by showing a login bar
+     */
     private void showLoading(){
         requestProcessed = false;
 
@@ -114,6 +117,10 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         finish();
     }
 
+    /**
+     * Switch over to <view>, which allows you to register as a new user
+     * @param view
+     */
     @Override
     public void changeToRegisterActivity(View view) {
         Intent myIntent = new Intent(this, RegisterActivity.class);

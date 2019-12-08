@@ -1,17 +1,15 @@
 package com.cvars.ScotiaTracker.responseListeners;
 
-import android.util.Log;
 import android.view.View;
 
 import com.cvars.ScotiaTracker.UIComponents.InvoiceBox;
-import com.cvars.ScotiaTracker.model.pojo.UserType;
-import com.cvars.ScotiaTracker.view.UserActivityView;
+import com.cvars.ScotiaTracker.view.ActivityMessageInterface;
 
 public class InvoiceBoxListener implements View.OnClickListener {
 
-    private UserActivityView view;
+    private ActivityMessageInterface view;
 
-    public InvoiceBoxListener(UserActivityView view) {
+    public InvoiceBoxListener(ActivityMessageInterface view) {
         this.view = view;
     }
 

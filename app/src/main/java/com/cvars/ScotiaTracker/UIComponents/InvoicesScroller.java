@@ -1,6 +1,5 @@
 package com.cvars.ScotiaTracker.UIComponents;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
@@ -12,12 +11,9 @@ import android.widget.ScrollView;
 import com.cvars.ScotiaTracker.model.pojo.Invoice;
 import com.cvars.ScotiaTracker.model.pojo.UserType;
 import com.cvars.ScotiaTracker.view.ScrollerView;
-import com.cvars.ScotiaTracker.view.UserActivityView;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class InvoicesScroller extends ScrollView implements ScrollerView {
 

@@ -1,6 +1,6 @@
 package com.cvars.ScotiaTracker.view;
 
-public interface UserActivityView {
+public interface ActivityMessageInterface {
     void showLoading();
 
     void finishLoading();

@@ -47,7 +47,6 @@ public class HomeFragment extends Fragment implements HomeView {
 
         // welcome message
         welcomeMessage = view.findViewById(R.id.welcomeMsg);
-        homePresenter.setWelcomeMessage();
 
         return view;
     }

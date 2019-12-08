@@ -23,11 +23,6 @@ public class HomePresenter extends FragmentPresenter implements AccountResponseL
         modelFacade = null;
     }
 
-    public void setWelcomeMessage() {
-        // set the welcome message to Welcome Name
-        modelFacade.requestUserInfo();
-    }
-
     @Override
     public void notifySettingResponse() {
         String fullName = modelFacade.getUser().getName();

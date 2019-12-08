@@ -46,7 +46,7 @@ import com.cvars.ScotiaTracker.view.IndividualInvoiceView;
 import com.cvars.ScotiaTracker.view.HomeView;
 import com.cvars.ScotiaTracker.view.InvoiceView;
 import com.cvars.ScotiaTracker.view.SettingView;
-import com.cvars.ScotiaTracker.view.UserActivityView;
+import com.cvars.ScotiaTracker.view.ActivityMessageInterface;
 import com.cvars.ScotiaTracker.view.ViewType;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -59,7 +59,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserActivity extends AppCompatActivity implements UserActivityView {
+public class UserActivity extends AppCompatActivity implements ActivityMessageInterface {
 
     private Map<ViewType, Fragment> fragmentMap;
     private ViewType currentFragment;
@@ -226,7 +226,7 @@ public class UserActivity extends AppCompatActivity implements UserActivityView 
         dataFacade = new DataModelFacade(username, password, userType);
 
         //Have the activity observe data facade for top-level functions
-        dataFacade.setUserActivityView(this);
+        dataFacade.setActivityMessageInterface(this);
 
         invoiceListener = new InvoiceBoxListener(this);
 
